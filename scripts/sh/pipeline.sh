@@ -1,4 +1,3 @@
-
 pythonpath=/DATA/CARINA_3/kel334/miniconda3/envs/vlaimg3.8/bin/python3 
 
 pythonpath scripts/hanning.py
