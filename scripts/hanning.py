@@ -12,69 +12,23 @@ Email: pmk46@cam.ac.uk
 Description: Apply hanning smoothing to data. 
 This mitigates the Gibbs phenomenon around strong RFI spikes
 and reduces the spectral resolution and thereby the data volume
-by a factor of two.
+by a factor of two. 
 
 """
 
 import os
 import shutil
-import yaml
 import casatasks
-import casaplotms
-import numpy as np
 
-# set display environment variable
-from pyvirtualdisplay import Display
+import argparse
 
-display = Display(visible=0, size=(2048, 2048))
-display.start()
-
-
-# read yaml file
-with open("obs.yaml", "r") as file:
-    obs = yaml.safe_load(file)
+parser = argparse.ArgumentParser()
+parser.add_argument("--msin", help="Path to input measurement set.", type=str)
+parser.add_argument("--msout", help="Path to output measurement set.", type=str)
+args = parser.parse_args()
 
 # hanning smoothing
-print("\nhanning smooth\n")
-print(f"input MS: {obs['ms']}")
-print(f"outpu MS: {obs['ms hanning']}")
+if os.path.exists(args.msout):
+    shutil.rmtree(args.msout)
 
-# plot array layout
-casatasks.plotants(obs["ms"], figfile="plots/antlayout.png")
-
-# plot elevation vs. time
-casaplotms.plotms(
-    obs["ms"],
-    xaxis="time",
-    yaxis="elevation",
-    coloraxis="field",
-    plotfile="plots/elevation_vs_time.png",
-    overwrite=True,
-    highres=True,
-)
-
-# save flagsversion
-casatasks.flagmanager(obs["ms"], mode="restore", versionname="flagdata_1")
-
-# hanning smoothing
-if os.path.exists(obs["ms hanning"]):
-    shutil.rmtree(obs["ms hanning"])
-
-casatasks.hanningsmooth(obs["ms"], outputvis=obs["ms hanning"])
-
-# plot antenna data streat
-casaplotms.plotms(
-    obs["ms hanning"],
-    antenna="ea01",
-    xaxis="time",
-    yaxis="antenna2",
-    plotrange=[-1, -1, 0, 26],
-    coloraxis="field",
-    highres=True,
-    overwrite=True,
-    plotfile="plots/data_stream.png",
-)
-
-# write measurement set metadata to file
-print("\nwriting listobs to file: listobs.txt")
-casatasks.listobs(obs["ms hanning"], listfile="listobs.txt")
+casatasks.hanningsmooth(args.msin, outputvis=args.msout)
