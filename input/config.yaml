@@ -1,0 +1,77 @@
+root: "/DATA/CARINA_3/kel334/19A-056/"
+
+obs list: [
+  19A-056.sb37262953.eb37267948.58744.511782789355,
+  19A-056.sb37163380.eb37257903.58741.80710626158,
+  19A-056.sb37231614.eb37257802.58740.9750600463,
+  19A-056.sb37061537.eb37180589.58730.4308771875,
+  19A-056.sb37231384.eb37240353.58739.626953125,
+  19A-056.sb37160606.eb37213019.58734.43735733796,
+  19A-056.sb37160244.eb37257497.58740.25152430555,
+  19A-056.sb37236759.eb37257529.58740.68546399305,
+  19A-056.sb37162994.eb37230253.58738.26181476851,
+  19A-056.sb37161707.eb37164688.58727.13433487268,
+  19A-056.sb37162490.eb37257813.58741.17455034722,
+  19A-056.sb37065331.eb37257531.58740.82100236111,
+]
+
+spw: 16
+ants: 27
+
+cal chans: [
+  "5:32,6:32,7:32,10:16,11:32,12:32,13:32,14:16,15:48",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+  "5:32,6:32,7:32,10:32,11:32,12:32,13:32,14:32,15:32",
+]
+
+refant: ["ea12","ea12","ea12","ea12","ea12","ea12","ea12","ea12","ea12","ea12","ea12","ea12",]
+
+flagging:
+  quack: 5
+  spw edge chan: 5
+  apriori:
+    flag 1:
+      time: "2019/09/01/03:13:25~2019/09/01/06:44:52"
+      antenna: "ea26"
+      reason: "OTHER: Antenna 26 IF D0 dead with highly varying delays due to unknown cause."
+    flag 2:
+      time: "2019/09/04/10:20:27~2019/09/04/12:46:23"
+      antenna: "ea22"
+      reason: "FORCUS/ROTATION: Frequent subreflector faults of position errors."
+    flag 3:
+      time: "2019/09/13/15:41:21~2019/09/13/15:48:47"
+      antenna: "ea25"
+      reason: "CYROGENICS: Cyrogenic techs charging compressors. Antenna stowed."
+    flag 4:
+      time: "2019/09/13/15:47:19~2019/09/13/16:01:00"
+      antenna: "ea23"
+      reason: "CYROGENICS: Cyrogenic techs charging compressors. Antenna stowed."
+    flag 5:
+      time: "2019/09/13/16:19:49~2019/09/13/16:32:56"
+      antenna: "ea13"
+      reason: "CYROGENICS: Cyrogenic techs charging compressors. Antenna stowed."
+    flag 6:
+      time: "2019/09/14/06:02:11~2019/09/14/08:54:02"
+      antenna: "ea22"
+      reason: "FORCUS/ROTATION: Frequent subreflector faults or position errors."
+    flag 7:
+      time: "2019/09/14/16:27:04~2019/09/15/21:13:00"
+      antenna: "ea16&ea28"
+      reason: "CORRELATOR: Very high fringe amplitude on ea16 x ea28 baseline, subband 5, IF D."
+    flag 8:
+      time: "2019/09/18/12:16:58~2019/09/18/12:53:33"
+      antenna: "ea25,ea27"
+      reason: "CYROGENICS: L-band receiver at ambient temperature for change out later."
+  maflags:
+    flag 1:
+      time: "2019/09/18/12:18:30~2019/09/18/12:18:55"
+      reason: "Manual Time Flagging"

@@ -13,34 +13,37 @@ Description: VLA data oprtations
 
 """
 
-
+import os
 import numpy as np
 from pyuvdata import UVData
 
+from astropy.time import Time
+
 try:
     import casatasks
+    import casatools
 except:
     pass
 
 
-def get_uvdata(fpath, data_column="DATA"):
+def get_uvdata(fpath, data_column="DATA", **kwargs):
     """
     Read uvh5 file and return UVData object.
     """
 
     uvd = UVData()
-    uvd.read(fpath, data_column=data_column)
+    uvd.read(fpath, data_column=data_column, **kwargs)
 
     return uvd
 
 
-def get_data_array(uvd, data_column="DATA"):
+def get_data_array(uvd, data_column="DATA", **kwargs):
     """
     Get data array with axes (polarisation, baselines, time, frequency) from UVData object.
     """
 
     if type(uvd) == str:
-        uvd = get_uvdata(uvd, data_column=data_column)
+        uvd = get_uvdata(uvd, data_column=data_column, **kwargs)
 
     antpairs = uvd.get_antpairs()
     data = [uvd.get_data(*antpair) for antpair in antpairs]
@@ -86,3 +89,85 @@ def listobs(ms):
 
         else:
             print(listobs[item], "\n")
+
+
+def makedir(root, name):
+    """
+    Makes some directories to store the outputs of the processing pipeline
+    """
+
+    for folder in ["output", "input", "plots", "caltables"]:
+        path = os.path.join(root, name, folder)
+
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+    for folder in ["obsplots", "calplots", "dataplots"]:
+        path = os.path.join(root, name, "plots", folder)
+
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+
+def casa_times_to_astropy(times):
+    """
+    Convert CASA time format to astropy Time object
+    """
+
+    times = np.atleast_1d(times)
+
+    for i, time in enumerate(times):
+        edit = list(time)
+        edit[10] = "T"
+        time = "".join(edit)
+        times[i] = time.replace("/", "-")
+
+    return Time(times, format="isot", scale="utc")
+
+
+def get_obs_times(ms):
+    """
+    Get time range of an observation
+    """
+
+    msmd = casatools.msmetadata()
+    msmd.open(ms)
+    timerange = msmd.timerangeforobs(0)
+
+    begin = timerange["begin"]["m0"]["value"]
+    end = timerange["end"]["m0"]["value"]
+
+    return Time([begin, end], format="mjd", scale="utc")
+
+
+def get_ntimes(ms):
+    """Get the number of time integrations per scans.
+
+    Parameters
+    ----------
+    ms : str
+        path to measurement set
+
+    Returns
+    -------
+    list
+        number of time integrations per scans.
+    """
+
+    root = os.path.dirname(ms)
+
+    msmd = casatools.msmetadata()
+    msmd.open(ms)
+    nscans = msmd.nscans()
+    scans = 1 + np.arange(nscans)
+
+    ntimes = []
+
+    for scan in scans:
+        ntimes.append(np.shape(msmd.timesforscan(scan))[0])
+
+    printfile = os.path.join(root, "output/ntimes.txt")
+    print(f"\nsaving number of time integrations per scan: {printfile}")
+    np.savetxt(printfile, ntimes)
+
+    return ntimes

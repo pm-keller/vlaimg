@@ -1,0 +1,345 @@
+
+0. importuvfits (or importgmrt) to load the FITS file.
+
+   inp importuvfits 	# Shows the inputs
+   fitsfile='0201_14nov.fits'
+   vis='0201_14nov.ms'
+   go
+
+
+1. listobs
+   Look closely at the header. Work out which sources are the flux calibrator, phase calibrator,...
+   Is the phase calibrator bright enough to be a bandpass calibrator?
+   Does the phase calibrator have any UV range constraints?
+
+   ***HOW BRIGHT IS BRIGHT ENOUGH AND HOW DO I KNOW IF THERE ARE UV CONSTRAINTS?***
+
+   inp listobs
+   vis='0201_14nov.ms'
+   go
+
+
+2. split
+   Split out a single channel for gain calibration. Used channel 100 here.
+
+   inp split
+   vis='0201_14nov.ms'
+   outputvis='0201_14nov.ms'
+   spw='0:100'
+   datacolumn='data'
+
+3. plotms 
+   To check on bad data, bad antennas, etc, plot the data.
+
+   inp plotms 
+   vis='0201_14nov.ch0'
+   
+   Click on "Data" on the extreme left, to select different data.
+   Click on "Display" to increase the symbol size, colourize correlations, etc.
+   Click on "Page" to iterate over baselines, antennas, ...
+   Click on "Options" to increase the number of rows or columns.
+
+   (1) Identify dead antennas on the flux and phase calibrators.
+   (2) Identify bad times on the calibrators.
+
+
+4. flagdata 
+   Used to flag data, using various algorithms.
+   We'll use manual inspection in the beginning.
+
+   To flag antenna W02 (26):
+
+   inp flagdata
+   mode='manual'
+   antenna='26'
+   go
+
+   To flag the bad timerange at the end, zoom in to the timerange to identify start and end times:
+ 
+   antenna=''
+   timerange='22:34:00~22:38:00'
+   go
+   
+
+6. Set the flux density scale:
+
+   inp setjy
+   field='0'  (to use 3C48)
+   usescratch=True  (to create and use the MODEL_DATA column).
+   go
+
+
+
+7. For calibration, we'll use "gaincalR" :  NOTE: NOT gaincal!!!
+
+   inp gaincalR
+   caltable='0201_14nov.cal'
+   field='0'   (use only the flux calibrator; '0,1' for flux and phase calibrators.
+   uvrange='2~100 klambda'  (this is to exclude the short baselines)
+   solint='1 min'  (to be chosen based on the flux density of the calibrator).
+   refant=1
+   go
+   
+7a. If things look funny with calibration outputs, run "clearcal":
+
+   inp clearcal
+   vis='0201_14nov.ch0'
+   addmodel=True
+   go
+
+
+8. To get the flux density of the phase calibrator:
+
+   inp fluxscale
+   caltable='0201_14nov.cal'
+   fluxtable='0201_14nov.flux'
+   reference=['0']   (the flux calibrator)
+   transfer=['1']    (the phase calibrator or calibrators)
+   go
+
+
+9. Apply the calibration to the target source and to all calibrators.
+
+   inp applycal
+   gaintable=['0201_14nov.flux']   (note: the output table of fluxscale has to be used here)
+   go
+
+10. Inspect the calibrated data for the flux and phase calibrators, using plotms.
+
+    tget flagdata
+    mode='clip'
+    field='0'
+    clipminmax=[26,52]
+    datacolumn='corrected'
+    go
+
+
+11. At this stage, go back and repeat the calibration.
+
+12. First clear the calibration:
+
+   inp clearcal
+   vis='0201_14nov.ch0'
+   addmodel=True
+   go
+
+13. Check the calibrated data again with plotms. If they look fine, your basic gain 
+    calibration is done.
+
+14. Run repeatflag to apply the flags of the single-channel file to the multi-channel file.
+
+    inp repeatflag
+    visfrom='0201_14nov.ch0'
+    visto='0201_14nov.ms'
+    go
+
+15. Clear the calibration in the multi-channel data set, and then run applycal to apply
+    the single-channel calibration.
+
+16. Split out the calibrated data on the bandpass calibrators, to measure the system bandpass.
+
+    inp split
+    field='0'		Assumes that only the flux calibrator will be used to get the bandpass.
+    datacolumn='corrected'
+    outputvis='0201_14nov_bpass.ms'
+    go
+
+17. Add the model data column to the bandpass dataset:
+
+    tget setjy
+    field='0'
+    vis='0201_14nov_bpass.ms'
+    go
+
+18. Measure the system bandpass, using bandpassR  (NOTE: not bandpass!).
+
+    inp bandpassR
+    vis='0201_14nov_bpass.ms'
+    caltable='0201_14nov.bpass'
+    field='0'
+    uvrange='2~200 klambda'  
+    solint='inf'		(this will solve for the bandpass in each scan)
+    refant=1
+    dividebychanzero=False
+    solnorm=True
+    normchanrange='100'		The channel used for gain calibration.
+    go
+
+19. Inspect the bandpass solutions with plotms. 
+
+    Could apply the bandpass solutions to the file from which the bandpass table was 
+    produced, to check whether the corrected data look clean. Then could clip out any
+    outliers, and produce the bandpass table again. This is often an efficient way of
+    editing out RFI.
+
+    tget applycal
+    vis='0201_14nov_bpass.ms'
+    gaintable='0201_14nov.bpass'
+    go
+
+    And then run plotms on the corrected data to look for outliers. After flagging with
+	flagdata, re-run bandpassR, and proceed iteratively until things look clean.
+
+
+20. Now apply the gain and bandpass calibration, using applycal:
+
+    tget applycal
+    vis='0201_14nov.ms'
+    gaintable=['0201_14nov.flux','0201_14nov.bpass']
+    source='2'
+    interp=['linear','linear']  (could use 'nearest' for the bandpass).
+    applymode='calflagstrict'   (I would advise this for "normal" calibration).
+				(For self-calibration, if a lot of solutions fail in the 
+				  beginning, it may be a good idea to use 'calonly', so
+				  that the data are not excessively flagged at the start).
+    go
+
+
+
+21. Next step is to split out the calibrated data on the target source into a new file.
+
+    tget split
+    vis='0201_14nov.ms'
+    outputvis='14nov.ms'
+    field='2'
+    datacolumn='corrected'
+    go
+
+
+22. Inspect the new visibility data set. Try to identify bad time ranges and bad antennas, 
+    and remove them with flagdata, with mode='manual'. Can also use mode='clip' to remove 
+    egregiously bad data on individual baselines (usually bad due to RFI).
+
+23. One can average channels together to reduce the data volume before doing the self-cal.
+    Before averaging, one should flag the data at the highest channel resolution so that
+    narrow-band RFI doesn't affect the averaged channels. Easiest way is to run a clip
+    on the data, using a threshold. The threshold could be either theoretical or from the 
+    actual data. It's a good idea to try to compute what the theoretical threshold should be.
+    Also should work out how many channels one can average (i.e. the coarsest acceptable 
+    frequency resolution, for the region that will be imaged).
+
+24. Here, the flux density range in a "clean" channel is ~4 Jy. We hence chose to clip a 
+    little higher than this, at 5 Jy.
+
+25. Next, averaged 16 channels together, to produce a 32 -channel dataset (resolution=0.5 MHz)
+    for self-calibration.
+
+    tget split
+    vis='14nov.ms'
+    outputvis='14nov.ch0'
+    field='0'
+    datacolumn='data'
+    width=16		(Averages 16 channels together).
+    go
+
+
+26. Will now clip these data  at 1.5 Jy.
+
+    tget flagdata
+    vis='14nov.ch0'
+    mode='clip'
+    clipminmax=[0,1.5]
+    go
+
+27. Plot the data versus UV wavelength, to check for holes and decide on the UV taper.
+
+28. Now to the imaging, with tclean:
+
+    inp tclean
+    vis='14nov.ch0'
+    imagename='0201.im.1'
+    datacolumn='data'		This is for the first imaging; change to 'corrected' after self-cal.
+    cell='0.4 arcsec'		Choose such that there are ~4 cells across the beam FWHM.
+    imsize=[6000]  (imaging a region of 6000 cells; should image out to at least the primary beam FWHM.
+    spw='0:2~29'   (exclude edge channels)
+    uvtaper=['95 klambda']	(Taper at 95 klambda, to smoothen the edges of the UV distribution).
+    uvrange =['3~200 klambda']	(Exclude short baselines).
+    specmode='mfs'
+    gridder='wproject'
+    wprojplanes=-1  
+    pblimit=-0.1
+    weighting='briggs'
+    robust=-0.5
+    niter=100000000   (set to a large number)
+    threshold='0.5 mJy'    (set this to a highish value, ~ 1 mJy, >~ 10 sigma, where 
+				sigma is your theoretical noise; this would be lowered
+				after each round of self-calibration)
+    interactive=True
+    savemodel='modelcolumn'
+    mask='0201.mask'
+    go
+
+NOTE: Note the number of needed w-planes here! This will be needed if you use gridder='awproject',
+	to re-use the convolutions.
+
+29. Next, run imthreshold on the image, to remove negatives.
+
+    inp imthreshold
+    imname='0201.im.1'
+    threshold=0.0
+    boxsize=50		
+    go 
+
+30. Will now put the model without negatives back into the model column.
+    For this, use tclean. 
+    Will use tclean with gridder='awproject' to re-use the convolutions.
+
+    tget tclean
+    gridder='awproject'
+    aterm=False
+    psterm=True
+    wprojplanes=362	(This has to be specified from the earlier run; cannot use -1)
+    cfcache='0201.cf'  	(This would look for the convolutions in this directory,
+				  and write them here, if it doesn't find them).
+    savemodel='modelcolumn'
+    startmodel='0201.im.1_noneg.model'
+    niter=0
+    imagename='0201.tst.1'
+    go
+					
+30. Then use gaincalR to do phase self-calibration (NOTE: gaincalR, not gaincal).
+
+    tget gaincalR 
+    vis='14nov.ch0'
+    calmode='p'
+    caltable='0201.pcal.1'
+    refant=1
+    uvrange='3~200 klambda'
+    spw='0:2~29'   (exclude edge channels and line channels; same as tclean)
+    go
+    
+   
+31. applycal to apply the calibration.
+
+    tget applycal
+    vis='14nov.ch0'
+    gaintable='0201.pcal.1'
+    interp=['linear']
+    spw='' 
+    go
+
+  
+33. tclean
+
+    tget tclean
+    data='corrected'
+    gridder='awproject'   (re-use the convolutions)
+    psterm=True
+    aterm=False
+    wprojplanes = N   (where N is the number reported by wprojplanes=-1, gridder='widefield')
+    cfcache='0210.cf'  (directory where the convolutions have been stored)
+    startmodel=''
+    imagename='0201.im.2'
+    niter=10000000
+    threshold='0.5 mJy'  (threshold of ~5-sigma, where sigma is the noise on the previous image).
+    go
+
+  
+
+Rinse and repeat, until phase self-calibration converges. Then move to amplitude-and-phase 
+self-calibration. After A&P self-cal, plot the residual visibilities and flag as needed.
+Can plot the residuals by saving the model in the model data column and then running uvsub, 
+which stores the residuals in the corrected data column.
+
+
+    

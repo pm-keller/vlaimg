@@ -13,16 +13,14 @@ Description: Tools for inspecting VLA L-Band data for RFI and malfunctioning ant
 
 """
 
+import os
+import h5py
 import numpy as np
-
 import matplotlib.pyplot as plt
-from matplotlib.colors import LogNorm
 
 import sys
 
-sys.path.append(
-    "/DATA/CARINA_3/kel334/19A-056/vlaimg"
-)
+sys.path.append("/DATA/CARINA_3/kel334/19A-056/vlaimg")
 
 from vlapy import vladata
 from vlapy.rfi_freq import (
@@ -31,113 +29,93 @@ from vlapy.rfi_freq import (
 )
 
 
-def get_data_products(
-    vis, avg_ntimes=None, bls_bins=None, masked=True, data_column="DATA"
-):
+def get_mod_z_score_data(ms, masked=True, data_column="DATA", ntimes="*"):
     """
-    Get data products needed for the inspection.
+    Comput modified z-score data and save to file.
     """
 
+    root = os.path.dirname(ms)
+
     # get data array from data file
-    uvd = vladata.get_uvdata(vis)
-    data_array = vladata.get_data_array(uvd, data_column)
+    print(f"\nloading measurement set with pyuvdata: {ms}")
+    uvd = vladata.get_uvdata(ms, polarizations=["RR", "LL"])
+    data_array = np.abs(vladata.get_data_array(uvd, data_column))
 
     if masked:
         flags = vladata.get_flag_array(uvd, data_column)
         data_array = np.ma.masked_array(data_array, mask=flags)
 
-    # get header data from file
+    # average amplitudes across polarisations and baselines
+    data_array_avg = np.ma.mean(data_array, axis=(0, 1))
+
+    # get metadata from file
     freq_array = uvd.freq_array[0] * 1e-6
     dt = uvd.integration_time[0]
     time_array = uvd.time_array
     ant_pairs = uvd.get_antpairs()
 
-    # average across polarisation products and baselines to obtain waterfall data time vs. frequency
-    rfi_wf = np.ma.mean(np.ma.abs(data_array), axis=(0, 1))
+    data_array = np.moveaxis(data_array, 2, 0)
 
-    # average waterfall across time to obtain a single frequency spectrum
-    rfi_spec = np.ma.mean(rfi_wf, axis=0)
+    if ntimes == "*":
+        ntimes = [
+            data_array.shape[2],
+        ]
 
-    # get antenna-based averaged waterfalls
-    per_ant_wf = []
-    for ant in uvd.antenna_numbers:
-        idx = [i for i, pair in enumerate(ant_pairs) if ant in pair]
-        per_ant_wf.append(np.ma.mean(np.ma.abs(data_array[:, idx]), axis=(0, 1)))
+    print("\ncomputing modified Z-score")
+    for i in range(len(ntimes)):
+        # scan boundary indices
+        idx1 = int(np.sum(ntimes[:i]))
+        idx2 = int(np.sum(ntimes[: i + 1]))
 
-    per_ant_wf = np.ma.array(per_ant_wf)
-    per_ant_spec = np.ma.mean(per_ant_wf, axis=1)
+        print(idx1, idx2)
+        # subtract median from data
+        data_array[idx1:idx2] -= np.ma.median(data_array[idx1:idx2], axis=0)
+        data_array_avg[idx1:idx2] -= np.ma.median(data_array_avg[idx1:idx2], axis=0)
 
-    # get normalised waterfalls averaged across baselines in bins of baselines lengths
-    bls_lens = []
-    for pair in ant_pairs:
-        idx1 = np.where(pair[0] == uvd.antenna_numbers)[0]
-        idx2 = np.where(pair[1] == uvd.antenna_numbers)[0]
-        pos1 = uvd.antenna_positions[idx1]
-        pos2 = uvd.antenna_positions[idx2]
-        bls_lens.append(np.sqrt(np.sum((pos2 - pos1) ** 2, axis=-1)))
+        # divide by median absolute deviation
+        data_array[idx1:idx2] /= 1.4826 * np.ma.median(
+            np.ma.abs(data_array[idx1:idx2]), axis=0
+        )
+        data_array_avg[idx1:idx2] /= 1.4826 * np.ma.median(
+            np.ma.abs(data_array_avg[idx1:idx2]), axis=0
+        )
 
-    bls_lens = np.ma.array(bls_lens)
-    bls_bin_wf = []
-    for i in range(len(bls_bins) - 1):
-        idx = np.where((bls_lens > bls_bins[i]) & (bls_lens < bls_bins[i + 1]))[0]
-        bls_bin_wf.append(np.ma.mean(np.ma.abs(data_array[:, idx]), axis=(0, 1)))
+    data_array = np.moveaxis(data_array, 0, 2)
 
-    bls_bin_wf = np.ma.array(bls_bin_wf)
-    bls_bin_spec = np.ma.mean(bls_bin_wf, axis=1)
+    dnames = [
+        "z-score",
+        "flags",
+        "z-score avg",
+        "flags avg",
+        "freq array",
+        "dt",
+        "time array",
+        "ant pairs",
+    ]
+    data_list = [
+        data_array,
+        data_array.mask,
+        data_array_avg,
+        data_array_avg.mask,
+        freq_array,
+        dt,
+        time_array,
+        ant_pairs,
+    ]
 
-    # normalise waterfalls by median spectrum across scans
-    per_ant_wf = np.moveaxis(per_ant_wf, 1, 0)
-    bls_bin_wf = np.moveaxis(bls_bin_wf, 1, 0)
+    # save to hdf5 file
+    path = os.path.join(root, f"output/z_score.h5")
+    print(f"\saving modified z-score: {path}")
+    f = h5py.File(path, "a")
 
-    if isinstance(avg_ntimes, type(None)):
-        rfi_wf_norm -= np.ma.median(rfi_wf, axis=0)
-        per_ant_wf -= np.ma.median(per_ant_wf, axis=0)
-        bls_bin_wf -= np.ma.median(bls_bin_wf, axis=0)
+    for dname, data in zip(dnames, data_list):
+        if dname in f.keys():
+            del f[dname]
+        f.create_dataset(dname, data=data)
 
-        rfi_wf_norm /= np.ma.median(1.4826 * np.abs(rfi_wf), axis=0)
-        per_ant_wf /= np.ma.median(1.4826 * np.abs(per_ant_wf), axis=0)
-        bls_bin_wf /= np.ma.median(1.4826 * np.abs(bls_bin_wf), axis=0)
+    f.close()
 
-    else:
-        rfi_wf_norm = rfi_wf.copy()
-
-        for i in range(len(avg_ntimes)):
-            idx1 = int(np.sum(avg_ntimes[:i]))
-            idx2 = int(np.sum(avg_ntimes[: i + 1]))
-
-            rfi_wf_norm[idx1:idx2] -= np.ma.median(rfi_wf[idx1:idx2], axis=0)
-            per_ant_wf[idx1:idx2] -= np.ma.median(per_ant_wf[idx1:idx2], axis=0)
-            bls_bin_wf[idx1:idx2] -= np.ma.median(bls_bin_wf[idx1:idx2], axis=0)
-
-            rfi_wf_norm[idx1:idx2] /= np.ma.median(
-                1.4826 * np.abs(rfi_wf_norm[idx1:idx2]), axis=0
-            )
-            per_ant_wf[idx1:idx2] /= np.ma.median(
-                1.4826 * np.abs(per_ant_wf[idx1:idx2]), axis=0
-            )
-            bls_bin_wf[idx1:idx2] /= np.ma.median(
-                1.4826 * np.abs(bls_bin_wf[idx1:idx2]), axis=0
-            )
-
-    per_ant_wf = np.moveaxis(per_ant_wf, 0, 1)
-    bls_bin_wf = np.moveaxis(bls_bin_wf, 0, 1)
-
-    return {
-        "data array": data_array,
-        "freq array": freq_array,
-        "time array": time_array,
-        "dt": dt,
-        "ant pairs": ant_pairs,
-        "ant nums": uvd.antenna_numbers,
-        "ant names": uvd.antenna_names,
-        "rfi wf": rfi_wf,
-        "rfi spec": rfi_spec,
-        "rfi wf norm": rfi_wf_norm,
-        "per ant wf": per_ant_wf,
-        "per ant spec": per_ant_spec,
-        "bls bin wf": bls_bin_wf,
-        "bls bin spec": bls_bin_spec,
-    }
+    return path
 
 
 def plot_time_series(
@@ -191,7 +169,7 @@ def plot_spec(
 
     # plot rfi contaminated ranges
     if not isinstance(rfi_ranges, type(None)):
-        for (fmin, fmax) in rfi_ranges:
+        for fmin, fmax in rfi_ranges:
             if fmin == fmax:
                 lstyle = "-"
             else:
@@ -209,7 +187,7 @@ def plot_spec(
 
     # plot protected frequency ranges
     if plot_protected:
-        for (fmin, fmax) in protected_freq:
+        for fmin, fmax in protected_freq:
             ax.vlines(fmin, 0, ymax, color="blue", linestyle="--", linewidth=0.5)
             ax.vlines(fmax, 0, ymax, color="blue", linestyle="--", linewidth=0.5)
             ax.fill_betweenx((0, ymax), fmin, fmax, color="blue", alpha=0.05)
@@ -297,7 +275,7 @@ def plot_spec_spw_summary(
     fig.text(
         0.04,
         0.5,
-        "Averaged Visibility Amplitudes [uncalibrated Jy]",
+        "Averaged msibility Amplitudes [uncalibrated Jy]",
         va="center",
         rotation="vertical",
         fontsize=12,
@@ -350,7 +328,7 @@ def plot_spec_spw(freq_array, spec, spw, ax=None, fig=None, plot_masked=False):
     fig.text(
         0.04,
         0.5,
-        "Averaged Visibility Amplitudes [uncalibrated Jy]",
+        "Averaged msibility Amplitudes [uncalibrated Jy]",
         va="center",
         rotation="vertical",
         fontsize=12,
@@ -456,7 +434,7 @@ def plot_wf_spw(
         interpolation="nearest",
         aspect="auto",
         vmin=0.0,
-        vmax=3.0,
+        vmax=2.0,
         extent=(0, 64, dt * wf.shape[0], 0),
         **kwargs,
     )

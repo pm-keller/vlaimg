@@ -1,0 +1,27 @@
+name: vlaimg3.8
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - astropy
+  - black
+  - h5py
+  - ipykernel
+  - ipython
+  - ipywidgets
+  - jupyter
+  - matplotlib
+  - numpy
+  - pandas
+  - pip
+  - prefect
+  - pyuvdata
+  - pyvirtualdisplay
+  - pyyaml
+  - scipy
+  - pip:
+    - casatools
+    - casatasks
+    - casaplotms
+    - protobuf==3.20.0
