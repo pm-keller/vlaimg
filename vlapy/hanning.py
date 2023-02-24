@@ -25,20 +25,44 @@ from prefect import task
 from prefect.tasks import task_input_hash
 
 
-@task(cache_key_fn=task_input_hash)
+# @task(cache_key_fn=task_input_hash)
 def hanning(input_ms, overwrite=False):
+    """hanning smooth measurement set
+
+    Parameters
+    ----------
+    input_ms : str
+        path to input measurement set
+    overwrite : bool, optional
+        if true, overwrite existing data, by default False
+
+    Returns
+    -------
+    str
+        path to output measurement set
+    """
+
     output_ms = input_ms[:-3] + "_hanning.ms"
 
+    # remove existing file?
     if os.path.exists(output_ms) and overwrite:
         print(f"\nRemoving {output_ms} \n")
         time.sleep(3)
         shutil.rmtree(output_ms)
 
+    # hanning smoothing
     if not os.path.exists(output_ms):
         print("\nhanning smooth")
         print(f"input ms: {input_ms}")
         print(f"output ms: {output_ms}")
 
         casatasks.hanningsmooth(input_ms, output_ms)
-    
+
+        # save original flags
+        print(f"\nsave flag version: original")
+        casatasks.flagmanager(output_ms, mode="save", versionname=f"original")
+    else:
+        print(f"\nrestoring flag version: original")
+        casatasks.flagmanager(output_ms, mode="restore", versionname=f"original")
+
     return output_ms

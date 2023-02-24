@@ -1,0 +1,96 @@
+2023-02-24 08:38:24	INFO	::casa	
+2023-02-24 08:38:24	INFO	::casa	Python version 3.8.16
+2023-02-24 08:38:24	INFO	::casa	CASA Version PIPELINE 6.5.3.28
+2023-02-24 08:38:24	INFO	::casa	Can't import casatelemetry module.
+2023-02-24 08:38:26	INFO	msmetadata_cmpt.cc::open	Performing internal consistency checks on /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355.ms...
+2023-02-24 08:38:26	INFO	flagmanager::::casa	##########################################
+2023-02-24 08:38:26	INFO	flagmanager::::casa	##### Begin Task: flagmanager        #####
+2023-02-24 08:38:26	INFO	flagmanager::::casa	flagmanager( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', mode='restore', versionname='original', oldname='', comment='', merge='replace' )
+2023-02-24 08:38:26	INFO	flagmanager::AgentFlagger::open	Table type is Measurement Set
+2023-02-24 08:38:26	INFO	flagmanager::::casa	Restore flagversions original
+2023-02-24 08:38:46	INFO	flagmanager::::casa	Task flagmanager complete. Start time: 2023-02-24 19:38:26.258820 End time: 2023-02-24 19:38:46.330297
+2023-02-24 08:38:46	INFO	flagmanager::::casa	##### End Task: flagmanager          #####
+2023-02-24 08:38:46	INFO	flagmanager::::casa	##########################################
+2023-02-24 08:38:46	INFO	plotants::::casa	##########################################
+2023-02-24 08:38:46	INFO	plotants::::casa	##### Begin Task: plotants           #####
+2023-02-24 08:38:46	INFO	plotants::::casa	plotants( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', figfile='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/obsplots/antlayout.png', antindex=False, logpos=False, exclude='', checkbaselines=False, title='', showgui=True )
+2023-02-24 08:38:46	INFO	msmetadata_cmpt.cc::open	Performing internal consistency checks on /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms...
+2023-02-24 08:38:46	INFO	plotants::::casa	Number of points being plotted: 27
+2023-02-24 08:38:47	INFO	plotants::::casa	Task plotants complete. Start time: 2023-02-24 19:38:46.347663 End time: 2023-02-24 19:38:46.960010
+2023-02-24 08:38:47	INFO	plotants::::casa	##### End Task: plotants             #####
+2023-02-24 08:38:47	INFO	plotants::::casa	##########################################
+2023-02-24 08:38:47	INFO	plotms::::casa	##########################################
+2023-02-24 08:38:47	INFO	plotms::::casa	##### Begin Task: plotms             #####
+2023-02-24 08:38:47	INFO	plotms::::casa	plotms( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', gridrows=1, gridcols=1, rowindex=0, colindex=0, plotindex=0, xaxis='time', xdatacolumn='', xframe='', xinterp='', yaxis='elevation', ydatacolumn='', yframe='', yinterp='', yaxislocation='', selectdata=True, field='', spw='', timerange='', uvrange='', antenna='ea01', scan='', correlation='', array='', observation='', intent='', feed='', msselect='', averagedata=True, avgchannel='', avgtime='', avgscan=False, avgfield=False, avgbaseline=False, avgantenna=False, avgspw=False, scalar=False, transform=True, freqframe='', restfreq='', veldef='RADIO', phasecenter='', extendflag=False, extcorr=False, extchannel=False, iteraxis='', xselfscale=False, yselfscale=False, xsharedaxis=False, ysharedaxis=False, customsymbol=[], symbolshape='autoscaling', symbolsize=2, symbolcolor='0000ff', symbolfill='fill', symboloutline=False, coloraxis='field', customflaggedsymbol=False, flaggedsymbolshape='circle', flaggedsymbolsize=2, flaggedsymbolcolor='ff0000', flaggedsymbolfill='fill', flaggedsymboloutline=False, xconnector='', timeconnector=False, plotrange=[], title='', titlefont=0, xlabel='', xaxisfont=0, ylabel='', yaxisfont=0, showmajorgrid=False, majorwidth=1, majorstyle='', majorcolor='B0B0B0', showminorgrid=False, minorwidth=1, minorstyle='', minorcolor='D0D0D0', showlegend=False, legendposition='', plotfile='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/obsplots/elevation_vs_time.png', expformat='', verbose=True, exprange='', highres=True, dpi=-1, width=-1, height=-1, overwrite=True, showgui=True, clearplots=True, callib=[], headeritems='', showatm=False, showtsky=False, showimage=False )
+2023-02-24 08:38:48	INFO	plotms::::casa	casaplotms started: 0.0.0.0:44803
+2023-02-24 08:38:48	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, CANVAS, DISPLAY, PAGEHEADER, ITERATION, LOG, PLOTMS_OPTIONS.
+2023-02-24 08:38:48	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, CANVAS, DISPLAY, PAGEHEADER, ITERATION, LOG, PLOTMS_OPTIONS.
+2023-02-24 08:38:48	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, DISPLAY.
+2023-02-24 08:38:48	INFO	PlotMS::load_cache	Clearing the existing plotms cache.
+2023-02-24 08:38:48	INFO	PlotMS::load_cache	START     Current memory usage: 8674.42 kilobytes.
+2023-02-24 08:38:48	INFO	PlotMS::load_cache	Plotting table 19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms
+2023-02-24 08:38:48	INFO	PlotMS::load_cache	  Selection: antenna: ea01
+2023-02-24 08:38:48	INFO	PlotMS::load_cache	Caching for the new plot: Elevation(37) vs. Time(2)...
+2023-02-24 08:38:48	INFO	PlotMS::load_cache	Loading page header cache
+2023-02-24 08:38:48	INFO	plotms::::casa	Waiting until drawing of the plot has completed before exporting it
+2023-02-24 08:38:53	INFO	PlotMS::load_cache	Data selection will yield a total of 115974144 plottable points (flagged and unflagged).
+2023-02-24 08:38:53	INFO	PlotMS::load_cache+	The plotms cache will require an estimated 0.251672 GB of memory (2.17007 bytes/point).
+2023-02-24 08:38:53	INFO	PlotMS::load_cache+	This is 0.0318091% of the memory avail. to CASA (791.195 GB).
+2023-02-24 08:38:54	INFO	PlotMS::load_cache	Loading chunks......
+2023-02-24 08:38:58	INFO	PlotMS::load_cache	Generating the plot mask.
+2023-02-24 08:38:58	INFO	PlotMS::load_cache	refTime = 2019/09/18/00:00:00.0
+2023-02-24 08:38:58	INFO	PlotMS::load_cache	Finished loading.
+2023-02-24 08:38:58	INFO	PlotMS::load_cache	Setting up iteration indexing (if necessary), and calculating plot ranges.
+2023-02-24 08:38:58	INFO	PlotMS::load_cache	Axes ranges:
+2023-02-24 08:38:58	INFO	PlotMS::load_cache+	Time: 5.07553e+09 to 5.07553e+09 (unflagged); ; 5.07553e+09 to 5.07553e+09 (flagged).
+2023-02-24 08:38:58	INFO	PlotMS::load_cache+	Elevation: 16.0061 to 72.4144 (unflagged); 15.9827 to 71.8233(flagged).
+2023-02-24 08:38:58	INFO	PlotMS::load_cache	Finished indexing.
+2023-02-24 08:38:48	INFO	PlotMS::load_cache	END       Time: +10 seconds.  Memory: +208674 kilobytes.
+2023-02-24 08:38:58	INFO	PlotMS::plot	Plotting 15056 unflagged points.
+2023-02-24 08:38:58	INFO	plotms::::casa	Exporting the plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/obsplots/elevation_vs_time.png
+2023-02-24 08:38:58	INFO	QPExporter::export	START     Current memory usage: 217369 kilobytes.
+2023-02-24 08:38:58	INFO	QPExporter::export	END       Time: +0 seconds.  Memory: +11.6719 kilobytes.
+2023-02-24 08:38:59	INFO	PlotMS::plot	Exported /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/obsplots/elevation_vs_time.png
+2023-02-24 08:38:59	INFO	PlotMS::export	Successfully exported plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/obsplots/elevation_vs_time.png!
+2023-02-24 08:38:59	INFO	plotms::::casa	Task plotms complete. Start time: 2023-02-24 19:38:46.996353 End time: 2023-02-24 19:38:58.618004
+2023-02-24 08:38:59	INFO	plotms::::casa	##### End Task: plotms               #####
+2023-02-24 08:38:59	INFO	plotms::::casa	##########################################
+2023-02-24 08:38:59	INFO	plotms::::casa	##########################################
+2023-02-24 08:38:59	INFO	plotms::::casa	##### Begin Task: plotms             #####
+2023-02-24 08:38:59	INFO	plotms::::casa	plotms( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', gridrows=1, gridcols=1, rowindex=0, colindex=0, plotindex=0, xaxis='time', xdatacolumn='', xframe='', xinterp='', yaxis='antenna2', ydatacolumn='', yframe='', yinterp='', yaxislocation='', selectdata=True, field='', spw='', timerange='', uvrange='', antenna='ea01', scan='', correlation='', array='', observation='', intent='', feed='', msselect='', averagedata=True, avgchannel='', avgtime='', avgscan=False, avgfield=False, avgbaseline=False, avgantenna=False, avgspw=False, scalar=False, transform=True, freqframe='', restfreq='', veldef='RADIO', phasecenter='', extendflag=False, extcorr=False, extchannel=False, iteraxis='', xselfscale=False, yselfscale=False, xsharedaxis=False, ysharedaxis=False, customsymbol=[], symbolshape='autoscaling', symbolsize=2, symbolcolor='0000ff', symbolfill='fill', symboloutline=False, coloraxis='field', customflaggedsymbol=False, flaggedsymbolshape='circle', flaggedsymbolsize=2, flaggedsymbolcolor='ff0000', flaggedsymbolfill='fill', flaggedsymboloutline=False, xconnector='', timeconnector=False, plotrange=[-1.0, -1.0, 0.0, 26.0], title='', titlefont=0, xlabel='', xaxisfont=0, ylabel='', yaxisfont=0, showmajorgrid=False, majorwidth=1, majorstyle='', majorcolor='B0B0B0', showminorgrid=False, minorwidth=1, minorstyle='', minorcolor='D0D0D0', showlegend=False, legendposition='', plotfile='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/obsplots/data_stream.png', expformat='', verbose=True, exprange='', highres=True, dpi=-1, width=-1, height=-1, overwrite=True, showgui=True, clearplots=True, callib=[], headeritems='', showatm=False, showtsky=False, showimage=False )
+2023-02-24 08:38:59	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, CANVAS, DISPLAY, PAGEHEADER, ITERATION, LOG, PLOTMS_OPTIONS.
+2023-02-24 08:38:59	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, DISPLAY.
+2023-02-24 08:38:59	INFO	PlotMS::load_cache	Clearing the existing plotms cache.
+2023-02-24 08:38:59	INFO	PlotMS::load_cache	START     Current memory usage: 12203.7 kilobytes.
+2023-02-24 08:38:59	INFO	PlotMS::load_cache	Plotting table 19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms
+2023-02-24 08:38:59	INFO	PlotMS::load_cache	  Selection: antenna: ea01
+2023-02-24 08:38:59	INFO	PlotMS::load_cache	Caching for the new plot: Antenna2(10) vs. Time(2)...
+2023-02-24 08:38:59	INFO	PlotMS::load_cache	Loading page header cache
+2023-02-24 08:38:59	INFO	plotms::::casa	Waiting until drawing of the plot has completed before exporting it
+2023-02-24 08:39:05	INFO	PlotMS::load_cache	Data selection will yield a total of 115974144 plottable points (flagged and unflagged).
+2023-02-24 08:39:05	INFO	PlotMS::load_cache+	The plotms cache will require an estimated 0.251533 GB of memory (2.16887 bytes/point).
+2023-02-24 08:39:05	INFO	PlotMS::load_cache+	This is 0.0317915% of the memory avail. to CASA (791.195 GB).
+2023-02-24 08:39:06	INFO	PlotMS::load_cache	Loading chunks......
+2023-02-24 08:39:08	INFO	PlotMS::load_cache	Generating the plot mask.
+2023-02-24 08:39:08	INFO	PlotMS::load_cache	refTime = 2019/09/18/00:00:00.0
+2023-02-24 08:39:08	INFO	PlotMS::load_cache	Finished loading.
+2023-02-24 08:39:08	INFO	PlotMS::load_cache	Setting up iteration indexing (if necessary), and calculating plot ranges.
+2023-02-24 08:39:08	INFO	PlotMS::load_cache	Axes ranges:
+2023-02-24 08:39:08	INFO	PlotMS::load_cache+	Time: 5.07553e+09 to 5.07553e+09 (unflagged); ; 5.07553e+09 to 5.07553e+09 (flagged).
+2023-02-24 08:39:08	INFO	PlotMS::load_cache+	Antenna2: 1 to 26 (unflagged); 1 to 26(flagged).
+2023-02-24 08:39:08	INFO	PlotMS::load_cache	Finished indexing.
+2023-02-24 08:38:59	INFO	PlotMS::load_cache	END       Time: +10 seconds.  Memory: +205359 kilobytes.
+2023-02-24 08:39:08	INFO	PlotMS::plot	Plotting 389776 unflagged points.
+2023-02-24 08:39:09	INFO	plotms::::casa	Exporting the plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/obsplots/data_stream.png
+2023-02-24 08:39:09	INFO	QPExporter::export	START     Current memory usage: 217518 kilobytes.
+2023-02-24 08:39:09	INFO	QPExporter::export	END       Time: +0 seconds.  Memory: +2.14062 kilobytes.
+2023-02-24 08:39:10	INFO	PlotMS::plot	Exported /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/obsplots/data_stream.png
+2023-02-24 08:39:10	INFO	PlotMS::export	Successfully exported plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/obsplots/data_stream.png!
+2023-02-24 08:39:10	INFO	plotms::::casa	Task plotms complete. Start time: 2023-02-24 19:38:58.622259 End time: 2023-02-24 19:39:09.771782
+2023-02-24 08:39:10	INFO	plotms::::casa	##### End Task: plotms               #####
+2023-02-24 08:39:10	INFO	plotms::::casa	##########################################
+2023-02-24 08:39:10	INFO	flagmanager::::casa	##########################################
+2023-02-24 08:39:10	INFO	flagmanager::::casa	##### Begin Task: flagmanager        #####
+2023-02-24 08:39:10	INFO	flagmanager::::casa	flagmanager( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', mode='restore', versionname='after_detflags', oldname='', comment='', merge='replace' )
+2023-02-24 08:39:10	INFO	flagmanager::AgentFlagger::open	Table type is Measurement Set
+2023-02-24 08:39:10	INFO	flagmanager::::casa	Restore flagversions after_detflags

@@ -16,6 +16,7 @@ dependencies:
   - pandas
   - pip
   - prefect
+  - pysqlite3
   - pyuvdata
   - pyvirtualdisplay
   - pyyaml
@@ -25,3 +26,4 @@ dependencies:
     - casatasks
     - casaplotms
     - protobuf==3.20.0
+    - python-casacore

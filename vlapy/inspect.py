@@ -29,100 +29,135 @@ from vlapy.rfi_freq import (
 )
 
 
-def get_mod_z_score_data(ms, masked=True, data_column="DATA", ntimes="*"):
-    """
-    Comput modified z-score data and save to file.
+def get_mod_z_score_data(
+    ms, masked=True, data_column="DATA", ntimes="*", overwrite=False
+):
+    """Compute a modified z-score of the data across the time axis.
+
+    Parameters
+    ----------
+    ms : str
+        path to measurement set
+    masked : bool, optional
+        if true, apply flags, by default True
+    data_column : str, optional
+        data column to use for the z-score computation, by default "DATA"
+    ntimes : list, optional
+        number of time integrations per scan, by default "*"
+    overwrite : bool, optional
+        if true, overwrite existing data, by default False
     """
 
     root = os.path.dirname(ms)
+    path = path = os.path.join(root, f"output/z_score_{data_column.lower()}.h5")
 
-    # get data array from data file
-    print(f"\nloading measurement set with pyuvdata: {ms}")
-    uvd = vladata.get_uvdata(ms, polarizations=["RR", "LL"])
-    data_array = np.abs(vladata.get_data_array(uvd, data_column))
+    # save some metadata to file
+    ntimes = vladata.get_ntimes(ms)
 
-    if masked:
-        flags = vladata.get_flag_array(uvd, data_column)
-        data_array = np.ma.masked_array(data_array, mask=flags)
+    if not os.path.exists(path) or overwrite:
+        # get data array from data file
+        print(f"\nloading measurement set with pyuvdata: {ms}")
+        uvd = vladata.get_uvdata(ms, polarizations=["RR", "LL"])
+        data_array = np.abs(vladata.get_data_array(uvd, data_column))
 
-    # average amplitudes across polarisations and baselines
-    data_array_avg = np.ma.mean(data_array, axis=(0, 1))
+        if masked:
+            flags = vladata.get_flag_array(uvd, data_column)
+            data_array = np.ma.masked_array(data_array, mask=flags)
 
-    # get metadata from file
-    freq_array = uvd.freq_array[0] * 1e-6
-    dt = uvd.integration_time[0]
-    time_array = uvd.time_array
-    ant_pairs = uvd.get_antpairs()
+        # average amplitudes across polarisations and baselines
+        data_array_avg = np.ma.mean(data_array, axis=(0, 1))
 
-    data_array = np.moveaxis(data_array, 2, 0)
+        # get metadata from file
+        freq_array = uvd.freq_array[0] * 1e-6
+        dt = uvd.integration_time[0]
+        time_array = uvd.time_array
+        ant_pairs = uvd.get_antpairs()
 
-    if ntimes == "*":
-        ntimes = [
-            data_array.shape[2],
+        data_array = np.moveaxis(data_array, 2, 0)
+
+        if ntimes == "*":
+            ntimes = [
+                data_array.shape[2],
+            ]
+
+        print("\ncomputing modified Z-score")
+        for i in range(len(ntimes)):
+            # scan boundary indices
+            idx1 = int(np.sum(ntimes[:i]))
+            idx2 = int(np.sum(ntimes[: i + 1]))
+
+            print(idx1, idx2)
+            # subtract median from data
+            data_array[idx1:idx2] -= np.ma.median(data_array[idx1:idx2], axis=0)
+            data_array_avg[idx1:idx2] -= np.ma.median(data_array_avg[idx1:idx2], axis=0)
+
+            # divide by median absolute deviation
+            data_array[idx1:idx2] /= 1.4826 * np.ma.median(
+                np.ma.abs(data_array[idx1:idx2]), axis=0
+            )
+            data_array_avg[idx1:idx2] /= 1.4826 * np.ma.median(
+                np.ma.abs(data_array_avg[idx1:idx2]), axis=0
+            )
+
+        data_array = np.moveaxis(data_array, 0, 2)
+
+        dnames = [
+            "z-score",
+            "flags",
+            "z-score avg",
+            "flags avg",
+            "freq array",
+            "dt",
+            "time array",
+            "ant pairs",
+            "ntimes",
+        ]
+        data_list = [
+            data_array,
+            data_array.mask,
+            data_array_avg,
+            data_array_avg.mask,
+            freq_array,
+            dt,
+            time_array,
+            ant_pairs,
+            ntimes,
         ]
 
-    print("\ncomputing modified Z-score")
-    for i in range(len(ntimes)):
-        # scan boundary indices
-        idx1 = int(np.sum(ntimes[:i]))
-        idx2 = int(np.sum(ntimes[: i + 1]))
+        # save to hdf5 file
+        print(f"\nsaving modified z-score: {path}")
+        f = h5py.File(path, "a")
 
-        print(idx1, idx2)
-        # subtract median from data
-        data_array[idx1:idx2] -= np.ma.median(data_array[idx1:idx2], axis=0)
-        data_array_avg[idx1:idx2] -= np.ma.median(data_array_avg[idx1:idx2], axis=0)
+        for dname, data in zip(dnames, data_list):
+            if dname in f.keys():
+                del f[dname]
+            f.create_dataset(dname, data=data)
 
-        # divide by median absolute deviation
-        data_array[idx1:idx2] /= 1.4826 * np.ma.median(
-            np.ma.abs(data_array[idx1:idx2]), axis=0
-        )
-        data_array_avg[idx1:idx2] /= 1.4826 * np.ma.median(
-            np.ma.abs(data_array_avg[idx1:idx2]), axis=0
-        )
-
-    data_array = np.moveaxis(data_array, 0, 2)
-
-    dnames = [
-        "z-score",
-        "flags",
-        "z-score avg",
-        "flags avg",
-        "freq array",
-        "dt",
-        "time array",
-        "ant pairs",
-    ]
-    data_list = [
-        data_array,
-        data_array.mask,
-        data_array_avg,
-        data_array_avg.mask,
-        freq_array,
-        dt,
-        time_array,
-        ant_pairs,
-    ]
-
-    # save to hdf5 file
-    path = os.path.join(root, f"output/z_score.h5")
-    print(f"\saving modified z-score: {path}")
-    f = h5py.File(path, "a")
-
-    for dname, data in zip(dnames, data_list):
-        if dname in f.keys():
-            del f[dname]
-        f.create_dataset(dname, data=data)
-
-    f.close()
-
-    return path
+        f.close()
 
 
 def plot_time_series(
     time_array, data, ax=None, plot_masked=False, plotfile=None, **kwargs
 ):
-    """
-    Plot a time series
+    """Plot a time series
+
+    Parameters
+    ----------
+    time_array : numpy array
+        times
+    data : numpy array
+        time series data
+    ax : matplotlib axes, optional
+        plot to this matplotlib axis if provided, by default None
+    plot_masked : bool, optional
+        plot masked vaules, by default False
+    plotfile : str, optional
+        save plot to this file, by default None
+
+    Returns
+    -------
+    matplotlib axes object
+
     """
 
     # plot without maskes
@@ -153,10 +188,34 @@ def plot_spec(
     plot_masked=False,
     spw="*",
     plotfile=None,
-    **kwargs,
 ):
-    """
-    Plot a spectrum
+    """Plot a spectrum
+
+    Parameters
+    ----------
+    freq_array : numpy array
+        frequencies
+    spec : numpy array
+        spectral data
+    ax : matplotlib axes object, optional
+        plot to this matplotlib axis if provided, by default None
+    rfi_ranges : list of tuples, optional
+        ranges known to be affected by RFI, by default None
+    plot_protected : bool or list of tuples, optional
+        plot protected frequencies, by default False
+    plot_internal : bool or list of tuples, optional
+        plot frequencies of VLA internal interference, by default False
+    plot_masked : bool, optional
+        plot masked values, by default False
+    spw : str, optional
+        spectral window to plot, by default "*"
+    plotfile : str, optional
+        save plot to this file, by default None
+
+    Returns
+    -------
+    matplotlib axes object
+
     """
     ymax = 1e4
 
@@ -229,8 +288,25 @@ def plot_spec_spw_summary(
     plot_masked=False,
     **kwargs,
 ):
-    """
-    Plot summary plot of spectral window spectra
+    """Plot spectal of all spectral windows in a summary plot
+
+    Parameters
+    ----------
+    freq_array : numpy array
+        frequencies
+    spec : numpy array
+        spectral data
+    ax : matplotlib axes object, optional
+        plot to this matplotlib axis if provided, by default None
+    plot_masked : bool, optional
+        plot masked values, by default False
+    plotfile : str, optional
+        save plot to this file, by default None
+
+    Returns
+    -------
+    matplotlib axes object
+
     """
     ymax = 1e4
 
@@ -288,8 +364,27 @@ def plot_spec_spw_summary(
 
 
 def plot_spec_spw(freq_array, spec, spw, ax=None, fig=None, plot_masked=False):
-    """
-    Plot spectral windows
+    """Plot a spectrum
+
+    Parameters
+    ----------
+    freq_array : numpy array
+        frequencies
+    spec : numpy array
+        spectral data
+    spw : str, optional
+        spectral window to plot
+    ax : matplotlib axes object, optional
+        plot to this matplotlib axis if provided, by default None
+    fig : matplotlib fig object, optional
+        by default None
+    plot_masked : bool, optional
+        plot masked values, by default False
+
+    Returns
+    -------
+    matplotlib axes object
+
     """
 
     # plot without maskes
@@ -340,7 +435,7 @@ def plot_spec_spw(freq_array, spec, spw, ax=None, fig=None, plot_masked=False):
 def plot_wf(
     freq_array,
     wf,
-    dt=1,
+    dt=1.0,
     scan_boundaries=None,
     ax=None,
     spw="*",
@@ -348,8 +443,31 @@ def plot_wf(
     plotfile=None,
     **kwargs,
 ):
-    """
-    Plot Spectrogram (Waterfall plot)
+    """Plot spectrogram (waterfall plot)
+
+    Parameters
+    ----------
+    freq_array : numpy array
+        array of frequencies
+    wf : numpy array
+        spectrogram data (waterfall)
+    dt : float, optional
+        time integration in seconds, by default 1
+    scan_boundaries : list, optional
+        scan boundaries, by default None
+    ax : matplotlib axes object, optional
+        plot to this matplotlib axis if provided, by default None
+    spw : str, optional
+        spectral window to plot, by default "*"
+    plot_masked : bool, optional
+        if true, plot masked values by default False
+    plotfile : str, optional
+        save plot to this file, by default None
+
+    Returns
+    -------
+    matplotlib axes object
+
     """
 
     # plot without maskes
@@ -414,8 +532,29 @@ def plot_wf_spw(
     plot_masked=False,
     **kwargs,
 ):
-    """
-    Plot spectral windows spectrograms
+    """Plot spectrogram (waterfall plot) for one spectral window
+
+    Parameters
+    ----------
+    freq_array : numpy array
+        array of frequencies
+    wf : numpy array
+        spectrogram data (waterfall)
+    spw : int
+        spectral window
+    dt : float, optional
+        time integration in seconds, by default 1
+    scan_boundaries : list, optional
+        scan boundaries, by default None
+    ax : matplotlib axes object, optional
+        plot to this matplotlib axis if provided, by default None
+    plot_masked : bool, optional
+        if true, plot masked values by default False
+
+    Returns
+    -------
+    matplotlib axes object
+
     """
 
     # plot without maskes

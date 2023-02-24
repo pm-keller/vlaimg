@@ -171,3 +171,80 @@ def get_ntimes(ms):
     np.savetxt(printfile, ntimes)
 
     return ntimes
+
+
+def get_field_names(ms):
+    """Get field names
+
+    Parameters
+    ----------
+    ms : str
+        path to measurement set
+
+    Returns
+    -------
+    dict
+        field name strings of flux calibrators, phase calibrators, all calibrators, targets and model.
+    """
+
+    root = os.path.dirname(ms)
+
+    # get field names
+    msmd = casatools.msmetadata()
+    msmd.open(ms)
+    fluxcal_list = msmd.fieldsforintent("CALIBRATE_FLUX#UNSPECIFIED")
+    phasecal_list = msmd.fieldsforintent("CALIBRATE_PHASE#UNSPECIFIED")
+    target_list = msmd.fieldsforintent("OBSERVE_TARGET#UNSPECIFIED")
+    calibrators_list = np.hstack([fluxcal_list, phasecal_list])
+
+    # get model name
+    model = msmd.namesforfields(fluxcal_list[0])[0]
+    if model == "J0542+4951":
+        model = "3C147"
+    model += "_L.im"
+
+    fluxcal, phasecal, calibrators, targets = "", "", "", ""
+
+    # make field name strings
+    for field in fluxcal_list:
+        fluxcal += msmd.namesforfields(field)[0] + ","
+    for field in phasecal_list:
+        phasecal += msmd.namesforfields(field)[0] + ","
+    for field in calibrators_list:
+        calibrators += msmd.namesforfields(field)[0] + ","
+    for field in target_list:
+        targets += msmd.namesforfields(field)[0] + ","
+
+    # remove last comma
+    fluxcal = fluxcal[:-1]
+    phasecal = phasecal[:-1]
+    calibrators = calibrators[:-1]
+    targets = targets[:-1]
+
+    return {
+        "fluxcal": fluxcal,
+        "phasecal": phasecal,
+        "calibrators": calibrators,
+        "targets": targets,
+        "model": model,
+    }
+
+
+def get_versionnames(ms):
+    """Get a list of flagversions
+
+    Parameters
+    ----------
+    ms : str
+        path to measurement set
+
+    Returns
+    -------
+    list of str
+        flag version names
+    """
+
+    if os.path.exists(ms + ".flagversions"):
+        return [vname.split(".")[-1] for vname in os.listdir(ms + ".flagversions")]
+    else:
+        return []
