@@ -56,13 +56,13 @@ def plotobs(ms, overwrite=False):
 
     plotfile = os.path.join(root, "plots/obsplots/antlayout.png")
 
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         print(f"\nplot antenna layout: {plotfile}")
         casatasks.plotants(ms, figfile=plotfile)
 
     plotfile = os.path.join(root, "plots/obsplots/elevation_vs_time.png")
 
-    if len(glob.glob(plotfile[:-4] + "*")) > 0:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         print(f"\nplot elevation vs. time: {plotfile}")
         casaplotms.plotms(
             ms,
@@ -77,7 +77,7 @@ def plotobs(ms, overwrite=False):
 
     plotfile = os.path.join(root, "plots/obsplots/data_stream.png")
 
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         print(f"\nplot antenna data stream: {plotfile}")
         casaplotms.plotms(
             ms,
@@ -113,7 +113,7 @@ def setjy_model_amp_vs_uvdist(ms, overwrite=False):
     root = os.path.dirname(ms)
     plotfile = os.path.join(root, "plots/calplots/setjy_model_amp_vs_uvdist.png")
 
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         field = vladata.get_field_names(ms)["fluxcal"]
 
         print(f"\nplotting model amplitude vs. uv-distance: {plotfile}")
@@ -162,7 +162,7 @@ def find_dead_ants_amp_vs_freq(ms, ant0=0, nants=27, overwrite=False):
                 root, f"plots/dataplots/find_dead_ants_amp_vs_freq_ant_{ant}.png"
             )
 
-            if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+            if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
                 casaplotms.plotms(
                     ms,
                     xaxis="freq",
@@ -199,7 +199,7 @@ def single_chans_amp_vs_time(ms, chans, overwrite=False):
 
     fields = vladata.get_field_names(ms)["calibrators"]
 
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         print(f"\nplotting the calibration channels: {plotfile}")
         casaplotms.plotms(
             ms,
@@ -267,13 +267,7 @@ def initcal(
             root,
             f"plots/calplots/{bandpass_init_table.split('/')[-1]}_phase_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
-            print(
-                os.path.exists(plotfile),
-                (len(glob.glob(plotfile[:-4] + "*")) > 0),
-                overwrite,
-                (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite,
-            )
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=bandpass_init_table,
                 field=field,
@@ -293,7 +287,7 @@ def initcal(
             root,
             f"plots/calplots/{bandpass_init_table.split('/')[-1]}_amp_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=bandpass_init_table,
                 field=field,
@@ -311,7 +305,7 @@ def initcal(
         plotfile = os.path.join(
             root, f"plots/calplots/{bandpass_table.split('/')[-1]}_phase_ant_{ant}.png"
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=bandpass_table,
                 field=field,
@@ -329,7 +323,7 @@ def initcal(
         plotfile = os.path.join(
             root, f"plots/calplots/{bandpass_table.split('/')[-1]}_amp_ant_{ant}.png"
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=bandpass_table,
                 field=field,
@@ -347,7 +341,7 @@ def initcal(
         plotfile = os.path.join(
             root, f"plots/calplots/{delay_init_table.split('/')[-1]}_ant_{ant}.png"
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 delay_init_table,
                 field=field,
@@ -367,7 +361,7 @@ def initcal(
         plotfile = os.path.join(
             root, f"plots/calplots/{bandpass_table.split('/')[-1]}_phase_spw_{spw}.png"
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=bandpass_table,
                 field=field,
@@ -384,7 +378,7 @@ def initcal(
         plotfile = os.path.join(
             root, f"plots/calplots/{bandpass_table.split('/')[-1]}_amp_spw_{spw}.png"
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=bandpass_table,
                 field=field,
@@ -402,7 +396,7 @@ def initcal(
             root,
             f"plots/dataplots/fluxcal_initcal_round_{rnd}_amp_vs_freq_avg_spw_{spw}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=ms,
                 field=field,
@@ -424,7 +418,7 @@ def initcal(
 
     print("\nplot delay calibration")
     plotfile = os.path.join(root, f"plots/calplots/{delay_table.split('/')[-1]}.png")
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         casaplotms.plotms(
             delay_table,
             field=field,
@@ -442,7 +436,7 @@ def initcal(
     plotfile = os.path.join(
         root, f"plots/dataplots/fluxcal_initcal_round_{rnd}_amp_vs_freq.png"
     )
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         casaplotms.plotms(
             vis=ms,
             field=field,
@@ -462,7 +456,7 @@ def initcal(
     plotfile = os.path.join(
         root, f"plots/dataplots/fluxcal_initcal_round_{rnd}_phase_vs_freq.png"
     )
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         casaplotms.plotms(
             vis=ms,
             field=field,
@@ -503,7 +497,7 @@ def flagging_before_after(ms, field, target="fluxcal", overwrite=False):
 
     plotfile = root + f"/plots/dataplots/before_{target}_flagging_amp_vs_freq.png"
 
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         print(plotfile)
         casaplotms.plotms(
             ms + f".before_flagging.{target}.averaged",
@@ -521,7 +515,7 @@ def flagging_before_after(ms, field, target="fluxcal", overwrite=False):
 
     plotfile = root + f"/plots/dataplots/after_{target}_flagging_amp_vs_freq.png"
 
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         print(plotfile)
         casaplotms.plotms(
             ms + f".after_flagging.{target}.averaged",
@@ -539,7 +533,7 @@ def flagging_before_after(ms, field, target="fluxcal", overwrite=False):
 
     plotfile = root + f"/plots/dataplots/before_{target}_flagging_phase_vs_freq.png"
 
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         print(plotfile)
         casaplotms.plotms(
             ms + f".before_flagging.{target}.averaged",
@@ -557,7 +551,7 @@ def flagging_before_after(ms, field, target="fluxcal", overwrite=False):
 
     plotfile = root + f"/plots/dataplots/after_{target}_flagging_phase_vs_freq.png"
 
-    if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
         print(plotfile)
         casaplotms.plotms(
             ms + f".after_flagging.{target}.averaged",
@@ -669,8 +663,7 @@ def fluxboot_gains(
             root,
             f"plots/calplots/{short_gain_table.split('/')[-1]}_phase_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
-            print("plotting")
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=short_gain_table,
                 field=field,
@@ -690,8 +683,7 @@ def fluxboot_gains(
             root,
             f"plots/calplots/{long_gain_table.split('/')[-1]}_phase_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
-            print("plotting")
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=long_gain_table,
                 field=field,
@@ -711,7 +703,7 @@ def fluxboot_gains(
             root,
             f"plots/calplots/{long_gain_table.split('/')[-1]}_amp_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=long_gain_table,
                 field=field,
@@ -731,7 +723,7 @@ def fluxboot_gains(
             root,
             f"plots/calplots/{flux_gain_table.split('/')[-1]}_phase_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=flux_gain_table,
                 field=field,
@@ -751,7 +743,7 @@ def fluxboot_gains(
             root,
             f"plots/calplots/{flux_gain_table.split('/')[-1]}_amp_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=flux_gain_table,
                 field=field,
@@ -803,19 +795,19 @@ def finalcal(
 
     # get field names
     field_dict = vladata.get_field_names(ms)
-    field = field_dict["calibrators"]
+    field = field_dict["phasecal"]
 
     for ant in range(nants):
         # flux calibrator gain phases
         plotfile = os.path.join(
             root,
-            f"plots/calplots/{short_gain_table.split('/')[-1]}_phase_ant_{ant}.png",
+            f"plots/calplots/{flux_phase_table.split('/')[-1]}_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=flux_phase_table,
                 field=field_dict["fluxcal"],
-                xaxis="time",
+                xaxis="frequency",
                 yaxis="phase",
                 coloraxis="spw",
                 iteraxis="corr",
@@ -832,8 +824,7 @@ def finalcal(
             root,
             f"plots/calplots/{short_gain_table.split('/')[-1]}_phase_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
-            print("plotting")
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=short_gain_table,
                 field=field,
@@ -853,8 +844,7 @@ def finalcal(
             root,
             f"plots/calplots/{amp_gain_table.split('/')[-1]}_phase_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
-            print("plotting")
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=amp_gain_table,
                 field=field,
@@ -863,7 +853,6 @@ def finalcal(
                 coloraxis="spw",
                 iteraxis="corr",
                 gridcols=2,
-                plotrange=[-1, -1, -180, 180],
                 antenna=str(ant),
                 highres=True,
                 overwrite=True,
@@ -874,7 +863,7 @@ def finalcal(
             root,
             f"plots/calplots/{amp_gain_table.split('/')[-1]}_amp_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=amp_gain_table,
                 field=field,
@@ -893,8 +882,7 @@ def finalcal(
             root,
             f"plots/calplots/{phase_gain_table.split('/')[-1]}_phase_ant_{ant}.png",
         )
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
-            print("plotting")
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 vis=phase_gain_table,
                 field=field,
@@ -903,7 +891,6 @@ def finalcal(
                 coloraxis="spw",
                 iteraxis="corr",
                 gridcols=2,
-                plotrange=[-1, -1, -180, 180],
                 antenna=str(ant),
                 highres=True,
                 overwrite=True,
@@ -936,8 +923,8 @@ def summary(ms, overwrite=False):
     for field in fields:
         print(field)
 
-        plotfile = root + f"/plots/{field}_amp_vs_uvdist_corrected.png"
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        plotfile = root + f"/plots/dataplots/{field}_amp_vs_uvdist_corrected.png"
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 ms,
                 xaxis="uvwave",
@@ -945,14 +932,14 @@ def summary(ms, overwrite=False):
                 ydatacolumn="corrected",
                 field=field,
                 coloraxis="spw",
-                timeavg="500",
+                avgtime="500",
                 highres=True,
                 overwrite=True,
                 plotfile=plotfile,
             )
 
-        plotfile = root + f"/plots/{field}_amp_vs_freq_corrected.png"
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        plotfile = root + f"/plots/dataplots/{field}_amp_vs_freq_corrected.png"
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 ms,
                 xaxis="freq",
@@ -960,14 +947,14 @@ def summary(ms, overwrite=False):
                 ydatacolumn="corrected",
                 field=field,
                 coloraxis="antenna1",
-                timeavg="500",
+                avgtime="500",
                 highres=True,
                 overwrite=True,
                 plotfile=plotfile,
             )
 
-        plotfile = root + f"/plots/{field}_phase_vs_freq_corrected.png"
-        if (len(glob.glob(plotfile[:-4] + "*")) > 0) or overwrite:
+        plotfile = root + f"/plots/dataplots/{field}_phase_vs_freq_corrected.png"
+        if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
             casaplotms.plotms(
                 ms,
                 xaxis="freq",
@@ -975,7 +962,7 @@ def summary(ms, overwrite=False):
                 ydatacolumn="corrected",
                 field=field,
                 coloraxis="antenna1",
-                timeavg="500",
+                avgtime="500",
                 highres=True,
                 overwrite=True,
                 plotfile=plotfile,

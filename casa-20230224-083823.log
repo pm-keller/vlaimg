@@ -94,3 +94,196 @@
 2023-02-24 08:39:10	INFO	flagmanager::::casa	flagmanager( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', mode='restore', versionname='after_detflags', oldname='', comment='', merge='replace' )
 2023-02-24 08:39:10	INFO	flagmanager::AgentFlagger::open	Table type is Measurement Set
 2023-02-24 08:39:10	INFO	flagmanager::::casa	Restore flagversions after_detflags
+2023-02-24 08:39:30	INFO	flagmanager::::casa	Task flagmanager complete. Start time: 2023-02-24 19:39:09.773495 End time: 2023-02-24 19:39:30.338072
+2023-02-24 08:39:30	INFO	flagmanager::::casa	##### End Task: flagmanager          #####
+2023-02-24 08:39:30	INFO	flagmanager::::casa	##########################################
+2023-02-24 08:39:30	INFO	msmetadata_cmpt.cc::open	Performing internal consistency checks on /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms...
+2023-02-24 08:39:30	INFO	MSMetaData::_computeScanAndSubScanProperties 	Computing scan and subscan properties...
+2023-02-24 08:39:32	INFO	msmetadata_cmpt.cc::open	Performing internal consistency checks on /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms...
+2023-02-24 08:39:32	INFO	setjy::::casa	##########################################
+2023-02-24 08:39:32	INFO	setjy::::casa	##### Begin Task: setjy              #####
+2023-02-24 08:39:32	INFO	setjy::::casa	setjy( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', field='J0542+4951', spw='', selectdata=False, timerange='', scan='', intent='', observation='', scalebychan=True, standard='Perley-Butler 2017', model='3C147_L.im', listmodels=False, fluxdensity=-1, spix=0.0, reffreq='1GHz', polindex=[], polangle=[], rotmeas=0.0, fluxdict={}, useephemdir=False, interpolation='nearest', usescratch=True, ismms=False )
+2023-02-24 08:39:32	INFO	setjy::::casa	{'field': 'J0542+4951'}
+2023-02-24 08:39:32	INFO	Imager::open() 	Opening MeasurementSet /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms
+2023-02-24 08:39:32	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:35	INFO	setjy::::casa	Using /u/kel334/.casa/data/nrao/VLA/CalModels/3C147_L.im for model.
+2023-02-24 08:39:35	INFO	imager::setjy()	Using channel dependent flux densities
+2023-02-24 08:39:35	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:36	INFO	imager::data selection	Selected 1493856 out of 6115824 rows.
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 0  [I=28.131, Q=0, U=0, V=0] Jy @ 1.008e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 1  [I=26.94, Q=0, U=0, V=0] Jy @ 1.072e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 2  [I=25.849, Q=0, U=0, V=0] Jy @ 1.136e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 3  [I=24.846, Q=0, U=0, V=0] Jy @ 1.2e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 4  [I=23.92, Q=0, U=0, V=0] Jy @ 1.264e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 5  [I=23.062, Q=0, U=0, V=0] Jy @ 1.328e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 6  [I=22.266, Q=0, U=0, V=0] Jy @ 1.392e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 7  [I=21.524, Q=0, U=0, V=0] Jy @ 1.456e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 8  [I=20.832, Q=0, U=0, V=0] Jy @ 1.52e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 9  [I=20.183, Q=0, U=0, V=0] Jy @ 1.584e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 10  [I=19.575, Q=0, U=0, V=0] Jy @ 1.648e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 11  [I=19.003, Q=0, U=0, V=0] Jy @ 1.712e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 12  [I=18.464, Q=0, U=0, V=0] Jy @ 1.776e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 13  [I=17.955, Q=0, U=0, V=0] Jy @ 1.84e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 14  [I=17.474, Q=0, U=0, V=0] Jy @ 1.904e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:36	INFO	imager::setjy()	  J0542+4951 (fld ind 0) spw 15  [I=17.019, Q=0, U=0, V=0] Jy @ 1.968e+09Hz, (Perley-Butler 2017)
+2023-02-24 08:39:39	INFO	imager::setjy()	Using model image /u/kel334/.casa/data/nrao/VLA/CalModels/3C147_L.im
+2023-02-24 08:39:39	INFO	imager::setjy()	Scaling spw(s) [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]'s model image by channel to  I = 28.1425, 20.8376, 16.5903 Jy @(1.00742e+09, 1.51942e+09, 2.03142e+09)Hz (LSRK) for visibility prediction (a few representative values are shown).
+2023-02-24 08:39:39	INFO	imager::setjy()	The model image's reference pixel is 0.000469228 arcsec from J0542+4951's phase center.
+2023-02-24 08:39:40	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:40	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:42	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:42	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:43	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:43	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:46	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:47	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:49	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:49	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:51	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:51	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:52	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:52	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:54	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:54	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:55	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:55	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:57	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:57	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:39:58	INFO		Clearing all model records in MS header.
+2023-02-24 08:39:58	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:40:00	INFO		Clearing all model records in MS header.
+2023-02-24 08:40:00	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:40:01	INFO		Clearing all model records in MS header.
+2023-02-24 08:40:01	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:40:02	INFO		Clearing all model records in MS header.
+2023-02-24 08:40:02	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:40:04	INFO		Clearing all model records in MS header.
+2023-02-24 08:40:04	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:40:05	INFO		Clearing all model records in MS header.
+2023-02-24 08:40:05	INFO	imager::data selection	Selected 93366 out of 6115824 rows.
+2023-02-24 08:40:07	INFO	setjy::::casa	Task setjy complete. Start time: 2023-02-24 19:39:32.118961 End time: 2023-02-24 19:40:06.984341
+2023-02-24 08:40:07	INFO	setjy::::casa	##### End Task: setjy                #####
+2023-02-24 08:40:07	INFO	setjy::::casa	##########################################
+2023-02-24 08:40:07	INFO	msmetadata_cmpt.cc::open	Performing internal consistency checks on /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms...
+2023-02-24 08:40:07	INFO	plotms::::casa	##########################################
+2023-02-24 08:40:07	INFO	plotms::::casa	##### Begin Task: plotms             #####
+2023-02-24 08:40:07	INFO	plotms::::casa	plotms( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', gridrows=1, gridcols=1, rowindex=0, colindex=0, plotindex=0, xaxis='uvdist', xdatacolumn='', xframe='', xinterp='', yaxis='amp', ydatacolumn='model', yframe='', yinterp='', yaxislocation='', selectdata=True, field='J0542+4951', spw='', timerange='', uvrange='', antenna='', scan='', correlation='', array='', observation='', intent='', feed='', msselect='', averagedata=True, avgchannel='', avgtime='', avgscan=False, avgfield=False, avgbaseline=False, avgantenna=False, avgspw=False, scalar=False, transform=True, freqframe='', restfreq='', veldef='RADIO', phasecenter='', extendflag=False, extcorr=False, extchannel=False, iteraxis='', xselfscale=False, yselfscale=False, xsharedaxis=False, ysharedaxis=False, customsymbol=[], symbolshape='autoscaling', symbolsize=2, symbolcolor='0000ff', symbolfill='fill', symboloutline=False, coloraxis='spw', customflaggedsymbol=False, flaggedsymbolshape='circle', flaggedsymbolsize=2, flaggedsymbolcolor='ff0000', flaggedsymbolfill='fill', flaggedsymboloutline=False, xconnector='', timeconnector=False, plotrange=[], title='', titlefont=0, xlabel='', xaxisfont=0, ylabel='', yaxisfont=0, showmajorgrid=False, majorwidth=1, majorstyle='', majorcolor='B0B0B0', showminorgrid=False, minorwidth=1, minorstyle='', minorcolor='D0D0D0', showlegend=False, legendposition='', plotfile='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/calplots/setjy_model_amp_vs_uvdist.png', expformat='', verbose=True, exprange='', highres=True, dpi=-1, width=-1, height=-1, overwrite=True, showgui=True, clearplots=True, callib=[], headeritems='', showatm=False, showtsky=False, showimage=False )
+2023-02-24 08:40:07	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, CANVAS, DISPLAY, PAGEHEADER, ITERATION, LOG, PLOTMS_OPTIONS.
+2023-02-24 08:40:07	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, DISPLAY.
+2023-02-24 08:40:07	INFO	PlotMS::load_cache	Clearing the existing plotms cache.
+2023-02-24 08:40:07	INFO	PlotMS::load_cache	START     Current memory usage: 12431 kilobytes.
+2023-02-24 08:40:07	INFO	PlotMS::load_cache	Plotting table 19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms
+2023-02-24 08:40:07	INFO	PlotMS::load_cache	  Selection: field: J0542+4951
+2023-02-24 08:40:07	INFO	PlotMS::load_cache	Caching for the new plot: Amp(17):model vs. UVdist(28)...
+2023-02-24 08:40:07	INFO	PlotMS::load_cache	Loading page header cache
+2023-02-24 08:40:08	INFO	plotms::::casa	Waiting until drawing of the plot has completed before exporting it
+2023-02-24 08:40:19	INFO	PlotMS::load_cache	Data selection will yield a total of 382427136 plottable points (flagged and unflagged).
+2023-02-24 08:40:19	INFO	PlotMS::load_cache+	The plotms cache will require an estimated 2.3279 GB of memory (6.08716 bytes/point).
+2023-02-24 08:40:19	INFO	PlotMS::load_cache+	This is 0.294225% of the memory avail. to CASA (791.195 GB).
+2023-02-24 08:40:25	INFO	PlotMS::load_cache	Loading chunks......
+2023-02-24 08:40:33	INFO	PlotMS::load_cache	Generating the plot mask.
+2023-02-24 08:40:34	INFO	PlotMS::load_cache	refTime = 2019/09/18/00:00:00.0
+2023-02-24 08:40:34	INFO	PlotMS::load_cache	Finished loading.
+2023-02-24 08:40:34	INFO	PlotMS::load_cache	Setting up iteration indexing (if necessary), and calculating plot ranges.
+2023-02-24 08:40:46	INFO	PlotMS::load_cache	Axes ranges:
+2023-02-24 08:40:46	INFO	PlotMS::load_cache+	UVdist: 832.818 to 36289.5 (unflagged); ; 754.238 to 36289.5 (flagged).
+2023-02-24 08:40:46	INFO	PlotMS::load_cache+	Amp:model: 0 to 28.0716 (unflagged); 0 to 0(flagged).
+2023-02-24 08:40:46	INFO	PlotMS::load_cache	Finished indexing.
+2023-02-24 08:40:07	INFO	PlotMS::load_cache	END       Time: +39 seconds.  Memory: +1.80144e+16 kilobytes.
+2023-02-24 08:40:46	INFO	PlotMS::plot	Plotting 236589540 unflagged points.
+2023-02-24 08:40:47	INFO	plotms::::casa	Exporting the plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/calplots/setjy_model_amp_vs_uvdist.png
+2023-02-24 08:41:56	INFO	QPExporter::export	START     Current memory usage: 1.80144e+16 kilobytes.
+2023-02-24 08:41:56	INFO	QPExporter::export	END       Time: +71 seconds.  Memory: +1.80144e+16 kilobytes.
+2023-02-24 08:43:06	INFO	PlotMS::plot	Exported /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/calplots/setjy_model_amp_vs_uvdist.png
+2023-02-24 08:43:06	INFO	PlotMS::export	Successfully exported plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/calplots/setjy_model_amp_vs_uvdist.png!
+2023-02-24 08:43:06	INFO	plotms::::casa	Task plotms complete. Start time: 2023-02-24 19:40:07.174955 End time: 2023-02-24 19:43:06.469637
+2023-02-24 08:43:06	INFO	plotms::::casa	##### End Task: plotms               #####
+2023-02-24 08:43:06	INFO	plotms::::casa	##########################################
+2023-02-24 08:43:06	INFO	msmetadata_cmpt.cc::open	Performing internal consistency checks on /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms...
+2023-02-24 08:43:07	INFO	plotms::::casa	##########################################
+2023-02-24 08:43:07	INFO	plotms::::casa	##### Begin Task: plotms             #####
+2023-02-24 08:43:07	INFO	plotms::::casa	plotms( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', gridrows=1, gridcols=1, rowindex=0, colindex=0, plotindex=0, xaxis='freq', xdatacolumn='', xframe='', xinterp='', yaxis='amp', ydatacolumn='data', yframe='', yinterp='', yaxislocation='', selectdata=True, field='J0542+4951,J1033+4116,J1130+3815', spw='', timerange='', uvrange='', antenna='0,1', scan='', correlation='RR,LL', array='', observation='', intent='', feed='', msselect='', averagedata=True, avgchannel='', avgtime='400', avgscan=False, avgfield=False, avgbaseline=False, avgantenna=False, avgspw=False, scalar=False, transform=True, freqframe='', restfreq='', veldef='RADIO', phasecenter='', extendflag=False, extcorr=False, extchannel=False, iteraxis='', xselfscale=False, yselfscale=False, xsharedaxis=False, ysharedaxis=False, customsymbol=[], symbolshape='autoscaling', symbolsize=2, symbolcolor='0000ff', symbolfill='fill', symboloutline=False, coloraxis='spw', customflaggedsymbol=False, flaggedsymbolshape='circle', flaggedsymbolsize=2, flaggedsymbolcolor='ff0000', flaggedsymbolfill='fill', flaggedsymboloutline=False, xconnector='', timeconnector=False, plotrange=[1.0, 2.0, 0.0, 1.0], title='', titlefont=0, xlabel='', xaxisfont=0, ylabel='', yaxisfont=0, showmajorgrid=False, majorwidth=1, majorstyle='', majorcolor='B0B0B0', showminorgrid=False, minorwidth=1, minorstyle='', minorcolor='D0D0D0', showlegend=False, legendposition='', plotfile='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/dataplots/find_dead_ants_amp_vs_freq_ant_1.png', expformat='', verbose=True, exprange='', highres=True, dpi=-1, width=-1, height=-1, overwrite=True, showgui=True, clearplots=True, callib=[], headeritems='', showatm=False, showtsky=False, showimage=False )
+2023-02-24 08:43:07	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, CANVAS, DISPLAY, PAGEHEADER, ITERATION, LOG, PLOTMS_OPTIONS.
+2023-02-24 08:43:07	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, DISPLAY.
+2023-02-24 08:43:07	INFO	PlotMS::load_cache	Clearing the existing plotms cache.
+2023-02-24 08:43:07	INFO	PlotMS::load_cache	START     Current memory usage: 12620.4 kilobytes.
+2023-02-24 08:43:07	INFO	PlotMS::load_cache	Plotting table 19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms
+2023-02-24 08:43:07	INFO	PlotMS::load_cache	  Selection: field: J0542+4951,J1033+4116,J1130+3815, antenna: 0,1, corr: RR,LL
+2023-02-24 08:43:07	INFO	PlotMS::load_cache	Data Averaging: 
+2023-02-24 08:43:07	INFO	PlotMS::load_cache+	 Using VECTOR averaging.
+2023-02-24 08:43:07	INFO	PlotMS::load_cache+	 Time: 400 seconds.  Scan: false;  Field: false
+2023-02-24 08:43:07	INFO	PlotMS::load_cache	Caching for the new plot: Amp(17):data vs. Frequency(6)...
+2023-02-24 08:43:07	INFO	plotms::::casa	Waiting until drawing of the plot has completed before exporting it
+2023-02-24 08:43:09	INFO	PlotMS::load_cache	Loading page header cache
+2023-02-24 08:43:14	INFO	PlotMS::load_cache	Data selection will yield a total of 731136 plottable points (flagged and unflagged).
+2023-02-24 08:43:14	INFO	PlotMS::load_cache+	The plotms cache will require an estimated 0.00454541 GB of memory (6.21691 bytes/point).
+2023-02-24 08:43:14	INFO	PlotMS::load_cache+	This is 0.000574499% of the memory avail. to CASA (791.195 GB).
+2023-02-24 08:43:15	INFO	PlotMS::load_cache	Loading chunks......
+2023-02-24 08:43:27	INFO	PlotMS::load_cache	Generating the plot mask.
+2023-02-24 08:43:27	INFO	PlotMS::load_cache	refTime = 2019/09/18/00:00:00.0
+2023-02-24 08:43:27	INFO	PlotMS::load_cache	Finished loading.
+2023-02-24 08:43:27	INFO	PlotMS::load_cache	Setting up iteration indexing (if necessary), and calculating plot ranges.
+2023-02-24 08:43:27	INFO	PlotMS::load_cache	Axes ranges:
+2023-02-24 08:43:27	INFO	PlotMS::load_cache+	Frequency: 1.011 to 2.028 (unflagged); ; 1.008 to 2.031 (flagged).
+2023-02-24 08:43:27	INFO	PlotMS::load_cache+	Amp:data: 0.000355988 to 5.16369 (unflagged); 1.43633e-06 to 5.98227e+07(flagged).
+2023-02-24 08:43:27	INFO	PlotMS::load_cache	Finished indexing.
+2023-02-24 08:43:07	INFO	PlotMS::load_cache	END       Time: +21 seconds.  Memory: +5007.7 kilobytes.
+2023-02-24 08:43:27	INFO	PlotMS::plot	Plotting 523392 unflagged points.
+2023-02-24 08:43:28	INFO	plotms::::casa	Exporting the plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/dataplots/find_dead_ants_amp_vs_freq_ant_1.png
+2023-02-24 08:43:28	INFO	QPExporter::export	START     Current memory usage: 17608 kilobytes.
+2023-02-24 08:43:28	INFO	QPExporter::export	END       Time: +0 seconds.  Memory: +2.26562 kilobytes.
+2023-02-24 08:43:29	INFO	PlotMS::plot	Exported /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/dataplots/find_dead_ants_amp_vs_freq_ant_1.png
+2023-02-24 08:43:29	INFO	PlotMS::export	Successfully exported plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/dataplots/find_dead_ants_amp_vs_freq_ant_1.png!
+2023-02-24 08:43:29	INFO	plotms::::casa	Task plotms complete. Start time: 2023-02-24 19:43:06.659189 End time: 2023-02-24 19:43:28.979917
+2023-02-24 08:43:29	INFO	plotms::::casa	##### End Task: plotms               #####
+2023-02-24 08:43:29	INFO	plotms::::casa	##########################################
+2023-02-24 08:43:29	INFO	plotms::::casa	##########################################
+2023-02-24 08:43:29	INFO	plotms::::casa	##### Begin Task: plotms             #####
+2023-02-24 08:43:29	INFO	plotms::::casa	plotms( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', gridrows=1, gridcols=1, rowindex=0, colindex=0, plotindex=0, xaxis='freq', xdatacolumn='', xframe='', xinterp='', yaxis='amp', ydatacolumn='data', yframe='', yinterp='', yaxislocation='', selectdata=True, field='J0542+4951,J1033+4116,J1130+3815', spw='', timerange='', uvrange='', antenna='0,2', scan='', correlation='RR,LL', array='', observation='', intent='', feed='', msselect='', averagedata=True, avgchannel='', avgtime='400', avgscan=False, avgfield=False, avgbaseline=False, avgantenna=False, avgspw=False, scalar=False, transform=True, freqframe='', restfreq='', veldef='RADIO', phasecenter='', extendflag=False, extcorr=False, extchannel=False, iteraxis='', xselfscale=False, yselfscale=False, xsharedaxis=False, ysharedaxis=False, customsymbol=[], symbolshape='autoscaling', symbolsize=2, symbolcolor='0000ff', symbolfill='fill', symboloutline=False, coloraxis='spw', customflaggedsymbol=False, flaggedsymbolshape='circle', flaggedsymbolsize=2, flaggedsymbolcolor='ff0000', flaggedsymbolfill='fill', flaggedsymboloutline=False, xconnector='', timeconnector=False, plotrange=[1.0, 2.0, 0.0, 1.0], title='', titlefont=0, xlabel='', xaxisfont=0, ylabel='', yaxisfont=0, showmajorgrid=False, majorwidth=1, majorstyle='', majorcolor='B0B0B0', showminorgrid=False, minorwidth=1, minorstyle='', minorcolor='D0D0D0', showlegend=False, legendposition='', plotfile='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/dataplots/find_dead_ants_amp_vs_freq_ant_2.png', expformat='', verbose=True, exprange='', highres=True, dpi=-1, width=-1, height=-1, overwrite=True, showgui=True, clearplots=True, callib=[], headeritems='', showatm=False, showtsky=False, showimage=False )
+2023-02-24 08:43:29	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, CANVAS, DISPLAY, PAGEHEADER, ITERATION, LOG, PLOTMS_OPTIONS.
+2023-02-24 08:43:29	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, DISPLAY.
+2023-02-24 08:43:29	INFO	PlotMS::load_cache	Clearing the existing plotms cache.
+2023-02-24 08:43:29	INFO	PlotMS::load_cache	START     Current memory usage: 12910 kilobytes.
+2023-02-24 08:43:29	INFO	PlotMS::load_cache	Plotting table 19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms
+2023-02-24 08:43:29	INFO	PlotMS::load_cache	  Selection: field: J0542+4951,J1033+4116,J1130+3815, antenna: 0,2, corr: RR,LL
+2023-02-24 08:43:29	INFO	PlotMS::load_cache	Data Averaging: 
+2023-02-24 08:43:29	INFO	PlotMS::load_cache+	 Using VECTOR averaging.
+2023-02-24 08:43:29	INFO	PlotMS::load_cache+	 Time: 400 seconds.  Scan: false;  Field: false
+2023-02-24 08:43:29	INFO	PlotMS::load_cache	Caching for the new plot: Amp(17):data vs. Frequency(6)...
+2023-02-24 08:43:30	INFO	plotms::::casa	Waiting until drawing of the plot has completed before exporting it
+2023-02-24 08:43:31	INFO	PlotMS::load_cache	Loading page header cache
+2023-02-24 08:43:37	INFO	PlotMS::load_cache	Data selection will yield a total of 731136 plottable points (flagged and unflagged).
+2023-02-24 08:43:37	INFO	PlotMS::load_cache+	The plotms cache will require an estimated 0.00454541 GB of memory (6.21691 bytes/point).
+2023-02-24 08:43:37	INFO	PlotMS::load_cache+	This is 0.000574499% of the memory avail. to CASA (791.195 GB).
+2023-02-24 08:43:37	INFO	PlotMS::load_cache	Loading chunks......
+2023-02-24 08:43:50	INFO	PlotMS::load_cache	Generating the plot mask.
+2023-02-24 08:43:50	INFO	PlotMS::load_cache	refTime = 2019/09/18/00:00:00.0
+2023-02-24 08:43:50	INFO	PlotMS::load_cache	Finished loading.
+2023-02-24 08:43:50	INFO	PlotMS::load_cache	Setting up iteration indexing (if necessary), and calculating plot ranges.
+2023-02-24 08:43:50	INFO	PlotMS::load_cache	Axes ranges:
+2023-02-24 08:43:50	INFO	PlotMS::load_cache+	Frequency: 1.011 to 2.028 (unflagged); ; 1.008 to 2.031 (flagged).
+2023-02-24 08:43:50	INFO	PlotMS::load_cache+	Amp:data: 0.000355988 to 4.71999 (unflagged); 1.07468e-06 to 5.03298e+07(flagged).
+2023-02-24 08:43:50	INFO	PlotMS::load_cache	Finished indexing.
+2023-02-24 08:43:29	INFO	PlotMS::load_cache	END       Time: +20 seconds.  Memory: +4991.44 kilobytes.
+2023-02-24 08:43:50	INFO	PlotMS::plot	Plotting 523392 unflagged points.
+2023-02-24 08:43:51	INFO	plotms::::casa	Exporting the plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/dataplots/find_dead_ants_amp_vs_freq_ant_2.png
+2023-02-24 08:43:51	INFO	QPExporter::export	START     Current memory usage: 17882.6 kilobytes.
+2023-02-24 08:43:51	INFO	QPExporter::export	END       Time: +1 seconds.  Memory: +1.95312 kilobytes.
+2023-02-24 08:43:51	INFO	PlotMS::plot	Exported /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/dataplots/find_dead_ants_amp_vs_freq_ant_2.png
+2023-02-24 08:43:51	INFO	PlotMS::export	Successfully exported plot to /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/dataplots/find_dead_ants_amp_vs_freq_ant_2.png!
+2023-02-24 08:43:51	INFO	plotms::::casa	Task plotms complete. Start time: 2023-02-24 19:43:28.989975 End time: 2023-02-24 19:43:51.195120
+2023-02-24 08:43:51	INFO	plotms::::casa	##### End Task: plotms               #####
+2023-02-24 08:43:51	INFO	plotms::::casa	##########################################
+2023-02-24 08:43:51	INFO	plotms::::casa	##########################################
+2023-02-24 08:43:51	INFO	plotms::::casa	##### Begin Task: plotms             #####
+2023-02-24 08:43:51	INFO	plotms::::casa	plotms( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms', gridrows=1, gridcols=1, rowindex=0, colindex=0, plotindex=0, xaxis='freq', xdatacolumn='', xframe='', xinterp='', yaxis='amp', ydatacolumn='data', yframe='', yinterp='', yaxislocation='', selectdata=True, field='J0542+4951,J1033+4116,J1130+3815', spw='', timerange='', uvrange='', antenna='0,3', scan='', correlation='RR,LL', array='', observation='', intent='', feed='', msselect='', averagedata=True, avgchannel='', avgtime='400', avgscan=False, avgfield=False, avgbaseline=False, avgantenna=False, avgspw=False, scalar=False, transform=True, freqframe='', restfreq='', veldef='RADIO', phasecenter='', extendflag=False, extcorr=False, extchannel=False, iteraxis='', xselfscale=False, yselfscale=False, xsharedaxis=False, ysharedaxis=False, customsymbol=[], symbolshape='autoscaling', symbolsize=2, symbolcolor='0000ff', symbolfill='fill', symboloutline=False, coloraxis='spw', customflaggedsymbol=False, flaggedsymbolshape='circle', flaggedsymbolsize=2, flaggedsymbolcolor='ff0000', flaggedsymbolfill='fill', flaggedsymboloutline=False, xconnector='', timeconnector=False, plotrange=[1.0, 2.0, 0.0, 1.0], title='', titlefont=0, xlabel='', xaxisfont=0, ylabel='', yaxisfont=0, showmajorgrid=False, majorwidth=1, majorstyle='', majorcolor='B0B0B0', showminorgrid=False, minorwidth=1, minorstyle='', minorcolor='D0D0D0', showlegend=False, legendposition='', plotfile='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/plots/dataplots/find_dead_ants_amp_vs_freq_ant_3.png', expformat='', verbose=True, exprange='', highres=True, dpi=-1, width=-1, height=-1, overwrite=True, showgui=True, clearplots=True, callib=[], headeritems='', showatm=False, showtsky=False, showimage=False )
+2023-02-24 08:43:51	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, CANVAS, DISPLAY, PAGEHEADER, ITERATION, LOG, PLOTMS_OPTIONS.
+2023-02-24 08:43:51	INFO	PlotMS::params_changed	Updating: REDRAW, MSDATA, CACHE, AXES, DISPLAY.
+2023-02-24 08:43:51	INFO	PlotMS::load_cache	Clearing the existing plotms cache.
+2023-02-24 08:43:51	INFO	PlotMS::load_cache	START     Current memory usage: 13163.5 kilobytes.
+2023-02-24 08:43:51	INFO	PlotMS::load_cache	Plotting table 19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms
+2023-02-24 08:43:51	INFO	PlotMS::load_cache	  Selection: field: J0542+4951,J1033+4116,J1130+3815, antenna: 0,3, corr: RR,LL
+2023-02-24 08:43:51	INFO	PlotMS::load_cache	Data Averaging: 
+2023-02-24 08:43:51	INFO	PlotMS::load_cache+	 Using VECTOR averaging.
+2023-02-24 08:43:51	INFO	PlotMS::load_cache+	 Time: 400 seconds.  Scan: false;  Field: false
+2023-02-24 08:43:51	INFO	PlotMS::load_cache	Caching for the new plot: Amp(17):data vs. Frequency(6)...

@@ -153,7 +153,9 @@ def priorcal(ms, name):
 
 
 # @task(cache_key_fn=task_input_hash)
-def initcal(ms, name, refant, calchan, priortables, rnd=0, overwrite=False):
+def initcal(
+    ms, name, refant, calchan, priortables, rnd=0, calmode="ap", overwrite=False
+):
     """Delay and bandpass calibration.
     Also use this as an initial calibration for subsequent automated RFI excision.
 
@@ -171,8 +173,10 @@ def initcal(ms, name, refant, calchan, priortables, rnd=0, overwrite=False):
         prior calibration tables
     rnd : int
         calibration round
+    calmode : str
+        calibration mode of initial bandpass gain calibration ("p" or "ap"), by default "ap"
     overwrite : bool
-        if true, overwrite existing calibration tables
+        if true, overwrite existing calibration tables, by default False
 
     Returns
     -------
@@ -252,7 +256,7 @@ def initcal(ms, name, refant, calchan, priortables, rnd=0, overwrite=False):
             refant=refant,
             spw=calchan,
             gaintype="G",
-            calmode="ap",
+            calmode=calmode,
             solint="int",
             minsnr=5.0,
             caltable=bandpass_init_table,
@@ -274,6 +278,7 @@ def initcal(ms, name, refant, calchan, priortables, rnd=0, overwrite=False):
             parang=True,
         )
 
+    if calmode == "ap":
         print("\nflag bandpass outliers")
         casatasks.flagdata(
             bandpass_table,
@@ -284,6 +289,7 @@ def initcal(ms, name, refant, calchan, priortables, rnd=0, overwrite=False):
             action="apply",
             flagbackup=False,
         )
+
     gaintables.append(bandpass_table)
 
     print(f"\napply calibration: {gaintables}")
@@ -585,15 +591,12 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
             amp_gain_table,
             phase_gain_table,
         ]:
-            print(f"\nremoving calibration table {table}")
             if os.path.exists(table):
+                print(f"\nremoving calibration table {table}")
                 shutil.rmtree(table)
 
-    # specify calibration table names
-    fluxcal_phase_table = os.path.join(root, f"caltables/{name}.p.Gavg")
-
     if (not os.path.exists(fluxcal_phase_table)) or overwrite:
-        print(f"\naveraged gain calibration on flux calibrator: {fluxcal_phase_table}")
+        print(f"\naveraged phase calibration on flux calibrator: {fluxcal_phase_table}")
         casatasks.gaincal(
             ms,
             caltable=fluxcal_phase_table,
@@ -608,6 +611,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
             calmode="p",
             gaintable=gaintables,
             parang=True,
+            append=False,
         )
 
     # remove any flags on this gaintable
@@ -635,7 +639,11 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
         shutil.rmtree(ms_calibrators)
     if (not os.path.exists(ms_calibrators)) or overwrite:
         casatasks.split(
-            ms, outputvis=ms_calibrators, datacolumn="corrected", keepflags=False
+            ms,
+            outputvis=ms_calibrators,
+            field=calibrators,
+            datacolumn="corrected",
+            keepflags=False,
         )
 
     for i, calibrator in enumerate(calibrators.split(",")):
@@ -653,15 +661,19 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
             append = False
         else:
             fit = np.load(
-                root + f"/output/phasecal_model_fit_{i+1}.npy", allow_pickle=True
-            ).item()["1"]
+                root + f"/output/phasecal_model_fit_{i}.npy", allow_pickle=True
+            ).item()
+
+            id = [key for key in fit.keys()][0]
+            fit = fit[id]
+
             casatasks.setjy(
                 ms_calibrators,
                 field=calibrator,
                 standard="manual",
                 fluxdensity=fit["fitFluxd"],
                 spix=fit["spidx"],
-                reffreq=fit["fitRefFreq"],
+                reffreq=str(fit["fitRefFreq"]) + "Hz",
                 usescratch=True,
             )
 
@@ -669,6 +681,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
 
         if (not os.path.exists(short_gain_table)) or overwrite:
             print(f"\nshort gain calibration: {short_gain_table}")
+            print(calibrator, append)
             casatasks.gaincal(
                 ms_calibrators,
                 caltable=short_gain_table,
@@ -689,7 +702,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
         if (not os.path.exists(amp_gain_table)) or overwrite:
             print(f"\namplitude gain calibration: {amp_gain_table}")
             casatasks.gaincal(
-                ms,
+                ms_calibrators,
                 caltable=amp_gain_table,
                 field=calibrator,
                 solint=solint_max,
@@ -708,7 +721,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
         if (not os.path.exists(phase_gain_table)) or overwrite:
             print(f"\nphase gain calibration: {phase_gain_table}")
             casatasks.gaincal(
-                ms,
+                ms_calibrators,
                 caltable=phase_gain_table,
                 field=calibrator,
                 solint=solint_max,
@@ -721,9 +734,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
                 parang=True,
             )
 
-        gaintables.append(phase_gain_table)
-
-        return gaintables
+    return (fluxcal_phase_table, short_gain_table, amp_gain_table, phase_gain_table)
 
 
 # @task(cache_key_fn=task_input_hash)

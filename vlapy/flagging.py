@@ -63,6 +63,7 @@ def save(ms, name, when, field):
     )
     np.save(root + f"/output/{name}_flags_summary_{when}.npy", summary_1)
 
+
 # @task(cache_key_fn=task_input_hash)
 def detflags(ms, quack, nchan, nspw, apriori, reapply=False):
     """Apply VLA deterministic flags. These include antennas not on source,
@@ -196,6 +197,7 @@ def detflags(ms, quack, nchan, nspw, apriori, reapply=False):
             )
         casatasks.flagmanager(ms, mode="save", versionname="after_detflags")
 
+
 # @task(cache_key_fn=task_input_hash)
 def autoroutine(
     ms,
@@ -232,9 +234,10 @@ def autoroutine(
 
     versionnames = vladata.get_versionnames(ms)
 
-    print(f"after_{target}_round_{rnd}_flags", versionnames)
     if f"after_{target}_round_{rnd}_flags" in versionnames and not overwrite:
-        casatasks.flagmanager(ms, mode="restore", versionname=f"after_{target}_round_{rnd}_flags")
+        casatasks.flagmanager(
+            ms, mode="restore", versionname=f"after_{target}_round_{rnd}_flags"
+        )
     else:
         save(ms, f"{target}_round_{rnd}", "before", field)
 
@@ -272,7 +275,9 @@ def autoroutine(
             flagbackup=False,
         )
 
-        print(f"\nRFlag on ABS_RL with timedevscale={devscale} and freqdevscale={devscale}")
+        print(
+            f"\nRFlag on ABS_RL with timedevscale={devscale} and freqdevscale={devscale}"
+        )
         casatasks.flagdata(
             ms,
             mode="rflag",
@@ -315,7 +320,9 @@ def autoroutine(
             flagbackup=False,
         )
 
-        print(f"\nRFlag on ABS_LR with timedevscale={devscale} and freqdevscale={devscale}")
+        print(
+            f"\nRFlag on ABS_LR with timedevscale={devscale} and freqdevscale={devscale}"
+        )
         casatasks.flagdata(
             ms,
             mode="rflag",

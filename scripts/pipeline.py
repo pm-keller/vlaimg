@@ -31,6 +31,8 @@ def pipeline_1(obs):
 
     print(f"\nprocessing observation {obs}")
 
+    ms_hanning = "/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms"
+
     # path to measurement set
     ms = os.path.join(conf["root"], obs, obs + ".ms")
     name = obs.split(".")[0]
@@ -45,7 +47,7 @@ def pipeline_1(obs):
 
     # get index of observation
     idx = np.where(np.array(conf["obs list"]) == obs)[0][0]
-
+    """
     # make data directories
     vladata.makedir(conf["root"], obs)
 
@@ -69,10 +71,10 @@ def pipeline_1(obs):
     inspect.get_mod_z_score_data(
         ms_hanning, masked=True, data_column="DATA", overwrite=False
     )
-
+    """
     # VLA prior calibration
     priortables = calibration.priorcal(ms_hanning, name)
-
+    """
     # compute and plot primary calibrator model
     calibration.setjy(ms_hanning, overwrite=True)
     plot.setjy_model_amp_vs_uvdist(ms_hanning, overwrite=False)
@@ -177,11 +179,11 @@ def pipeline_1(obs):
     ms_calibrators = os.path.join(root, "calibrators.ms")
 
     # plot flux bootstrapping gains
-    plot.fluxboot_gains(ms_calibrators, conf["ants"], *fluxbootgains, overwrite=True)
+    plot.fluxboot_gains(ms_calibrators, conf["ants"], *fluxbootgains, overwrite=False)
 
     # plot calibrator models
-    plot.calibrator_models(ms_calibrators, overwrite=True)
-
+    plot.calibrator_models(ms_calibrators, overwrite=False)
+    """
     # flag secondary calibrators residual
     flagging.autoroutine(
         ms_hanning,
@@ -200,33 +202,38 @@ def pipeline_1(obs):
     )
 
     # final calibration
-    gaintables = calibration.initcal(
+    inittables = calibration.initcal(
         ms_hanning,
         name,
         conf["refant"][idx],
         conf["cal chans"][idx],
         priortables,
         rnd=2,
+        calmode="p",
         overwrite=False,
     )
 
     plot.initcal(
-        ms_hanning, conf["ants"], conf["spw"], *gaintables, rnd=2, overwrite=False
+        ms_hanning, conf["ants"], conf["spw"], *inittables, rnd=2, overwrite=False
     )
 
-    gaintables = gaintables[1:]
+    gaintables = priortables + [inittables[1], inittables[3]]
 
     # final amplitude and phase calibration
-    gaintables = calibration.finalcal(
+    finaltables = calibration.finalcal(
         ms_hanning,
         name,
         conf["refant"][idx],
         conf["cal chans"][idx],
         conf["solint max"][idx],
         gaintables,
+        overwrite=True,
     )
+    # plot final calibration tables
+    plot.finalcal(ms_hanning, conf["ants"], *finaltables, overwrite=True)
 
     # apply calibration
+    gaintables += finaltables
     calibration.apply(ms_hanning, gaintables)
 
     # flag targets with devscale=5, cutoff=4, round 0
@@ -238,11 +245,12 @@ def pipeline_1(obs):
         devscale=5,
         cutoff=4,
         datacolumn="corrected",
+        overwrite=True,
     )
-    plot.flagging_before_after(ms_hanning, targets, "targets_round_0")
+    plot.flagging_before_after(ms_hanning, targets, "targets_round_0", overwrite=True)
 
     # make summary plots
-    plot.summary(ms_hanning, overwrite=False)
+    plot.summary(ms_hanning, overwrite=True)
 
     # compute modified z-score
     inspect.get_mod_z_score_data(
@@ -250,7 +258,7 @@ def pipeline_1(obs):
     )
 
     # prepare for imaging (split targets from measurement set and downweight outliers)
-    imaging.prep(ms_hanning, overwrite=False)
+    imaging.prep(ms_hanning, overwrite=True)
 
 
 if __name__ == "__main__":
