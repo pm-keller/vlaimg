@@ -15,11 +15,11 @@ Description: VLA flagging routines.
 
 import os
 import sys
+import h5py
 import shutil
-import yaml
 import casatasks
-import casatools
 import numpy as np
+from astropy.time import Time
 
 from prefect import task
 from prefect.tasks import task_input_hash
@@ -28,7 +28,7 @@ sys.path.append(os.getcwd())
 from vlapy import vladata
 
 
-def save(ms, name, when, field):
+def save(ms, name, when, field=""):
     """save flagversion and flagging summary
 
     Parameters
@@ -206,6 +206,7 @@ def autoroutine(
     rnd=0,
     devscale=5,
     cutoff=4,
+    grow=75,
     datacolumn="corrected",
     overwrite=False,
 ):
@@ -226,6 +227,8 @@ def autoroutine(
         devscale for RFlag, by default 5
     cutoff : int, optional
         cutoff for TFCrop, by default 4
+    grow : float, optional
+        grow flags if occupancy exceeds this threshold in percent, by degault 75
     datacolumn : str, optional
         if model is available, set this to 'residual', by default "residual"
     overwrite : bool, optional
@@ -235,6 +238,7 @@ def autoroutine(
     versionnames = vladata.get_versionnames(ms)
 
     if f"after_{target}_round_{rnd}_flags" in versionnames and not overwrite:
+        print(f"\nrestoring flag version: after_{target}_round_{rnd}_flags")
         casatasks.flagmanager(
             ms, mode="restore", versionname=f"after_{target}_round_{rnd}_flags"
         )
@@ -553,11 +557,12 @@ def autoroutine(
             ms,
             mode="extend",
             field=field,
-            growfreq=75.0,
-            growtime=75.0,
+            growfreq=grow,
+            growtime=grow,
             action="apply",
             extendpols=True,
-            extendflags=False,
+            extendflags=True,
+            combinescans=False,
             flagbackup=False,
         )
 
@@ -582,3 +587,182 @@ def autoroutine(
             timespan="scan",
             reindex=False,
         )
+
+
+# @task(cache_key_fn=task_input_hash)
+def madclip(ms, fields, target, spws, nsig=4, tavg=False, overwrite=False):
+    """Clip using median absolute deviation
+
+    Parameters
+    ----------
+    ms : str
+        path to measurement set
+    fields : str
+        fields to clip on
+    spws : list of str
+        spectral windows to clip on
+    nsig : int, optional
+        number of MADs outside of which to clip, by default 4
+    tavg : bool, optional
+        average in time, by default False
+    overwrite : bool, optional
+        if true, overwrite existing plots, by default False
+    """
+
+    versionnames = vladata.get_versionnames(ms)
+    if f"after_{target}_MAD_clipping_flags" in versionnames and not overwrite:
+        print(f"\nrestoring flag version: after_{target}_MAD_clipping_flags")
+        casatasks.flagmanager(
+            ms, mode="restore", versionname=f"after_{target}_MAD_clipping_flags"
+        )
+    else:
+        save(ms, f"{target}_MAD_clipping", "before", fields)
+
+        print(f"\nclipping {nsig}*MAD outliers on {target}")
+
+        for field in fields.split(","):
+            for spw in spws:
+                for corr in ["RR", "LL"]:
+                    # get visibility statistics
+                    stat = casatasks.visstat(
+                        ms,
+                        timeaverage=tavg,
+                        spw=spw,
+                        field=field,
+                        correlation=corr,
+                        axis="amp",
+                        datacolumn="corrected",
+                    )
+
+                    id = [key for key in stat.keys()][0]
+                    stat = stat[id]
+
+                    print(
+                        field,
+                        spw,
+                        corr,
+                        stat["median"],
+                        stat["medabsdevmed"],
+                        "ABS_" + corr,
+                    )
+
+                    # clip outside nsig median absolute deviations
+                    casatasks.flagdata(
+                        ms,
+                        mode="clip",
+                        action="apply",
+                        datacolumn="corrected",
+                        spw=spw,
+                        field=field,
+                        clipminmax=[
+                            stat["median"] - nsig * stat["medabsdevmed"],
+                            stat["median"] + nsig * stat["medabsdevmed"],
+                        ],
+                        correlation="ABS_" + corr,
+                        clipoutside=True,
+                        flagbackup=False,
+                    )
+
+        save(ms, f"{target}_MAD_clipping", "after", fields)
+
+
+# @task(cache_key_fn=task_input_hash)
+def manual(ms, flags, overwrite=False):
+    """Apply manual flags
+
+    Parameters
+    ----------
+    ms : str
+        path to measurement set
+    flags : dict
+        manual flags. Each entry should contain either a "time" or a "spw" and a "reason".
+    overwrite : bool, optional
+        if true, overwrite existing plots, by default False
+    """
+
+    versionnames = vladata.get_versionnames(ms)
+    if f"after_manual_flags" in versionnames and not overwrite:
+        print(f"restoring flag version: after_manual_flags")
+        casatasks.flagmanager(ms, mode="restore", versionname=f"after_manual_flags")
+    else:
+        save(ms, "manual", "before")
+
+        print("\napplying manual flags")
+        for flag in flags:
+            print(flags[flag]["reason"])
+
+            if "time" in flags[flag]:
+                casatasks.flagdata(
+                    ms,
+                    timerange=flags[flag]["time"],
+                    reason=flags[flag]["reason"],
+                    flagbackup=False,
+                )
+            elif "spw" in flags[flag]:
+                casatasks.flagdata(
+                    ms,
+                    spw=flags[flag]["spw"],
+                    reason=flags[flag]["reason"],
+                    flagbackup=False,
+                )
+
+        save(ms, "manual", "after")
+
+
+def zclip(ms, nsig, overwrite=False):
+    """Clip based on modified Z-score
+
+    Parameters
+    ----------
+    ms : str
+        path to measurement set
+    nsig : int
+        number of sigmas above which to clip
+    overwrite : bool, optional
+        if true, overwrite existing flags, by default False
+    """
+
+    save(ms, "zscore", "before")
+
+    versionnames = vladata.get_versionnames(ms)
+    if f"after_zscore_flags" in versionnames and not overwrite:
+        print(f"restoring flag version: after_zscore_flags")
+        casatasks.flagmanager(ms, mode="restore", versionname=f"after_zscore_flags")
+    else:
+        print("\nmodified Z-score flagging")
+
+        root = os.path.dirname(ms)
+        z_score_path = os.path.join(root, "output", "z_score_corrected.h5")
+
+        with h5py.File(z_score_path, "r") as f:
+            z_score = f["z-score avg"][()]
+            flags = f["flags avg"][()]
+            time_array = f["time array"][()]
+
+        # time array
+        tisot = np.unique(Time(time_array, format="jd", scale="utc").isot)
+
+        # apply masks
+        z_score = np.ma.masked_array(z_score, mask=flags)
+
+        # flag
+        idx = np.where(np.abs(z_score) > nsig)
+
+        for cnt, (i, j) in enumerate(zip(idx[0], idx[1])):
+            spw = str(j // 64) + ":" + str(j % 64)
+            time1 = tisot[i - 1][:-4].replace("T", "/").replace("-", "/")
+            time2 = tisot[i + 1][:-4].replace("T", "/").replace("-", "/")
+            timerange = time1 + "~" + time2
+
+            print(spw, timerange)
+
+            casatasks.flagdata(
+                ms,
+                mode="manual",
+                reason="Z-score",
+                spw=spw,
+                timerange=timerange,
+                flagbackup=False,
+            )
+
+        save(ms, "zscore", "after")

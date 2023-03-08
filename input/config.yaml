@@ -18,6 +18,8 @@ obs list: [
 spw: 16
 ants: 27
 
+spws: ["5", "6", "7", "10", "11", "12", "13", "14", "15"]
+
 cal chans: [
   "5:32,6:32,7:32,10:15,11:32,12:32,13:32,14:15,15:48",
   "5:32,6:32,7:32,10:15,11:32,12:32,13:32,14:15,15:48",
@@ -72,8 +74,13 @@ flagging:
       time: "2019/09/18/12:16:58~2019/09/18/12:53:33"
       antenna: "ea25,ea27"
       reason: "CYROGENICS: L-band receiver at ambient temperature for change out later."
-  
-  maflags:
+    flag 9:
+      time: "2019/09/18/12:16:58~2019/09/18/12:53:33"
+      antenna: "ea28"
+      reason: "OTHER: Jumpy Phase."
+
+
+  manflags:
     19A-056.sb37262953.eb37267948.58744.511782789355:
       flag 1:
         time: "2019/09/18/12:18:30~2019/09/18/12:18:55"
@@ -82,31 +89,37 @@ flagging:
         time: "2019/09/18/12:27:59~2019/09/18/12:28:30"
         reason: "Manual Time Flagging"
       flag 3:
-        time: "2019/09/18/12:36:11~2019/09/18/12:36:15"
+        time: "2019/09/18/12:30:00~2019/09/18/12:30:15"
         reason: "Manual Time Flagging"
       flag 4:
-        time: "2019/09/18/12:36:31~2019/09/18/12:36:47"
+        time: "2019/09/18/12:36:11~2019/09/18/12:36:15"
         reason: "Manual Time Flagging"
       flag 5:
-        time: "2019/09/18/12:38:29~2019/09/18/12:38:35"
+        time: "2019/09/18/12:36:31~2019/09/18/12:36:47"
         reason: "Manual Time Flagging"
       flag 6:
-        time: "2019/09/18/12:41:09~2019/09/18/12:41:17"
+        time: "2019/09/18/12:38:29~2019/09/18/12:38:35"
         reason: "Manual Time Flagging"
       flag 7:
-        time: "2019/09/18/12:43:09~2019/09/18/12:43:13"
+        time: "2019/09/18/12:41:00~2019/09/18/12:41:23"
         reason: "Manual Time Flagging"
       flag 8:
-        time: "2019/09/18/12:51:29~2019/09/18/12:51:33"
+        time: "2019/09/18/12:42:59~2019/09/18/12:43:19"
         reason: "Manual Time Flagging"
       flag 9:
-        time: "2019/09/18/12:53:27~2019/09/18/12:53:29"
+        time: "2019/09/18/12:51:29~2019/09/18/12:51:33"
         reason: "Manual Time Flagging"
       flag 10:
-        spw: 5:0~13
-        reason: "SPW 5:0~13, All Antennas"
+        time: "2019/09/18/12:53:27~2019/09/18/12:53:29"
+        reason: "Manual Time Flagging"
       flag 11:
-        spw: "10:26~35"
-        reason: "SPW 10:26~35, All Antennas"
+        spw: "5:0~12"
+        reason: "SPW 5:0~12, All Antennas"
+      flag 12:
+        spw: "10:26~34"
+        reason: "SPW 10:26~34, All Antennas"
+      flag 13:
+        spw: "14:28~37"
+        reason: "SPW 14:28~37, All Antennas"
 
     

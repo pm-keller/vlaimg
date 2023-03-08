@@ -1,5 +1,0 @@
-2023-02-25 09:47:45	INFO	::casa	
-2023-02-25 09:47:46	INFO	::casa	Python version 3.8.16
-2023-02-25 09:47:46	INFO	::casa	CASA Version PIPELINE 6.5.3.28
-2023-02-25 09:47:46	INFO	::casa	Can't import casatelemetry module.
-2023-02-25 09:47:48	INFO	msmetadata_cmpt.cc::open	Performing internal consistency checks on /DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355.ms...

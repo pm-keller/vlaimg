@@ -47,8 +47,11 @@ def hanning(input_ms, overwrite=False):
     # remove existing file?
     if os.path.exists(output_ms) and overwrite:
         print(f"\nRemoving {output_ms} \n")
-        time.sleep(3)
         shutil.rmtree(output_ms)
+
+    if os.path.exists(output_ms + ".flagversions") and overwrite:
+        print(f"\nRemoving {output_ms + '.flagversions'} \n")
+        shutil.rmtree(output_ms + ".flagversions")
 
     # hanning smoothing
     if not os.path.exists(output_ms):

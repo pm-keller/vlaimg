@@ -583,6 +583,8 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
     amp_gain_table = root + f"/caltables/{name}_amp.Gfinal"
     phase_gain_table = root + f"/caltables/{name}_phase.Gfinal"
 
+    finaltables = copy.deepcopy(gaintables)
+
     # remove calibration files
     if overwrite:
         for table in [
@@ -609,7 +611,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
             solnorm=False,
             gaintype="G",
             calmode="p",
-            gaintable=gaintables,
+            gaintable=finaltables,
             parang=True,
             append=False,
         )
@@ -624,10 +626,10 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
     )
 
     print("\napply calibration")
-    gaintables.append(fluxcal_phase_table)
+    finaltables.append(fluxcal_phase_table)
     casatasks.applycal(
         ms,
-        gaintable=gaintables,
+        gaintable=finaltables,
         calwt=False,
         parang=True,
         applymode="calflagstrict",
@@ -695,7 +697,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
                 parang=True,
             )
 
-        gaintables = [
+        finaltables = [
             short_gain_table,
         ]
 
@@ -710,13 +712,13 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
                 minsnr=5.0,
                 gaintype="G",
                 calmode="ap",
-                gaintable=gaintables,
+                gaintable=finaltables,
                 append=append,
                 parang=True,
             )
 
-        gaintables.append(amp_gain_table)
-        gaintables.remove(short_gain_table)
+        finaltables.append(amp_gain_table)
+        finaltables.remove(short_gain_table)
 
         if (not os.path.exists(phase_gain_table)) or overwrite:
             print(f"\nphase gain calibration: {phase_gain_table}")
@@ -729,7 +731,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
                 minsnr=5.0,
                 gaintype="G",
                 calmode="p",
-                gaintable=gaintables,
+                gaintable=finaltables,
                 append=append,
                 parang=True,
             )
