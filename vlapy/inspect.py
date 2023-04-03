@@ -508,7 +508,7 @@ def plot_wf(
 
     # plot scan boundaries
     if not isinstance(scan_boundaries, type(None)):
-        for i in range(8):
+        for i in range(len(scan_boundaries)):
             idx1 = int(np.sum(scan_boundaries[:i]))
             idx2 = int(np.sum(scan_boundaries[: i + 1]))
             ax.hlines(2 * idx2, 1008, 2031, color="white", linestyle="-", linewidth=2)

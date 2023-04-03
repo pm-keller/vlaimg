@@ -31,7 +31,7 @@ def pipeline_1(obs):
 
     print(f"\nprocessing observation {obs}")
 
-    ms_hanning = "/DATA/CARINA_3/kel334/19A-056/19A-056.sb37262953.eb37267948.58744.511782789355/19A-056.sb37262953.eb37267948.58744.511782789355_hanning.ms"
+    # ms_hanning = "/DATA/CARINA_3/kel334/19A-056/19A-056.sb37163380.eb37257903.58741.80710626158/19A-056.sb37163380.eb37257903.58741.80710626158_hanning.ms"
 
     # path to measurement set
     ms = os.path.join(conf["root"], obs, obs + ".ms")
@@ -47,15 +47,16 @@ def pipeline_1(obs):
 
     # get index of observation
     idx = np.where(np.array(conf["obs list"]) == obs)[0][0]
+    print(idx)
 
     # make data directories
     vladata.makedir(conf["root"], obs)
 
     # hanning smoothing
-    ms_hanning = hanning(ms, overwrite=False)
+    ms_hanning = hanning(ms, overwrite=True)
 
     # make observation plots
-    plot.plotobs(ms_hanning, overwrite=False)
+    plot.plotobs(ms_hanning, overwrite=True)
 
     # VLA deterministic flags
     flagging.detflags(
@@ -64,7 +65,7 @@ def pipeline_1(obs):
         conf["flagging"]["spw edge chan"],
         conf["spw"],
         conf["flagging"]["apriori"],
-        reapply=True,
+        reapply=False,
     )
 
     # compute modified z-score
@@ -72,7 +73,7 @@ def pipeline_1(obs):
         ms_hanning,
         masked=True,
         data_column="DATA",
-        overwrite=False,
+        overwrite=True,
     )
 
     # apply manual flags
@@ -86,10 +87,10 @@ def pipeline_1(obs):
     plot.setjy_model_amp_vs_uvdist(ms_hanning, overwrite=True)
 
     # plot amplitude vs. frequency to find dead antennas
-    plot.find_dead_ants_amp_vs_freq(ms_hanning, overwrite=False)
+    plot.find_dead_ants_amp_vs_freq(ms_hanning, overwrite=True)
 
     # plot calibration channels amplitude vs. time
-    plot.single_chans_amp_vs_time(ms_hanning, conf["cal chans"][idx], overwrite=False)
+    plot.single_chans_amp_vs_time(ms_hanning, conf["cal chans"][idx], overwrite=True)
 
     # perform initial calibration round 0
     gaintables = calibration.initcal(
@@ -289,5 +290,5 @@ def pipeline_1(obs):
 
 
 if __name__ == "__main__":
-    for obs in conf["obs list"][:2]:
+    for obs in conf["obs list"][2:]:
         pipeline_1(obs)

@@ -35,7 +35,7 @@ cal chans: [
   "5:32,6:32,7:32,10:15,11:32,12:32,13:32,14:15,15:48",
 ]
 
-refant: ["ea19","ea12","ea12","ea12","ea12","ea12","ea12","ea12","ea12","ea12","ea12","ea12",]
+refant: ["ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19",]
 solint max: ["8min","8min","8min","8min","8min","8min","8min","8min","8min","8min","8min","8min",]
 
 flagging:
@@ -68,7 +68,7 @@ flagging:
       reason: "FORCUS/ROTATION: Frequent subreflector faults or position errors."
     flag 7:
       time: "2019/09/14/16:27:04~2019/09/15/21:13:00"
-      antenna: "ea16&ea28"
+      antenna: "ea16,ea28"
       reason: "CORRELATOR: Very high fringe amplitude on ea16 x ea28 baseline, subband 5, IF D."
     flag 8:
       time: "2019/09/18/12:16:58~2019/09/18/12:53:33"
@@ -78,7 +78,6 @@ flagging:
       time: "2019/09/18/12:16:58~2019/09/18/12:53:33"
       antenna: "ea28"
       reason: "OTHER: Jumpy Phase."
-
 
   manflags:
     19A-056.sb37262953.eb37267948.58744.511782789355:
@@ -121,5 +120,182 @@ flagging:
       flag 13:
         spw: "14:28~37"
         reason: "SPW 14:28~37, All Antennas"
-
+    19A-056.sb37163380.eb37257903.58741.80710626158:
+      flag 1:
+        time: "2019/09/15/19:22:17~2019/09/15/19:27:37"
+        reason: "Manual Time Flagging"
+      flag 2:
+        time: "2019/09/15/19:40:00~2019/09/15/19:40:41"
+        reason: "Manual Time Flagging"
+      flag 3:
+        time: "2019/09/15/19:45:00~2019/09/15/19:45:09"
+        reason: "Manual Time Flagging"
+      flag 4:
+        time: "2019/09/15/19:55:27~2019/09/15/19:55:35"
+        reason: "Manual Time Flagging"
+      flag 5:
+        time: "2019/09/15/20:00:30~2019/09/15/20:00:59"
+        reason: "Manual Time Flagging"
+      flag 6:
+        time: "2019/09/15/20:13:45~2019/09/15/20:14:17"
+        reason: "Manual Time Flagging"
+      flag 7:
+        time: "2019/09/15/20:17:41~2019/09/15/20:18:00"
+        reason: "Manual Time Flagging"
+      flag 8:
+        time: "2019/09/15/20:30:35~2019/09/15/20:31:33"
+        reason: "Manual Time Flagging"
+      flag 9:
+        time: "2019/09/15/20:33:27~2019/09/15/20:34:05"
+        reason: "Manual Time Flagging"
+      flag 10:
+        time: "2019/09/15/20:43:57~2019/09/15/20:44:23"
+        reason: "Manual Time Flagging"
+      flag 11:
+        time: "2019/09/15/20:56:51~2019/09/15/20:57:45"
+        reason: "Manual Time Flagging"
+      flag 12:
+        time: "2019/09/15/21:00:01~2019/09/15/21:00:13"
+        reason: "Manual Time Flagging"
+      flag 13:
+        spw: "5:0~12"
+        reason: "SPW 5:0~12, All Antennas"
+      flag 14:
+        spw: "13:37~40"
+        reason: "SPW 10:26~34, All Antennas"
+    19A-056.sb37231614.eb37257802.58740.9750600463:
+      flag 1:
+        time: "2019/09/14/23:25:57~2019/09/14/23:26:21"
+        reason: "Manual Time Flagging"
+      flag 2:
+        time: "2019/09/14/23:40:09~2019/09/14/23:40:25"
+        reason: "Manual Time Flagging"
+      flag 3:
+        time: "2019/09/14/23:41:21~2019/09/14/23:41:29"
+        reason: "Manual Time Flagging"
+      flag 4:
+        time: "2019/09/14/23:43:05~2019/09/14/23:43:23"
+        reason: "Manual Time Flagging"
+      flag 5:
+        time: "2019/09/14/23:43:47~2019/09/14/23:43:59"
+        reason: "Manual Time Flagging"
+      flag 6:
+        time: "2019/09/14/23:46:45~2019/09/14/23:46:57"
+        reason: "Manual Time Flagging"
+      flag 7:
+        time: "2019/09/14/23:53:03~2019/09/14/23:53:11"
+        reason: "Manual Time Flagging"
+      flag 8:
+        time: "2019/09/14/23:55:53~2019/09/14/23:57:01"
+        reason: "Manual Time Flagging"
+      flag 9:
+        time: "2019/09/14/23:59:23~2019/09/14/23:59:35"
+        reason: "Manual Time Flagging"
+      flag 10:
+        time: "2019/09/15/00:00:01~2019/09/15/00:00:15"
+        reason: "Manual Time Flagging"
+      flag 11:
+        time: "2019/09/15/00:02:01~2019/09/15/00:02:19"
+        reason: "Manual Time Flagging"
+      flag 12:
+        time: "2019/09/15/00:02:49~2019/09/15/00:03:03"
+        reason: "Manual Time Flagging"
+      flag 13:
+        time: "2019/09/15/00:03:33~2019/09/15/00:03:41"
+        reason: "Manual Time Flagging"
+      flag 14:
+        time: "2019/09/15/00:05:57~2019/09/15/00:06:09"
+        reason: "Manual Time Flagging"
+      flag 15:
+        time: "2019/09/15/00:08:13~2019/09/15/00:08:27"
+        reason: "Manual Time Flagging" 
+      flag 16:
+        time: "2019/09/15/00:12:05~2019/09/15/00:12:35"
+        reason: "Manual Time Flagging" 
+      flag 17:
+        time: "2019/09/15/00:15:21~2019/09/15/00:15:31"
+        reason: "Manual Time Flagging" 
+      flag 18:
+        time: "2019/09/15/00:16:37~2019/09/15/00:16:49"
+        reason: "Manual Time Flagging" 
+      flag 19:
+        time: "2019/09/15/00:18:27~2019/09/15/00:18:41"
+        reason: "Manual Time Flagging" 
+      flag 20:
+        time: "2019/09/15/00:20:25~2019/09/15/00:20:39"
+        reason: "Manual Time Flagging" 
+      flag 21:
+        time: "2019/09/15/00:22:47~2019/09/15/00:23:03"
+        reason: "Manual Time Flagging" 
+      flag 22:
+        time: "2019/09/15/00:22:47~2019/09/15/00:23:03"
+        reason: "Manual Time Flagging" 
+      flag 23:
+        time: "2019/09/15/00:27:47~2019/09/15/00:28:39"
+        reason: "Manual Time Flagging" 
+      flag 24:
+        time: "2019/09/15/00:34:19~2019/09/15/00:34:31"
+        reason: "Manual Time Flagging" 
+      flag 25:
+        time: "2019/09/15/00:39:01~2019/09/15/00:39:15"
+        reason: "Manual Time Flagging" 
+      flag 26:
+        time: "2019/09/15/00:41:09~2019/09/15/00:41:43"
+        reason: "Manual Time Flagging" 
+      flag 27:
+        time: "2019/09/15/00:41:09~2019/09/15/00:41:43"
+        reason: "Manual Time Flagging" 
+      flag 28:
+        time: "2019/09/15/00:44:00~2019/09/15/00:44:47"
+        reason: "Manual Time Flagging" 
+      flag 29:
+        time: "2019/09/15/00:47:00~2019/09/15/00:47:23"
+        reason: "Manual Time Flagging" 
+      flag 30:
+        time: "2019/09/15/00:47:49~2019/09/15/00:47:55"
+        reason: "Manual Time Flagging" 
+      flag 31:
+        time: "2019/09/15/00:48:13~2019/09/15/00:48:21"
+        reason: "Manual Time Flagging" 
+      flag 32:
+        time: "2019/09/15/00:49:39~2019/09/15/00:49:57"
+        reason: "Manual Time Flagging" 
+      flag 33:
+        time: "2019/09/15/00:51:21~2019/09/15/00:51:35"
+        reason: "Manual Time Flagging" 
+      flag 34:
+        time: "2019/09/15/00:52:17~2019/09/15/00:52:25"
+        reason: "Manual Time Flagging" 
+      flag 35:
+        time: "2019/09/15/00:54:01~2019/09/15/00:54:09"
+        reason: "Manual Time Flagging" 
+      flag 36:
+        time: "2019/09/15/00:54:57~2019/09/15/00:55:15"
+        reason: "Manual Time Flagging" 
+      flag 37:
+        time: "2019/09/15/00:56:27~2019/09/15/00:56:33"
+        reason: "Manual Time Flagging" 
+      flag 38:
+        time: "2019/09/15/00:57:17~2019/09/15/00:57:43"
+        reason: "Manual Time Flagging" 
+      flag 39:
+        time: "2019/09/15/00:59:55~2019/09/15/01:00:29"
+        reason: "Manual Time Flagging" 
+      flag 40:
+        time: "2019/09/15/01:02:43~2019/09/15/01:03:07"
+        reason: "Manual Time Flagging" 
+      flag 41:
+        time: "2019/09/15/01:13:05~2019/09/15/01:13:39"
+        reason: "Manual Time Flagging" 
+      flag 42:
+        time: "2019/09/15/01:23:39~2019/09/15/01:24:13"
+        reason: "Manual Time Flagging" 
+      flag 43:
+        time: "2019/09/15/01:34:09~2019/09/15/01:34:35"
+        reason: "Manual Time Flagging" 
+      
+    
+    
+    
+    
     

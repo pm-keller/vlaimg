@@ -750,8 +750,10 @@ def zclip(ms, nsig, overwrite=False):
 
         for cnt, (i, j) in enumerate(zip(idx[0], idx[1])):
             spw = str(j // 64) + ":" + str(j % 64)
-            time1 = tisot[i - 1][:-4].replace("T", "/").replace("-", "/")
-            time2 = tisot[i + 1][:-4].replace("T", "/").replace("-", "/")
+            N = len(tisot)
+
+            time1 = tisot[max(i - 1, 0)][:-4].replace("T", "/").replace("-", "/")
+            time2 = tisot[min(i + 1, N-1)][:-4].replace("T", "/").replace("-", "/")
             timerange = time1 + "~" + time2
 
             print(spw, timerange)

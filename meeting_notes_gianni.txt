@@ -1,0 +1,14 @@
+make coarse image
+- dirty
+- 128 wprojectplanes
+- cell 1arcsec
+- imsize 2048
+
+complete pass through the data
+obtain noise limits
+look for bright sources and read off coordinates
+- define new phase centre
+- image, ft, subtract
+
+- self-cal cases later
+- 
