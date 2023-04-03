@@ -406,7 +406,7 @@ def initcal(
                 spw=str(spw),
                 iteraxis="corr",
                 ydatacolumn="corrected",
-                avgtime="500",
+                avgtime="720",
                 avgbaseline=True,
                 scalar=True,
                 gridcols=2,

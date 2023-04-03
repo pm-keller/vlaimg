@@ -53,10 +53,10 @@ def pipeline_1(obs):
     vladata.makedir(conf["root"], obs)
 
     # hanning smoothing
-    ms_hanning = hanning(ms, overwrite=True)
+    ms_hanning = hanning(ms, overwrite=False)
 
     # make observation plots
-    plot.plotobs(ms_hanning, overwrite=True)
+    plot.plotobs(ms_hanning, overwrite=False)
 
     # VLA deterministic flags
     flagging.detflags(
@@ -73,24 +73,24 @@ def pipeline_1(obs):
         ms_hanning,
         masked=True,
         data_column="DATA",
-        overwrite=True,
+        overwrite=False,
     )
 
     # apply manual flags
-    flagging.manual(ms_hanning, conf["flagging"]["manflags"][obs], overwrite=True)
+    flagging.manual(ms_hanning, conf["flagging"]["manflags"][obs], overwrite=False)
 
     # VLA prior calibration
     priortables = calibration.priorcal(ms_hanning, name)
 
     # compute and plot primary calibrator model
     calibration.setjy(ms_hanning, overwrite=True)
-    plot.setjy_model_amp_vs_uvdist(ms_hanning, overwrite=True)
+    plot.setjy_model_amp_vs_uvdist(ms_hanning, overwrite=False)
 
     # plot amplitude vs. frequency to find dead antennas
-    plot.find_dead_ants_amp_vs_freq(ms_hanning, overwrite=True)
+    plot.find_dead_ants_amp_vs_freq(ms_hanning, overwrite=False)
 
     # plot calibration channels amplitude vs. time
-    plot.single_chans_amp_vs_time(ms_hanning, conf["cal chans"][idx], overwrite=True)
+    plot.single_chans_amp_vs_time(ms_hanning, conf["cal chans"][idx], overwrite=False)
 
     # perform initial calibration round 0
     gaintables = calibration.initcal(
@@ -100,12 +100,12 @@ def pipeline_1(obs):
         conf["cal chans"][idx],
         priortables,
         rnd=0,
-        overwrite=True,
+        overwrite=False,
     )
 
     # plot initial calibration
     plot.initcal(
-        ms_hanning, conf["ants"], conf["spw"], *gaintables, rnd=0, overwrite=True
+        ms_hanning, conf["ants"], conf["spw"], *gaintables, rnd=0, overwrite=False
     )
 
     # flag primary calibrator
@@ -117,11 +117,11 @@ def pipeline_1(obs):
         devscale=10,
         cutoff=4,
         datacolumn="residual",
-        overwrite=True,
+        overwrite=False,
     )
 
     # plot data before and after flagging
-    plot.flagging_before_after(ms_hanning, fluxcal, "fluxcal_round_0", overwrite=True)
+    plot.flagging_before_after(ms_hanning, fluxcal, "fluxcal_round_0", overwrite=False)
 
     # perform initial calibration round 1
     gaintables = calibration.initcal(
@@ -131,12 +131,12 @@ def pipeline_1(obs):
         conf["cal chans"][idx],
         priortables,
         rnd=1,
-        overwrite=True,
+        overwrite=False,
     )
 
     # plot initial calibration
     plot.initcal(
-        ms_hanning, conf["ants"], conf["spw"], *gaintables, rnd=1, overwrite=True
+        ms_hanning, conf["ants"], conf["spw"], *gaintables, rnd=1, overwrite=False
     )
 
     # flag primary calibrator
@@ -148,12 +148,12 @@ def pipeline_1(obs):
         devscale=10,
         cutoff=4.0,
         datacolumn="residual",
-        overwrite=True,
+        overwrite=False,
     )
 
     # plot data before and after flagging
     plot.flagging_before_after(
-        ms_hanning, calibrators, "fluxcal_round_1", overwrite=True
+        ms_hanning, calibrators, "fluxcal_round_1", overwrite=False
     )
 
     # flag secondary calibrators
@@ -165,17 +165,17 @@ def pipeline_1(obs):
         devscale=10,
         cutoff=4.0,
         datacolumn="corrected",
-        overwrite=True,
+        overwrite=False,
     )
 
     # mad clipping phase calibrators
     flagging.madclip(
-        ms_hanning, phasecal, "phasecal", conf["spws"], nsig=4, overwrite=True
+        ms_hanning, phasecal, "phasecal", conf["spws"], nsig=4, overwrite=False
     )
 
     # plot data before and after flagging
     plot.flagging_before_after(
-        ms_hanning, calibrators, "phasecal_round_0", overwrite=True
+        ms_hanning, calibrators, "phasecal_round_0", overwrite=False
     )
 
     # flux bootstrapping
@@ -185,6 +185,7 @@ def pipeline_1(obs):
         conf["cal chans"][idx],
         conf["refant"][idx],
         conf["solint max"][idx],
+        0,
         overwrite=True,
     )
 
@@ -246,6 +247,7 @@ def pipeline_1(obs):
 
     # apply calibration
     gaintables += [finaltables[0], finaltables[2], finaltables[3]]
+    print(gaintables)
     calibration.apply(ms_hanning, gaintables)
 
     # flag targets with devscale=5, cutoff=4, round 0
@@ -290,5 +292,5 @@ def pipeline_1(obs):
 
 
 if __name__ == "__main__":
-    for obs in conf["obs list"][2:]:
+    for obs in conf["obs list"][1:]:
         pipeline_1(obs)

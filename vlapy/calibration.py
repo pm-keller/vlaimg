@@ -309,7 +309,7 @@ def initcal(
 
 
 # @task(cache_key_fn=task_input_hash)
-def fluxboot(ms, name, chans, refant, solint_max, overwrite=False):
+def fluxboot(ms, name, chans, refant, solint_max, fitorder, overwrite=False):
     """Flux bootstrapping
 
     Parameters
@@ -324,6 +324,8 @@ def fluxboot(ms, name, chans, refant, solint_max, overwrite=False):
         reference antenna
     solint_max : str
         maximum solution interval
+    fitorder : int
+        order of spectral index fitting
     overwrite : bool, optional
         if true, overwrite existing fluxscale, by default False
 
@@ -503,7 +505,7 @@ def fluxboot(ms, name, chans, refant, solint_max, overwrite=False):
                         fluxtable=fluxtable,
                         reference=[fluxcal],
                         transfer=[calibrator],
-                        fitorder=2,
+                        fitorder=fitorder,
                     )
 
                 id = [key for key in fluxscale.keys()][0]
@@ -763,7 +765,7 @@ def apply(ms, gaintables):
     casatasks.applycal(
         ms,
         gaintable=gaintables,
-        interp=["", "", "", "", "", "nearest,nearestflag", "", "", ""],
+        interp=["", "", "", "", "nearest,nearestflag", "", "", ""],
         calwt=False,
         parang=True,
         applymode="calflagstrict",
