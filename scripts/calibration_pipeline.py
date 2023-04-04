@@ -178,42 +178,6 @@ def pipeline_1(obs):
         ms_hanning, calibrators, "phasecal_round_0", overwrite=False
     )
 
-    # flux bootstrapping
-    _, fluxbootgains = calibration.fluxboot(
-        ms_hanning,
-        name,
-        conf["cal chans"][idx],
-        conf["refant"][idx],
-        conf["solint max"][idx],
-        0,
-        overwrite=True,
-    )
-
-    ms_calibrators = os.path.join(root, "calibrators.ms")
-
-    # plot flux bootstrapping gains
-    plot.fluxboot_gains(ms_calibrators, conf["ants"], *fluxbootgains, overwrite=True)
-
-    # plot calibrator models
-    plot.calibrator_models(ms_calibrators, overwrite=True)
-
-    # flag secondary calibrators residual
-    flagging.autoroutine(
-        ms_hanning,
-        phasecal,
-        "phasecal",
-        rnd=1,
-        devscale=10,
-        cutoff=4.0,
-        datacolumn="residual",
-        overwrite=True,
-    )
-
-    # plot data before and after flagging
-    plot.flagging_before_after(
-        ms_hanning, calibrators, "phasecal_round_1", overwrite=True
-    )
-
     # final calibration
     inittables = calibration.initcal(
         ms_hanning,
@@ -247,7 +211,6 @@ def pipeline_1(obs):
 
     # apply calibration
     gaintables += [finaltables[0], finaltables[2], finaltables[3]]
-    print(gaintables)
     calibration.apply(ms_hanning, gaintables)
 
     # flag targets with devscale=5, cutoff=4, round 0
