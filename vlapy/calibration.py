@@ -667,7 +667,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, usefit=False, ov
             append = False
         else:
             # use the spectral index fit determined by fluxboot
-            if usefit = True:
+            if usefit:
                 fit = np.load(
                     root + f"/output/phasecal_model_fit_{i}.npy", allow_pickle=True
                 ).item()
@@ -733,21 +733,33 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, usefit=False, ov
                 parang=True,
             )
             
-            if not usefit:
+            if not usefit and i>0:  
+                casatasks.setjy(
+                    vis=ms_calibrators,
+                    field=fluxcal,
+                    model=model,
+                    usescratch=True,
+                )
+                
                 fluxtable = root + f"/output/{name}.fluxscale{i}"
                 print(f"\ntransfer fluxscale to amplitude gains: {fluxtable}")
-                fluxscale = casatasks.fluxscale(vis=ms_calibrators,
-                    caltable=amp_gain_table, 
-                    fluxtable=fluxscale, 
-                    reference=model,
-                    transfer=[calibrator],
-                    incremental=False)
                 
-                printfile = root + f"/output/phasecal_model_fit_{j}.npy"
-                print(f"\nsaving phase calibrator model fits: {printfile}")
-                np.save(printfile, fluxscale)
+                if os.path.exists(fluxtable) and overwrite:
+                    shutil.rmtree(fluxtable)
 
-        finaltables.append(amp_gain_table)
+                if not os.path.exists(fluxtable):    
+                    fluxscale = casatasks.fluxscale(vis=ms_calibrators,
+                        caltable=amp_gain_table, 
+                        fluxtable=fluxtable, 
+                        reference=fluxcal,
+                        transfer=[calibrator],
+                        incremental=False)
+
+                    printfile = root + f"/output/phasecal_model_fit_{i}.npy"
+                    print(f"\nsaving phase calibrator model fits: {printfile}")
+                    np.save(printfile, fluxscale)
+
+        finaltables.append(fluxtable)
         finaltables.remove(short_gain_table)
 
         if (not os.path.exists(phase_gain_table)) or overwrite:
@@ -766,7 +778,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, usefit=False, ov
                 parang=True,
             )
 
-    return (fluxcal_phase_table, short_gain_table, amp_gain_table, phase_gain_table)
+    return (fluxcal_phase_table, short_gain_table, fluxtable, phase_gain_table)
 
 
 # @task(cache_key_fn=task_input_hash)
