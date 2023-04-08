@@ -205,6 +205,7 @@ def autoroutine(
     target="",
     rnd=0,
     devscale=5,
+    argdevscale=1e6,
     cutoff=4,
     grow=75,
     datacolumn="corrected",
@@ -225,6 +226,8 @@ def autoroutine(
         flagging round, by default 0
     devscale : int, optional
         devscale for RFlag, by default 5
+    argdevscale : int, optional
+        devscale for RFlag on phases, by default 1e6
     cutoff : int, optional
         cutoff for TFCrop, by default 4
     grow : float, optional
@@ -444,6 +447,97 @@ def autoroutine(
             extendflags=False,
             flagbackup=False,
         )
+
+        if argdevscale < 1e6:
+            print(f"\ncompute noise thresholds for phase flagging on RR correlation")
+            thresholds = casatasks.flagdata(
+                ms,
+                mode="rflag",
+                field=field,
+                correlation="RR_ARG",
+                datacolumn=datacolumn,
+                timedevscale=argdevscale,
+                freqdevscale=argdevscale,
+                action="calculate",
+                extendflags=False,
+                flagbackup=False,
+            )
+
+            print(
+                f"\nRFlag on phase of RR correlation with timedevscale={devscale} and freqdevscale={devscale}"
+            )
+            casatasks.flagdata(
+                ms,
+                mode="rflag",
+                field=field,
+                correlation="RR_ARG",
+                datacolumn=datacolumn,
+                timedev=thresholds["report0"]["timedev"],
+                freqdev=thresholds["report0"]["freqdev"],
+                timedevscale=argdevscale,
+                freqdevscale=argdevscale,
+                action="apply",
+                extendflags=False,
+                flagbackup=False,
+            )
+
+            print(f"\nextend flags across polarisations")
+            casatasks.flagdata(
+                ms,
+                mode="extend",
+                field=field,
+                growtime=100.0,
+                growfreq=100.0,
+                action="apply",
+                extendpols=True,
+                extendflags=False,
+                flagbackup=False,
+            )
+
+            print(f"\ncompute noise thresholds for phase flagging on LL correlation")
+            thresholds = casatasks.flagdata(
+                ms,
+                mode="rflag",
+                field=field,
+                correlation="LL_ARG",
+                datacolumn=datacolumn,
+                timedevscale=argdevscale,
+                freqdevscale=argdevscale,
+                action="calculate",
+                extendflags=False,
+                flagbackup=False,
+            )
+
+            print(
+                f"\nRFlag on phase of LL correlation with timedevscale={devscale} and freqdevscale={devscale}"
+            )
+            casatasks.flagdata(
+                ms,
+                mode="rflag",
+                field=field,
+                correlation="LL_ARG",
+                datacolumn=datacolumn,
+                timedev=thresholds["report0"]["timedev"],
+                freqdev=thresholds["report0"]["freqdev"],
+                timedevscale=argdevscale,
+                freqdevscale=argdevscale,
+                action="apply",
+                extendflags=False,
+                flagbackup=False,
+            )
+
+            print(f"\nextend flags across polarisations")
+            casatasks.flagdata(
+                ms,
+                mode="extend",
+                field=field,
+                growtime=100.0,
+                growfreq=100.0,
+                action="apply",
+                extendpols=True,
+                extendflags=False,
+                flagbackup=False,
+            )
 
         print(f"\nTFCrop on ABS_LR with timecutoff=4, freqcutoff=4, ntime=5")
         casatasks.flagdata(
@@ -691,9 +785,15 @@ def manual(ms, flags, overwrite=False):
         for flag in flags:
             print(flags[flag]["reason"])
 
+            if "ant" in flags[flag]:
+                ant = flags[flag]["ant"]
+            else:
+                ant = "*"
+
             if "time" in flags[flag]:
                 casatasks.flagdata(
                     ms,
+                    antenna=ant,
                     timerange=flags[flag]["time"],
                     reason=flags[flag]["reason"],
                     flagbackup=False,
@@ -701,6 +801,7 @@ def manual(ms, flags, overwrite=False):
             elif "spw" in flags[flag]:
                 casatasks.flagdata(
                     ms,
+                    antenna=ant,
                     spw=flags[flag]["spw"],
                     reason=flags[flag]["reason"],
                     flagbackup=False,

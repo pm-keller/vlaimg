@@ -1,0 +1,352 @@
+2023-04-07 07:35:37	INFO	::casa	
+2023-04-07 07:35:38	INFO	::casa	Python version 3.8.16
+2023-04-07 07:35:38	INFO	::casa	CASA Version MODULAR 6.5.3.28
+2023-04-07 07:35:38	INFO	::casa	Can't import casatelemetry module.
+2023-04-07 07:35:39	INFO	listobs::::casa	##########################################
+2023-04-07 07:35:39	INFO	listobs::::casa	##### Begin Task: listobs            #####
+2023-04-07 07:35:39	INFO	listobs::::casa	listobs( vis='/DATA/CARINA_3/kel334/19A-056/19A-056.sb37231614.eb37257802.58740.9750600463/19A-056.sb37231614.eb37257802.58740.9750600463_hanning.ms', selectdata=True, spw='', field='', antenna='', uvrange='', timerange='', correlation='', scan='', intent='', feed='', array='', observation='', verbose=True, listfile='', listunfl=False, cachesize=50.0, overwrite=False )
+2023-04-07 07:35:39	INFO	listobs::ms::summary	================================================================================
+2023-04-07 07:35:39	INFO	listobs::ms::summary+	           MeasurementSet Name:  /DATA/CARINA_3/kel334/19A-056/19A-056.sb37231614.eb37257802.58740.9750600463/19A-056.sb37231614.eb37257802.58740.9750600463_hanning.ms      MS Version 2
+2023-04-07 07:35:39	INFO	listobs::ms::summary+	================================================================================
+2023-04-07 07:35:39	INFO	listobs::ms::summary+	   Observer: Dr. Nithyanandan Thyagarajan     Project: uid://evla/pdb/36822430  
+2023-04-07 07:35:39	INFO	listobs::ms::summary+	Observation: EVLA
+2023-04-07 07:35:39	INFO	listobs::MSMetaData::_computeScanAndSubScanProperties 	Computing scan and subscan properties...
+2023-04-07 07:35:44	INFO	listobs::ms::summary	Data records: 22222512       Total elapsed time = 7958 seconds
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	   Observed from   14-Sep-2019/23:24:06.0   to   15-Sep-2019/01:36:44.0 (UTC)
+2023-04-07 07:35:44	INFO	listobs::ms::summary	
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	   ObservationID = 0         ArrayID = 0
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  Date        Timerange (UTC)          Scan  FldId FieldName             nRows     SpwIds   Average Interval(s)    ScanIntent
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14-Sep-2019/23:24:06.0 - 23:25:04.0     1      0 3C286                   162864  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [SYSTEM_CONFIGURATION#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              23:25:06.0 - 23:35:04.0     2      0 3C286                  1679184  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_BANDPASS#UNSPECIFIED,CALIBRATE_FLUX#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              23:35:06.0 - 23:40:02.0     3      0 3C286                   831168  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_BANDPASS#UNSPECIFIED,CALIBRATE_FLUX#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              23:40:04.0 - 23:43:02.0     4      1 J1310+3220              499824  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              23:43:04.0 - 23:53:30.0     5      2 QSO J1250+3130         1757808  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [OBSERVE_TARGET#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              23:53:32.0 - 23:56:00.0     6      1 J1310+3220              415584  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              23:56:02.0 - 23:59:00.0     7      3 J1146+5356              499824  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              23:59:02.0 - 00:09:28.0     8      4 QSO J1148+5251         1757808  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [OBSERVE_TARGET#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  15-Sep-2019/00:09:30.0 - 00:11:58.0     9      3 J1146+5356              415584  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:12:00.0 - 00:14:56.0    10      5 J1313+6735              494208  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:14:58.0 - 00:25:24.0    11      6 QSO J1257+6349         1757808  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [OBSERVE_TARGET#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:25:26.0 - 00:27:54.0    12      5 J1313+6735              415584  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:27:56.0 - 00:30:54.0    13      7 J1419+5423              499824  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:30:56.0 - 00:41:22.0    14      8 QSO J1429+5447         1757808  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [OBSERVE_TARGET#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:41:24.0 - 00:43:52.0    15      7 J1419+5423              415584  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:43:54.0 - 00:46:52.0    16      9 J1506+3730              499824  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:46:54.0 - 00:57:20.0    17     10 QSO J1448+4333         1757808  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [OBSERVE_TARGET#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:57:22.0 - 00:59:50.0    18      9 J1506+3730              415584  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              00:59:52.0 - 01:02:48.0    19     11 J1416+3444              494208  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              01:02:50.0 - 01:13:16.0    20     12 QSO J1402+4024         1757808  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [OBSERVE_TARGET#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              01:13:18.0 - 01:23:46.0    21     13 QSO J1427+3312         1763424  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [OBSERVE_TARGET#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              01:23:48.0 - 01:34:14.0    22     14 QSO J1401+2749         1757808  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [OBSERVE_TARGET#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	              01:34:16.0 - 01:36:44.0    23     11 J1416+3444              415584  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2] [CALIBRATE_AMPLI#UNSPECIFIED,CALIBRATE_PHASE#UNSPECIFIED]
+2023-04-07 07:35:44	INFO	listobs::ms::summary	           (nRows = Total number of rows per scan) 
+2023-04-07 07:35:44	INFO	listobs::ms::summary	Fields: 15
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  ID   Code Name                RA               Decl           Epoch   SrcId      nRows
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    NONE 3C286               13:31:08.287984 +30.30.32.95886 J2000   0        2673216
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    NONE J1310+3220          13:10:28.663845 +32.20.43.78294 J2000   1         915408
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    NONE QSO J1250+3130      12:50:51.930001 +31.30.21.90001 J2000   2        1757808
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    NONE J1146+5356          11:46:44.204326 +53.56.43.08306 J2000   3         915408
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    NONE QSO J1148+5251      11:48:16.650000 +52.51.50.39000 J2000   4        1757808
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    NONE J1313+6735          13:13:27.984800 +67.35.50.37600 J2000   5         909792
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    NONE QSO J1257+6349      12:57:57.480001 +63.49.37.15999 J2000   6        1757808
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    NONE J1419+5423          14:19:46.597401 +54.23.14.78721 J2000   7         915408
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    NONE QSO J1429+5447      14:29:52.170000 +54.47.17.70000 J2000   8        1757808
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    NONE J1506+3730          15:06:09.529958 +37.30.51.13241 J2000   9         915408
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   NONE QSO J1448+4333      14:48:23.330000 +43.33.05.90001 J2000   10       1757808
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   NONE J1416+3444          14:16:04.186240 +34.44.36.42757 J2000   11        909792
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   NONE QSO J1402+4024      14:02:54.669999 +40.24.03.19001 J2000   12       1757808
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   NONE QSO J1427+3312      14:27:38.590000 +33.12.42.00000 J2000   13       1763424
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   NONE QSO J1401+2749      14:01:47.340000 +27.49.35.03000 J2000   14       1757808
+2023-04-07 07:35:44	INFO	listobs::ms::summary	Spectral Windows:  (16 unique spectral windows and 1 unique polarization setups)
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  SpwID  Name           #Chans   Frame   Ch0(MHz)  ChanWid(kHz)  TotBW(kHz) CtrFreq(MHz) BBC Num  Corrs          
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0      EVLA_L#A0C0#0      64   TOPO    1008.000      1000.000     64000.0   1039.5000       12  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1      EVLA_L#A0C0#1      64   TOPO    1072.000      1000.000     64000.0   1103.5000       12  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2      EVLA_L#A0C0#2      64   TOPO    1136.000      1000.000     64000.0   1167.5000       12  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3      EVLA_L#A0C0#3      64   TOPO    1200.000      1000.000     64000.0   1231.5000       12  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4      EVLA_L#A0C0#4      64   TOPO    1264.000      1000.000     64000.0   1295.5000       12  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5      EVLA_L#A0C0#5      64   TOPO    1328.000      1000.000     64000.0   1359.5000       12  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6      EVLA_L#A0C0#6      64   TOPO    1392.000      1000.000     64000.0   1423.5000       12  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7      EVLA_L#A0C0#7      64   TOPO    1456.000      1000.000     64000.0   1487.5000       12  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8      EVLA_L#B0D0#8      64   TOPO    1520.000      1000.000     64000.0   1551.5000       15  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9      EVLA_L#B0D0#9      64   TOPO    1584.000      1000.000     64000.0   1615.5000       15  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10     EVLA_L#B0D0#10     64   TOPO    1648.000      1000.000     64000.0   1679.5000       15  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11     EVLA_L#B0D0#11     64   TOPO    1712.000      1000.000     64000.0   1743.5000       15  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12     EVLA_L#B0D0#12     64   TOPO    1776.000      1000.000     64000.0   1807.5000       15  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13     EVLA_L#B0D0#13     64   TOPO    1840.000      1000.000     64000.0   1871.5000       15  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14     EVLA_L#B0D0#14     64   TOPO    1904.000      1000.000     64000.0   1935.5000       15  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  15     EVLA_L#B0D0#15     64   TOPO    1968.000      1000.000     64000.0   1999.5000       15  RR  RL  LR  LL
+2023-04-07 07:35:44	INFO	listobs::ms::summary	Sources: 240
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  ID   Name                SpwId RestFreq(MHz)  SysVel(km/s) 
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    3C286               15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    J1310+3220          15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    QSO J1250+3130      15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    J1146+5356          15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    QSO J1148+5251      15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    J1313+6735          15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    QSO J1257+6349      15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    J1419+5423          15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    QSO J1429+5447      15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    J1506+3730          15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   QSO J1448+4333      15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   J1416+3444          15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   QSO J1402+4024      15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   QSO J1427+3312      15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      0     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      1     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      2     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      3     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      4     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      5     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      6     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      7     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      8     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      9     -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      10    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      11    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      12    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      13    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      14    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   QSO J1401+2749      15    -              -            
+2023-04-07 07:35:44	INFO	listobs::ms::summary	Antennas: 27:
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  ID   Name  Station   Diam.    Long.         Lat.                Offset from array center (m)                ITRF Geocentric coordinates (m)        
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	                                                                     East         North     Elevation               x               y               z
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  0    ea01  W24       25.0 m   -107.38.49.0  +33.53.04.0      -2673.3461    -1784.5996       10.4782 -1604008.743100 -5042135.819400  3553403.708400
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  1    ea02  W40       25.0 m   -107.41.13.5  +33.51.43.1      -6377.9820    -4286.7777        8.2157 -1607962.461300 -5042338.201800  3551324.953500
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  2    ea03  W64       25.0 m   -107.46.20.1  +33.48.50.9     -14240.7693    -9606.2744       17.1095 -1616361.594300 -5042770.519800  3546911.444600
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  3    ea04  N48       25.0 m   -107.37.38.1  +33.59.06.2       -855.2758     9405.9627      -25.9215 -1600374.887700 -5036704.210100  3562667.892200
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  4    ea05  E56       25.0 m   -107.29.04.1  +33.50.54.9      12327.6346    -5774.7313       42.6265 -1590380.608000 -5048810.244900  3550108.451500
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  5    ea06  N72       25.0 m   -107.38.10.5  +34.04.12.2      -1685.6801    18861.8494      -43.4869 -1599557.929600 -5031396.354700  3570494.760600
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  6    ea07  E48       25.0 m   -107.30.56.1  +33.51.38.4       9456.6032    -4431.6382       37.9245 -1592894.078300 -5047229.118900  3551221.215800
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  7    ea08  W16       25.0 m   -107.37.57.4  +33.53.33.0      -1348.7262     -890.6154        1.2970 -1602592.866300 -5042054.986000  3554140.708000
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  8    ea09  N16       25.0 m   -107.37.10.9  +33.54.48.0       -155.8580     1426.6437       -9.3795 -1601061.963400 -5041175.881100  3556058.039400
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  9    ea10  E08       25.0 m   -107.36.48.9  +33.53.55.1        407.8379     -206.0064       -3.2255 -1600801.917500 -5042219.370600  3554706.449200
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  10   ea11  N32       25.0 m   -107.37.22.0  +33.56.33.6       -441.7283     4689.9779      -16.9536 -1600781.040800 -5039347.416000  3558761.524200
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  11   ea12  E16       25.0 m   -107.36.09.8  +33.53.40.0       1410.0337     -673.4514       -0.7846 -1599926.106500 -5042772.963200  3554319.809800
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  12   ea13  W56       25.0 m   -107.44.26.7  +33.49.54.6     -11333.2074    -7637.6766       15.3754 -1613255.401100 -5042613.101100  3548545.918100
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  13   ea14  E72       25.0 m   -107.24.42.3  +33.49.18.0      19041.8637    -8769.2032        4.7566 -1584460.886200 -5052385.620700  3547600.018300
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  14   ea15  N56       25.0 m   -107.37.47.9  +34.00.38.4      -1105.2330    12254.3132      -34.2480 -1600128.405600 -5035104.131000  3565024.674300
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  15   ea16  E64       25.0 m   -107.27.00.2  +33.50.06.7      15507.5829    -7263.7339       67.1938 -1587600.211500 -5050575.868700  3548885.390400
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  16   ea17  N40       25.0 m   -107.37.29.5  +33.57.44.4       -633.6126     6878.6190      -20.7907 -1600592.752600 -5038121.329700  3560574.855500
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  17   ea18  N64       25.0 m   -107.37.58.7  +34.02.20.5      -1382.3860    15410.1349      -40.6321 -1599855.688800 -5033332.377900  3567636.615900
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  18   ea19  E40       25.0 m   -107.32.35.4  +33.52.16.9       6908.8186    -3240.7347       39.0075 -1595124.933900 -5045829.461800  3552210.683600
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  19   ea20  N24       25.0 m   -107.37.16.1  +33.55.37.7       -290.3622     2961.8701      -12.2263 -1600930.076700 -5040316.404600  3557330.403100
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  20   ea22  W48       25.0 m   -107.42.44.3  +33.50.52.1      -8707.9332    -5861.7865       15.5175 -1610451.916100 -5042471.118900  3550021.050900
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  21   ea23  E24       25.0 m   -107.35.13.4  +33.53.18.1       2858.1783    -1349.1269       13.7082 -1598663.089800 -5043581.374800  3553767.015200
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  22   ea24  W32       25.0 m   -107.39.54.8  +33.52.27.2      -4359.4465    -2923.1301       11.7698 -1605808.642300 -5042230.088000  3552459.203500
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  23   ea25  N08       25.0 m   -107.37.07.5  +33.54.15.8        -68.9124      433.1809       -5.0691 -1601147.945900 -5041733.832200  3555235.944400
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  24   ea26  W72       25.0 m   -107.48.24.0  +33.47.41.2     -17419.4840   -11760.2744       14.9515 -1619757.321600 -5042937.658700  3545120.392200
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  25   ea27  E32       25.0 m   -107.34.01.5  +33.52.50.3       4701.6450    -2209.7233       25.1925 -1597053.130000 -5044604.675400  3553058.980400
+2023-04-07 07:35:44	INFO	listobs::ms::summary+	  26   ea28  W08       25.0 m   -107.37.21.6  +33.53.53.0       -432.1083     -272.1478       -1.5077 -1601614.082500 -5042001.653700  3554652.508000
+2023-04-07 07:35:44	INFO	listobs::::casa	Task listobs complete. Start time: 2023-04-07 17:35:39.247528 End time: 2023-04-07 17:35:44.206946
+2023-04-07 07:35:44	INFO	listobs::::casa	##### End Task: listobs              #####
+2023-04-07 07:35:44	INFO	listobs::::casa	##########################################

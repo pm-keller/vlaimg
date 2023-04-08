@@ -575,6 +575,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, usefit=False, ov
     # get field and model
     field_dict = vladata.get_field_names(ms)
     fluxcal = field_dict["fluxcal"]
+    phasecal = field_dict["phasecal"]
     calibrators = field_dict["calibrators"]
     model = field_dict["model"]
 
@@ -586,6 +587,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, usefit=False, ov
     short_gain_table = root + f"/caltables/{name}_short.Gfinal"
     amp_gain_table = root + f"/caltables/{name}_amp.Gfinal"
     phase_gain_table = root + f"/caltables/{name}_phase.Gfinal"
+    fluxtable = root + f"/caltables/{name}.fluxscale"
 
     finaltables = copy.deepcopy(gaintables)
 
@@ -731,35 +733,9 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, usefit=False, ov
                 gaintable=finaltables,
                 append=append,
                 parang=True,
-            )
-            
-            if not usefit and i>0:  
-                casatasks.setjy(
-                    vis=ms_calibrators,
-                    field=fluxcal,
-                    model=model,
-                    usescratch=True,
-                )
-                
-                fluxtable = root + f"/output/{name}.fluxscale{i}"
-                print(f"\ntransfer fluxscale to amplitude gains: {fluxtable}")
-                
-                if os.path.exists(fluxtable) and overwrite:
-                    shutil.rmtree(fluxtable)
+            )       
 
-                if not os.path.exists(fluxtable):    
-                    fluxscale = casatasks.fluxscale(vis=ms_calibrators,
-                        caltable=amp_gain_table, 
-                        fluxtable=fluxtable, 
-                        reference=fluxcal,
-                        transfer=[calibrator],
-                        incremental=False)
-
-                    printfile = root + f"/output/phasecal_model_fit_{i}.npy"
-                    print(f"\nsaving phase calibrator model fits: {printfile}")
-                    np.save(printfile, fluxscale)
-
-        finaltables.append(fluxtable)
+        finaltables.append(amp_gain_table)
         finaltables.remove(short_gain_table)
 
         if (not os.path.exists(phase_gain_table)) or overwrite:
@@ -777,6 +753,23 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, usefit=False, ov
                 append=append,
                 parang=True,
             )
+
+    # apply fluxscale to amplitude gains
+    if not usefit:          
+        print(f"\ntransfer fluxscale to amplitude gains: {fluxtable}")
+                
+        if os.path.exists(fluxtable) and overwrite:
+            shutil.rmtree(fluxtable)
+
+        if not os.path.exists(fluxtable):    
+            fluxscale = casatasks.fluxscale(vis=ms_calibrators,
+                caltable=amp_gain_table, 
+                fluxtable=fluxtable, 
+                reference=fluxcal,
+                transfer=phasecal,
+                incremental=False)
+    else:
+        fluxtable = amp_gain_table
 
     return (fluxcal_phase_table, short_gain_table, fluxtable, phase_gain_table)
 
