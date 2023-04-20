@@ -88,7 +88,6 @@ def priorcal(ms, name):
     # specify calibration table names
     opacity_table = os.path.join(root, f"caltables/{name}.opac")
     rq_table = os.path.join(root, f"caltables/{name}.rq")
-    swpow_table = os.path.join(root, f"caltables/{name}.swpow")
     antpos_table = os.path.join(root, f"caltables/{name}.antpos")
 
     plotfile = os.path.join(root, "plots/calplots/weather.png")
@@ -121,13 +120,14 @@ def priorcal(ms, name):
         print(f"\nrequantizer gains: {rq_table}")
         casatasks.gencal(ms, caltable=rq_table, caltype="rq")
 
-    if not os.path.exists(swpow_table):
-        print(f"\nEVLA switched power gains: {swpow_table}")
-        casatasks.gencal(
-            ms,
-            swpow_table,
-            caltype="swpow",
-        )
+    # swpow_table = os.path.join(root, f"caltables/{name}.swpow")
+    # if not os.path.exists(swpow_table):
+    #     print(f"\nEVLA switched power gains: {swpow_table}")
+    #     casatasks.gencal(
+    #         ms,
+    #         swpow_table,
+    #         caltype="swpow",
+    #     )
 
     if not os.path.exists(antpos_table):
         print(f"\nantenna position corrections: {antpos_table}")

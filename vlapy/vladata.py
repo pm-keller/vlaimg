@@ -196,6 +196,7 @@ def get_field_names(ms):
     phasecal_list = msmd.fieldsforintent("CALIBRATE_PHASE#UNSPECIFIED")
     target_list = msmd.fieldsforintent("OBSERVE_TARGET#UNSPECIFIED")
     calibrators_list = np.hstack([fluxcal_list, phasecal_list])
+    fieldnames = msmd.fieldnames 
 
     # get model name
     model = msmd.namesforfields(fluxcal_list[0])[0]
@@ -222,6 +223,7 @@ def get_field_names(ms):
     targets = targets[:-1]
 
     return {
+        "names": fieldnames,
         "fluxcal": fluxcal,
         "phasecal": phasecal,
         "calibrators": calibrators,

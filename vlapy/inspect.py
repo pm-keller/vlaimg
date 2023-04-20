@@ -58,15 +58,36 @@ def get_mod_z_score_data(
         # get data array from data file
         print(f"\nloading measurement set with pyuvdata: {ms}")
         uvd = vladata.get_uvdata(ms, polarizations=["RR", "LL"])
+        antpairs = uvd.get_antpairs()
+
+        """
+        # compute average across polarisation and antenna pairs
+        print("compute data average")
+        for i, antpair in enumerate(antpairs):
+            data_antpair = np.abs(uvd.get_data(*antpair))
+            flags_antpair = uvd.get_flags(*antpair)
+            data_antpair = np.ma.masked_array(data_antpair, maks=flags_antpair)
+            
+            if i == 0:
+                data_array_avg = np.ma.mean(data_antpair, axis=-1)
+                flag_array_sum = np.ma.sum(flags_antpair, axis=-1)
+            else:
+                data_array_avg += np.ma.mean(data_antpair, axis=-1)
+                flag_array_sum += np.ma.sum(flags_antpair, axis=-1)
+
+        data_array_avg /= flag_array_sum
+        """
         data_array = np.abs(vladata.get_data_array(uvd, data_column))
 
+        print("apply mask")
         if masked:
             flags = vladata.get_flag_array(uvd, data_column)
             data_array = np.ma.masked_array(data_array, mask=flags)
 
         # average amplitudes across polarisations and baselines
+        print("compute average")
         data_array_avg = np.ma.mean(data_array, axis=(0, 1))
-
+        
         # get metadata from file
         freq_array = uvd.freq_array[0] * 1e-6
         dt = uvd.integration_time[0]
@@ -77,7 +98,7 @@ def get_mod_z_score_data(
 
         if ntimes == "*":
             ntimes = [
-                data_array.shape[2],
+                data_array_avg.shape[0],
             ]
 
         print("\ncomputing modified Z-score")
@@ -93,7 +114,7 @@ def get_mod_z_score_data(
 
             # divide by median absolute deviation
             data_array[idx1:idx2] /= 1.4826 * np.ma.median(
-                np.ma.abs(data_array[idx1:idx2]), axis=0
+               np.ma.abs(data_array[idx1:idx2]), axis=0
             )
             data_array_avg[idx1:idx2] /= 1.4826 * np.ma.median(
                 np.ma.abs(data_array_avg[idx1:idx2]), axis=0
