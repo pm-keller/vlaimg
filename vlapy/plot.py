@@ -436,7 +436,7 @@ def initcal(
     plotfile = os.path.join(
         root, f"plots/dataplots/fluxcal_initcal_round_{rnd}_amp_vs_freq.png"
     )
-    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "_Corr*")) == 0) or overwrite:
         casaplotms.plotms(
             vis=ms,
             field=field,
@@ -456,7 +456,7 @@ def initcal(
     plotfile = os.path.join(
         root, f"plots/dataplots/fluxcal_initcal_round_{rnd}_phase_vs_freq.png"
     )
-    if (len(glob.glob(plotfile[:-4] + "*")) == 0) or overwrite:
+    if (len(glob.glob(plotfile[:-4] + "_Corr*")) == 0) or overwrite:
         casaplotms.plotms(
             vis=ms,
             field=field,

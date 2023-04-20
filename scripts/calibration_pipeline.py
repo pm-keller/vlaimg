@@ -1,11 +1,10 @@
 import os
 import sys
 import yaml
-import casatools
-import casatasks
 import numpy as np
+import casatasks
 
-# from prefect import flow
+from prefect import flow
 
 sys.path.append(os.getcwd())
 from vlapy import vladata, plot, flagging, calibration, inspect, imaging
@@ -21,42 +20,24 @@ with open("input/config.yaml", "r") as file:
 
 
 # @flow
-def pipeline_1(obs):
-    """
-    The first part of the VLA data processing pipeline.
-    This includes all the apriori data operations.
-    Before proceeding to the next part of the data processing pipeline,
-    the data needs to be inspected visually.
-    """
-
+def pipeline_prior_inspect(obs):
+    print(f"\nPRIOR INSPECTION PIPELINE")
     print(f"\nprocessing observation {obs}")
-
-    # ms_hanning = "/DATA/CARINA_3/kel334/19A-056/19A-056.sb37163380.eb37257903.58741.80710626158/19A-056.sb37163380.eb37257903.58741.80710626158_hanning.ms"
-
-    # path to measurement set
-    ms = os.path.join(conf["root"], obs, obs + ".ms")
-    name = obs.split(".")[0]
-    root = os.path.dirname(ms)
-
-    # get field names
-    field_dict = vladata.get_field_names(ms)
-    fluxcal = field_dict["fluxcal"]
-    targets = field_dict["targets"]
-    phasecal = field_dict["phasecal"]
-    calibrators = field_dict["calibrators"]
 
     # get index of observation
     idx = np.where(np.array(conf["obs list"]) == obs)[0][0]
-    print(idx)
+
+    # path to measurement set
+    ms = os.path.join(conf["root"], obs, obs + ".ms")
 
     # make data directories
     vladata.makedir(conf["root"], obs)
 
     # hanning smoothing
-    ms_hanning = hanning(ms, overwrite=False)
+    ms_hanning = hanning(ms, overwrite=True)
 
     # make observation plots
-    plot.plotobs(ms_hanning, overwrite=False)
+    plot.plotobs(ms_hanning, overwrite=True)
 
     # VLA deterministic flags
     flagging.detflags(
@@ -65,7 +46,7 @@ def pipeline_1(obs):
         conf["flagging"]["spw edge chan"],
         conf["spw"],
         conf["flagging"]["apriori"],
-        reapply=False,
+        reapply=True,
     )
 
     # compute modified z-score
@@ -73,24 +54,36 @@ def pipeline_1(obs):
         ms_hanning,
         masked=True,
         data_column="DATA",
-        overwrite=False,
+        overwrite=True,
     )
-
-    # apply manual flags
-    flagging.manual(ms_hanning, conf["flagging"]["manflags"][obs], overwrite=False)
-
-    # VLA prior calibration
-    priortables = calibration.priorcal(ms_hanning, name)
 
     # compute and plot primary calibrator model
     calibration.setjy(ms_hanning, overwrite=True)
-    plot.setjy_model_amp_vs_uvdist(ms_hanning, overwrite=False)
+    plot.setjy_model_amp_vs_uvdist(ms_hanning, overwrite=True)
 
     # plot amplitude vs. frequency to find dead antennas
-    plot.find_dead_ants_amp_vs_freq(ms_hanning, overwrite=False)
+    plot.find_dead_ants_amp_vs_freq(ms_hanning, overwrite=True)
 
     # plot calibration channels amplitude vs. time
-    plot.single_chans_amp_vs_time(ms_hanning, conf["cal chans"][idx], overwrite=False)
+    plot.single_chans_amp_vs_time(ms_hanning, conf["cal chans"][idx], overwrite=True)
+
+def pipeline_initcal(obs):
+    print(f"\nINITIAL CALIBRATION")
+    print(f"\nprocessing observation {obs}")
+
+    # path to measurement set
+    ms = os.path.join(conf["root"], obs, obs + ".ms")
+    ms_hanning = ms[:-3] + "_hanning.ms"
+    name = obs.split(".")[0]
+
+    # get index of observation
+    idx = np.where(np.array(conf["obs list"]) == obs)[0][0]
+
+    # apply manual flags
+    flagging.manual(ms_hanning, conf["flagging"]["manflags"][obs], overwrite=True)
+
+    # VLA prior calibration
+    priortables = calibration.priorcal(ms_hanning, name)
 
     # perform initial calibration round 0
     gaintables = calibration.initcal(
@@ -100,13 +93,56 @@ def pipeline_1(obs):
         conf["cal chans"][idx],
         priortables,
         rnd=0,
-        overwrite=False,
+        overwrite=True,
     )
 
     # plot initial calibration
     plot.initcal(
-        ms_hanning, conf["ants"], conf["spw"], *gaintables, rnd=0, overwrite=False
+        ms_hanning, conf["ants"], conf["spw"], *gaintables, rnd=0, overwrite=True
     )
+
+def pipeline_calibration(obs):
+    print(f"\nCALIBRATION")
+    print(f"\nprocessing observation {obs}")
+
+    ms = os.path.join(conf["root"], obs, obs + ".ms")
+    ms_hanning = ms[:-3] + "_hanning.ms"
+    name = obs.split(".")[0]
+
+    # get field names
+    field_dict = vladata.get_field_names(ms)
+    fluxcal = field_dict["fluxcal"]
+    targets = field_dict["targets"]
+    phasecal = field_dict["phasecal"]
+    calibrators = field_dict["calibrators"]
+
+    # root directory
+    root = os.path.dirname(ms)
+
+    # specify calibration table names
+    opacity_table = os.path.join(root, f"caltables/{name}.opac")
+    rq_table = os.path.join(root, f"caltables/{name}.rq")
+    antpos_table = os.path.join(root, f"caltables/{name}.antpos")
+    priortables = [opacity_table, rq_table, antpos_table]
+
+    # get index of observation
+    idx = np.where(np.array(conf["obs list"]) == obs)[0][0]
+
+    # restore original flags
+    casatasks.flagmanager(ms_hanning, mode="restore", versionname=f"original")
+
+    # VLA deterministic flags
+    flagging.detflags(
+        ms_hanning,
+        conf["flagging"]["quack"],
+        conf["flagging"]["spw edge chan"],
+        conf["spw"],
+        conf["flagging"]["apriori"],
+        reapply=True,
+    )
+
+    # apply manual flags
+    flagging.manual(ms_hanning, conf["flagging"]["manflags"][obs], overwrite=True)
 
     # flag primary calibrator
     flagging.autoroutine(
@@ -115,13 +151,13 @@ def pipeline_1(obs):
         "fluxcal",
         rnd=0,
         devscale=10,
-        cutoff=4,
+        cutoff=5,
         datacolumn="residual",
-        overwrite=False,
+        overwrite=True,
     )
 
     # plot data before and after flagging
-    plot.flagging_before_after(ms_hanning, fluxcal, "fluxcal_round_0", overwrite=False)
+    plot.flagging_before_after(ms_hanning, fluxcal, "fluxcal_round_0", overwrite=True)
 
     # perform initial calibration round 1
     gaintables = calibration.initcal(
@@ -131,12 +167,12 @@ def pipeline_1(obs):
         conf["cal chans"][idx],
         priortables,
         rnd=1,
-        overwrite=False,
+        overwrite=True,
     )
 
     # plot initial calibration
     plot.initcal(
-        ms_hanning, conf["ants"], conf["spw"], *gaintables, rnd=1, overwrite=False
+        ms_hanning, conf["ants"], conf["spw"], *gaintables, rnd=1, overwrite=True
     )
 
     # flag primary calibrator
@@ -148,12 +184,12 @@ def pipeline_1(obs):
         devscale=10,
         cutoff=4.0,
         datacolumn="residual",
-        overwrite=False,
+        overwrite=True,
     )
 
     # plot data before and after flagging
     plot.flagging_before_after(
-        ms_hanning, calibrators, "fluxcal_round_1", overwrite=False
+        ms_hanning, calibrators, "fluxcal_round_1", overwrite=True
     )
 
     # flag secondary calibrators
@@ -162,56 +198,21 @@ def pipeline_1(obs):
         phasecal,
         "phasecal",
         rnd=0,
-        devscale=10,
+        devscale=5.0,
         cutoff=4.0,
+        argdevscale=5.0,
         datacolumn="corrected",
-        overwrite=False,
+        overwrite=True,
     )
 
     # mad clipping phase calibrators
-    flagging.madclip(
-        ms_hanning, phasecal, "phasecal", conf["spws"], nsig=4, overwrite=False
-    )
+    # flagging.madclip(
+    #    ms_hanning, phasecal, "phasecal", conf["spws"], nsig=5, overwrite=True
+    # )
 
     # plot data before and after flagging
     plot.flagging_before_after(
-        ms_hanning, calibrators, "phasecal_round_0", overwrite=False
-    )
-
-    # flux bootstrapping
-    _, fluxbootgains = calibration.fluxboot(
-        ms_hanning,
-        name,
-        conf["cal chans"][idx],
-        conf["refant"][idx],
-        conf["solint max"][idx],
-        0,
-        overwrite=True,
-    )
-
-    ms_calibrators = os.path.join(root, "calibrators.ms")
-
-    # plot flux bootstrapping gains
-    plot.fluxboot_gains(ms_calibrators, conf["ants"], *fluxbootgains, overwrite=True)
-
-    # plot calibrator models
-    plot.calibrator_models(ms_calibrators, overwrite=True)
-
-    # flag secondary calibrators residual
-    flagging.autoroutine(
-        ms_hanning,
-        phasecal,
-        "phasecal",
-        rnd=1,
-        devscale=10,
-        cutoff=4.0,
-        datacolumn="residual",
-        overwrite=True,
-    )
-
-    # plot data before and after flagging
-    plot.flagging_before_after(
-        ms_hanning, calibrators, "phasecal_round_1", overwrite=True
+        ms_hanning, calibrators, "phasecal_round_0", overwrite=True
     )
 
     # final calibration
@@ -247,26 +248,25 @@ def pipeline_1(obs):
 
     # apply calibration
     gaintables += [finaltables[0], finaltables[2], finaltables[3]]
-    print(gaintables)
     calibration.apply(ms_hanning, gaintables)
 
-    # flag targets with devscale=5, cutoff=4, round 0
+    # flag targets with devscale=5, cutoff=5, round 0
     flagging.autoroutine(
         ms_hanning,
         targets,
         "targets",
         rnd=0,
         devscale=5,
-        cutoff=4,
+        cutoff=5,
         grow=50,
         datacolumn="corrected",
         overwrite=True,
     )
 
     # mad clipping targets
-    flagging.madclip(
-        ms_hanning, targets, "targets", conf["spws"], nsig=5, overwrite=True
-    )
+    # flagging.madclip(
+    #    ms_hanning, targets, "targets", conf["spws"], nsig=5, overwrite=True
+    # )
 
     # compute modified z-score
     inspect.get_mod_z_score_data(
@@ -274,7 +274,7 @@ def pipeline_1(obs):
     )
 
     # clip based on modifier z-score
-    flagging.zclip(ms_hanning, 4, overwrite=True)
+    flagging.zclip(ms_hanning, 5, overwrite=True)
 
     # plot data before and after flagging
     plot.flagging_before_after(ms_hanning, targets, "targets_round_0", overwrite=True)
@@ -288,9 +288,9 @@ def pipeline_1(obs):
     )
 
     # prepare for imaging (split targets from measurement set and downweight outliers)
-    imaging.prep(ms_hanning, overwrite=True)
+    imaging.prep(ms_hanning, spw=",".join(conf["spws"]), overwrite=True)
 
 
 if __name__ == "__main__":
-    for obs in conf["obs list"][1:]:
-        pipeline_1(obs)
+    for obs in conf["obs list"][:1]:
+        pipeline_calibration(obs)

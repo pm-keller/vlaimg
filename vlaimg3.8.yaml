@@ -1,4 +1,4 @@
-name: vlaimg3.8
+name: casa
 channels:
   - conda-forge
   - defaults
@@ -25,5 +25,6 @@ dependencies:
     - casatools
     - casatasks
     - casaplotms
+    - casaviewer
     - protobuf==3.20.0
     - python-casacore

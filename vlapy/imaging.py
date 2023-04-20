@@ -21,7 +21,7 @@ import casatasks
 import casatools
 
 
-def prep(ms, overwrite=False):
+def prep(ms, spw="*", overwrite=False):
     """Prepare measurement sets for imaging
 
     Parameters
@@ -47,6 +47,7 @@ def prep(ms, overwrite=False):
 
         if os.path.exists(target_vis) and overwrite:
             shutil.rmtree(target_vis)
+        if os.path.exists(target_vis + ".flagversions") and overwrite:
             shutil.rmtree(target_vis + ".flagversions")
 
         if not os.path.exists(target_vis):
@@ -56,6 +57,7 @@ def prep(ms, overwrite=False):
                 outputvis=target_vis,
                 datacolumn="corrected",
                 field=field,
+                spw=spw,
                 correlation="RR,LL",
             )
 

@@ -88,7 +88,6 @@ def priorcal(ms, name):
     # specify calibration table names
     opacity_table = os.path.join(root, f"caltables/{name}.opac")
     rq_table = os.path.join(root, f"caltables/{name}.rq")
-    swpow_table = os.path.join(root, f"caltables/{name}.swpow")
     antpos_table = os.path.join(root, f"caltables/{name}.antpos")
 
     plotfile = os.path.join(root, "plots/calplots/weather.png")
@@ -121,13 +120,14 @@ def priorcal(ms, name):
         print(f"\nrequantizer gains: {rq_table}")
         casatasks.gencal(ms, caltable=rq_table, caltype="rq")
 
-    if not os.path.exists(swpow_table):
-        print(f"\nEVLA switched power gains: {swpow_table}")
-        casatasks.gencal(
-            ms,
-            swpow_table,
-            caltype="swpow",
-        )
+    # swpow_table = os.path.join(root, f"caltables/{name}.swpow")
+    # if not os.path.exists(swpow_table):
+    #     print(f"\nEVLA switched power gains: {swpow_table}")
+    #     casatasks.gencal(
+    #         ms,
+    #         swpow_table,
+    #         caltype="swpow",
+    #     )
 
     if not os.path.exists(antpos_table):
         print(f"\nantenna position corrections: {antpos_table}")
@@ -541,7 +541,7 @@ def fluxboot(ms, name, chans, refant, solint_max, fitorder, overwrite=False):
 
 
 # @task(cache_key_fn=task_input_hash)
-def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False):
+def finalcal(ms, name, refant, calchan, solint_max, gaintables, usefit=False, overwrite=False):
     """Final phase and amplitude calibration
 
     Parameters
@@ -558,8 +558,10 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
         maximum solution interval for gaincalibration
     gaintables : list of str
         priortables, delay and bandpass tables
+    usefit : bool, optional
+        if True, use spectral index fit determined by fluxboot, by default False
     overwrite : bool, optional
-        if true, overwrite existing calibration tables, by default False
+        if True, overwrite existing calibration tables, by default False
 
     Returns
     -------
@@ -573,6 +575,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
     # get field and model
     field_dict = vladata.get_field_names(ms)
     fluxcal = field_dict["fluxcal"]
+    phasecal = field_dict["phasecal"]
     calibrators = field_dict["calibrators"]
     model = field_dict["model"]
 
@@ -584,6 +587,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
     short_gain_table = root + f"/caltables/{name}_short.Gfinal"
     amp_gain_table = root + f"/caltables/{name}_amp.Gfinal"
     phase_gain_table = root + f"/caltables/{name}_phase.Gfinal"
+    fluxtable = root + f"/caltables/{name}.fluxscale"
 
     finaltables = copy.deepcopy(gaintables)
 
@@ -664,22 +668,34 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
 
             append = False
         else:
-            fit = np.load(
-                root + f"/output/phasecal_model_fit_{i}.npy", allow_pickle=True
-            ).item()
+            # use the spectral index fit determined by fluxboot
+            if usefit:
+                fit = np.load(
+                    root + f"/output/phasecal_model_fit_{i}.npy", allow_pickle=True
+                ).item()
 
-            id = [key for key in fit.keys()][0]
-            fit = fit[id]
+                id = [key for key in fit.keys()][0]
+                fit = fit[id]
 
-            casatasks.setjy(
-                ms_calibrators,
-                field=calibrator,
-                standard="manual",
-                fluxdensity=fit["fitFluxd"],
-                spix=fit["spidx"],
-                reffreq=str(fit["fitRefFreq"]) + "Hz",
-                usescratch=True,
-            )
+                casatasks.setjy(
+                    ms_calibrators,
+                    field=calibrator,
+                    standard="manual",
+                    fluxdensity=fit["fitFluxd"],
+                    spix=fit["spidx"],
+                    reffreq=str(fit["fitRefFreq"]) + "Hz",
+                    usescratch=True,
+                )
+            # set the model to a 1 Jy point source at the phase centre
+            else:
+                casatasks.setjy(
+                    ms_calibrators,
+                    field=calibrator,
+                    standard="manual",
+                    fluxdensity=[1, 0, 0, 0],
+                    spix=0,
+                    usescratch=True,
+                )
 
             append = True
 
@@ -717,7 +733,7 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
                 gaintable=finaltables,
                 append=append,
                 parang=True,
-            )
+            )       
 
         finaltables.append(amp_gain_table)
         finaltables.remove(short_gain_table)
@@ -738,7 +754,24 @@ def finalcal(ms, name, refant, calchan, solint_max, gaintables, overwrite=False)
                 parang=True,
             )
 
-    return (fluxcal_phase_table, short_gain_table, amp_gain_table, phase_gain_table)
+    # apply fluxscale to amplitude gains
+    if not usefit:          
+        print(f"\ntransfer fluxscale to amplitude gains: {fluxtable}")
+                
+        if os.path.exists(fluxtable) and overwrite:
+            shutil.rmtree(fluxtable)
+
+        if not os.path.exists(fluxtable):    
+            fluxscale = casatasks.fluxscale(vis=ms_calibrators,
+                caltable=amp_gain_table, 
+                fluxtable=fluxtable, 
+                reference=fluxcal,
+                transfer=phasecal,
+                incremental=False)
+    else:
+        fluxtable = amp_gain_table
+
+    return (fluxcal_phase_table, short_gain_table, fluxtable, phase_gain_table)
 
 
 # @task(cache_key_fn=task_input_hash)
