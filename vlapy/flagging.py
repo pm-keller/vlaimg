@@ -165,18 +165,24 @@ def detflags(ms, quack, nchan, nspw, apriori, reapply=False):
                 spw = apriori[flag]["spw"]
             else:
                 spw = f"0~{nspw-1}"
+            if "correlation" in apriori[flag]:
+                corr = apriori[flag]["correlation"]
+            else:
+                corr = "LL,RR,LR,RL"
 
             if (
                 ((flag_begin < end) & (flag_begin > begin))
                 | ((flag_end < end) & (flag_end > begin))
                 | ((flag_begin < begin) & (flag_end > end))
             ):
+                print(apriori[flag]["antenna"], apriori[flag]["time"], spw, corr)
                 casatasks.flagdata(
                     ms,
                     mode="manual",
                     antenna=apriori[flag]["antenna"],
                     timerange=apriori[flag]["time"],
                     spw=spw,
+                    correlation=corr,
                     reason=apriori[flag]["reason"],
                     flagbackup=False,
                 )
@@ -848,6 +854,10 @@ def manual(ms, flags, overwrite=False):
                 corr = flags[flag]["correlation"]
             else:
                 corr = "LL,RR,LR,RL"
+            if "spw" in flags[flag]:
+                spw = flags[flag]["spw"]
+            else:
+                spw = "0~15"
 
             if "time" in flags[flag]:
                 casatasks.flagdata(
@@ -855,6 +865,7 @@ def manual(ms, flags, overwrite=False):
                     antenna=ant,
                     correlation=corr,
                     timerange=flags[flag]["time"],
+                    spw=spw,
                     reason=flags[flag]["reason"],
                     flagbackup=False,
                 )
@@ -862,6 +873,7 @@ def manual(ms, flags, overwrite=False):
                 casatasks.flagdata(
                     ms,
                     antenna=ant,
+                    correlation=corr,
                     spw=flags[flag]["spw"],
                     reason=flags[flag]["reason"],
                     flagbackup=False,

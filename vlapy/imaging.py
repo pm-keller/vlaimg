@@ -43,7 +43,7 @@ def prep(ms, spw="*", overwrite=False):
         # split measurement set
         print(field)
 
-        target_vis = os.path.join(root, field + ".ms")
+        target_vis = os.path.join(root, field.replace(" ", "-") + ".ms")
 
         if os.path.exists(target_vis) and overwrite:
             shutil.rmtree(target_vis)
@@ -59,6 +59,7 @@ def prep(ms, spw="*", overwrite=False):
                 field=field,
                 spw=spw,
                 correlation="RR,LL",
+                keepflags=True,
             )
 
         # downweight outliers

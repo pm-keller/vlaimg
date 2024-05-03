@@ -275,11 +275,11 @@ def plot_spec(
         ax.vlines(
             freq_array[i * 64], 0, ymax, color="purple", linestyle="-", linewidth=1
         )
-        ax.text(freq_array[i * 64 + 32], 2e1, f"{i}", ha="center")
+        #ax.text(freq_array[i * 64 + 32], 2e1, f"{i}", ha="center")
 
     ax.plot(freq_array, spec, color="k", linewidth=1)
     ax.set_yscale("log")
-    ax.set_ylim([1e-3, 1e1])
+    #ax.set_ylim([1e-3, 1e1])
     ax.set_xlabel("Frequency [MHz]")
     ax.set_ylabel("Avg. Amplitudes (arbitrary units)")
     ax.minorticks_on()
@@ -611,7 +611,7 @@ def plot_wf_spw(
 
     # plot scan boundaries
     if not isinstance(scan_boundaries, type(None)):
-        for i in range(8):
+        for i in range(len(scan_boundaries)):
             idx1 = int(np.sum(scan_boundaries[:i]))
             idx2 = int(np.sum(scan_boundaries[: i + 1]))
             ax.hlines(2 * idx2, 0, 64, color="white", linestyle="-", linewidth=2)

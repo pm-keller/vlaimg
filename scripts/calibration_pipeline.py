@@ -79,6 +79,22 @@ def pipeline_initcal(obs):
     # get index of observation
     idx = np.where(np.array(conf["obs list"]) == obs)[0][0]
 
+    # restore original flags
+    casatasks.flagmanager(ms_hanning, mode="restore", versionname=f"original")
+    calibration.setjy(ms_hanning, overwrite=True)
+    plot.setjy_model_amp_vs_uvdist(ms_hanning, overwrite=True)
+
+
+    # VLA deterministic flags
+    flagging.detflags(
+        ms_hanning,
+        conf["flagging"]["quack"],
+        conf["flagging"]["spw edge chan"],
+        conf["spw"],
+        conf["flagging"]["apriori"],
+        reapply=True,
+    )
+
     # apply manual flags
     flagging.manual(ms_hanning, conf["flagging"]["manflags"][obs], overwrite=True)
 
@@ -127,19 +143,6 @@ def pipeline_calibration(obs):
 
     # get index of observation
     idx = np.where(np.array(conf["obs list"]) == obs)[0][0]
-
-    # restore original flags
-    casatasks.flagmanager(ms_hanning, mode="restore", versionname=f"original")
-
-    # VLA deterministic flags
-    flagging.detflags(
-        ms_hanning,
-        conf["flagging"]["quack"],
-        conf["flagging"]["spw edge chan"],
-        conf["spw"],
-        conf["flagging"]["apriori"],
-        reapply=True,
-    )
 
     # apply manual flags
     flagging.manual(ms_hanning, conf["flagging"]["manflags"][obs], overwrite=True)
@@ -292,5 +295,7 @@ def pipeline_calibration(obs):
 
 
 if __name__ == "__main__":
-    for obs in conf["obs list"][:1]:
-        pipeline_calibration(obs)
+    for obs in conf["obs list"]:
+        ms = os.path.join(conf["root"], obs, obs + ".ms")
+        ms_hanning = ms[:-3] + "_hanning.ms"
+        imaging.prep(ms_hanning, spw=",".join(conf["spws"]), overwrite=True)

@@ -36,7 +36,7 @@ cal chans: [
 ]
 
 refant: ["ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19","ea19",]
-solint max: ["12min","12min","12min","12min","12min","12min","12min","12min","12min","12min","12min","12min",]
+solint max: ["15min","15min","15min","15min","15min","15min","15min","15min","15min","15min","15min","15min",]
 
 aoflagger strategy: "/DATA/CARINA_3/kel334/19A-056/aoflagger_strategy"
 
@@ -87,6 +87,11 @@ flagging:
       antenna: "*"
       spw: "5:0~12"
       reason: "RFI"
+    flag 11:
+      time: "2019/09/01/00:00:01~2019/09/15/23:59:59"
+      antenna: "ea02"
+      reason: "Phase not calibratable"
+
 
   manflags:
     19A-056.sb37262953.eb37267948.58744.511782789355:
@@ -157,6 +162,14 @@ flagging:
       flag 12:
         time: "2019/09/15/21:00:01~2019/09/15/21:00:13"
         reason: "Manual Time Flagging"
+      flag 13:
+        time: "2019/09/15/19:27:30~2019/09/15/19:28:35"
+        ans: "ea02"
+        reason: "Gain Amplitude Dip"
+      flag 14:
+        time: "2019/09/15/19:34:40~2019/09/15/19:34:46"
+        ans: "ea02"
+        reason: "Gain Amplitude Dip"
     19A-056.sb37231614.eb37257802.58740.9750600463:
       flag 1:
         time: "2019/09/14/23:25:57~2019/09/14/23:26:21"
@@ -337,6 +350,9 @@ flagging:
       flag 15:
         time: "2019/09/04/12:33:15~2019/09/04/12:33:23"
         reason: "Manual Time Flagging"
+      flag 16:
+        ant: "ea26"
+        reason: "Noidy Bandpass"
     19A-056.sb37231384.eb37240353.58739.626953125:
       flag 1:
         time: "2019/09/13/15:07:35~2019/09/13/15:08:13"
@@ -407,12 +423,15 @@ flagging:
       flag 23:
         time: "2019/09/13/17:39:55~2019/09/13/17:40:03"
         reason: "Manual Time Flagging"
+      flag 24:
+        time: "2019/09/13/15:15:12~2019/09/13/15:15:16"
+        reason: "Gain Amplitude Dip"
     19A-056.sb37160606.eb37213019.58734.43735733796:
       flag 1:
         time: "2019/09/08/10:31:51~2019/09/08/10:32:15"
         reason: "Manual Time Flagging"
       flag 2:
-        time: "2019/09/08/10:32:29~2019/09/08/10:33:33"
+        time: "2019/09/08/10:32:14~2019/09/08/10:33:33"
         reason: "Manual Time Flagging"
       flag 3:
         time: "2019/09/08/11:00:29~2019/09/08/11:00:41"
@@ -459,6 +478,10 @@ flagging:
       flag 17:
         time: "2019/09/08/13:03:45~2019/09/08/13:03:53"
         reason: "Manual Time Flagging"
+      flag 18:
+        time: "2019/09/08/10:30:00~2019/09/08/14:00:00"
+        ant: "ea13"
+        reason: "Bad Amplitudes"
     19A-056.sb37160244.eb37257497.58740.25152430555:
       flag 1:
         time: "2019/09/14/06:02:43~2019/09/14/06:02:57"
@@ -639,6 +662,7 @@ flagging:
       flag 18:
         time: "2019/09/12/09:42:03~2019/09/12/09:42:13"
         reason: "Manual Time Flagging"
+      
     19A-056.sb37161707.eb37164688.58727.13433487268:
       flag 1:
         time: "2019/09/01/03:15:29~2019/09/01/03:15:43"
@@ -679,6 +703,15 @@ flagging:
       flag 13:
         time: "2019/09/01/05:18:19~2019/09/01/05:18:25"
         reason: "Manual Time Flagging"
+      flag 14:
+        time: "2019/09/01/03:19:37~2019/09/01/03:30:00"
+        spw: "5"
+        reason: "Gain Amplitude Dip"
+      flag 15:
+        time: "2019/09/01/03:19:37~2019/09/01/03:30:00"
+        spw: "5:28~34"
+        ant: "ea01"
+        reason: "Bandpass Dip"
     19A-056.sb37162490.eb37257813.58741.17455034722:
       flag 1:
         time: "2019/09/15/04:16:31~2019/09/15/04:17:01"
@@ -740,6 +773,13 @@ flagging:
       flag 20:
         time: "2019/09/15/07:36:33~2019/09/15/07:36:41"
         reason: "Manual Time Flagging"
+      flag 21:
+        spw: "14:30~40"
+        reason: "Manual Frequency Flagging"
+      flag 22:
+        ant: "ea22"
+        time: "2019/09/15/04:26:20~2019/09/15/04:26:45"
+        reason: "Gain Phase Dip"
     19A-056.sb37065331.eb37257531.58740.82100236111:
       flag 1:
         time: "2019/09/14/19:43:36~2019/09/14/19:44:40"
